@@ -1,8 +1,4 @@
-# Temporary splash phase: block indexing.
-# To re-enable indexing later, replace with:
-# User-agent: *
-# Allow: /
+# Auto-generated in public_html by tools/apply-branding.mjs
 User-agent: *
-Disallow: /
-
-Sitemap: https://example.com/sitemap.xml
+{{ROBOTS_RULE_LINE}}
+{{ROBOTS_SITEMAP_LINE}}

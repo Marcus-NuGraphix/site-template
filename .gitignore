@@ -27,6 +27,7 @@ error_log
 
 # Dependency and build artifacts (if local tooling is added)
 node_modules/
+public_html/
 dist/
 build/
 coverage/

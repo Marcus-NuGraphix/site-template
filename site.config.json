@@ -1,0 +1,73 @@
+{
+  "brand": {
+    "name": "Client Brand",
+    "tagline": "Better digital experiences are coming soon.",
+    "legalName": "Client Brand (Pty) Ltd"
+  },
+  "domain": {
+    "primaryHost": "example.com",
+    "canonicalHost": "example.com",
+    "baseUrl": "https://example.com"
+  },
+  "emails": {
+    "deleteRequestsTo": "delete@example.com",
+    "privacyTo": "privacy@example.com",
+    "fromNoReply": "no-reply@example.com"
+  },
+  "contact": {
+    "phone": "+1 (000) 000-0000",
+    "address": "123 Example Street, City, Country",
+    "supportHours": "Mon-Fri, 08:00-17:00"
+  },
+  "urls": {
+    "privacyPolicyPath": "/privacy-policy/",
+    "deleteMyDataPath": "/delete-my-data/"
+  },
+  "social": {
+    "facebook": "https://facebook.com/example",
+    "instagram": "https://instagram.com/example",
+    "linkedin": "https://linkedin.com/company/example",
+    "x": "https://x.com/example",
+    "youtube": "https://youtube.com/@example"
+  },
+  "theme": {
+    "primary": "#0b3c97",
+    "accent": "#fdf202",
+    "background": "#eef3fb",
+    "text": "#14233f",
+    "muted": "#425776",
+    "border": "#d0dced"
+  },
+  "assets": {
+    "logo": "/assets/svg/logo.svg",
+    "logoWhite": "/assets/svg/logo-white.svg",
+    "icon": "/assets/svg/icon.svg",
+    "favicon": "/assets/svg/icon.svg",
+    "ogImage": "/assets/svg/under-construction-graphic.svg",
+    "splashBg": "/assets/svg/under-construction-graphic.svg"
+  },
+  "features": {
+    "enableDeleteForm": true,
+    "enableNoIndex": true,
+    "enableAnalytics": false,
+    "enableCspStrict": true
+  },
+  "copy": {
+    "homeStatus": "Website Under Construction",
+    "homeHeadline": "A polished new website is on the way.",
+    "homeSubtitle": "We are updating our digital presence for faster access to services, support, and legal resources.",
+    "footerSummary": "Official communication and legal pages remain available while this website is being updated.",
+    "privacyIntro": "This Privacy Policy explains how we collect, use, and protect personal information.",
+    "deleteIntro": "Use this page to request deletion of personal information, subject to legal and operational requirements.",
+    "siteDescription": "Official splash and legal pages for temporary operations and compliance.",
+    "deleteFormNote": "This form is for privacy requests only. It is not an emergency response channel."
+  },
+  "legal": {
+    "effectiveDate": "2026-02-12",
+    "lastUpdated": "2026-02-12"
+  },
+  "analytics": {
+    "scriptUrl": "",
+    "dataDomain": ""
+  }
+}

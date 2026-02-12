@@ -3,43 +3,60 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Template | Privacy Policy</title>
-    <meta
-      name="description"
-      content="Privacy policy for Your Legal Entity Name, including data handling, retention, and privacy rights."
-    />
-    <meta name="robots" content="noindex, nofollow" />
+    <title>{{META_TITLE}}</title>
+    <meta name="description" content="{{META_DESCRIPTION}}" />
+    <meta name="robots" content="{{ROBOTS_META_CONTENT}}" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
-    <meta name="theme-color" content="#0b3c97" />
-    <link rel="canonical" href="https://example.com/privacy-policy/" />
+    <meta name="theme-color" content="{{THEME_PRIMARY}}" />
+
+    <link rel="canonical" href="{{CANONICAL_URL}}" />
+
+    <meta property="og:title" content="{{OG_TITLE}}" />
+    <meta property="og:description" content="{{OG_DESCRIPTION}}" />
+    <meta property="og:type" content="{{OG_TYPE}}" />
+    <meta property="og:url" content="{{OG_URL}}" />
+    <meta property="og:image" content="{{OG_IMAGE_URL}}" />
+    <meta property="og:site_name" content="{{BRAND_NAME}}" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{TWITTER_TITLE}}" />
+    <meta name="twitter:description" content="{{TWITTER_DESCRIPTION}}" />
+    <meta name="twitter:image" content="{{TWITTER_IMAGE_URL}}" />
+    <meta name="twitter:site" content="{{TWITTER_HANDLE}}" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="icon" href="/assets/svg/icon.svg" type="image/svg+xml" />
+
+    <link rel="icon" href="{{ASSET_FAVICON}}" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="{{ASSET_ICON}}" />
+
     <link rel="stylesheet" href="/styles/tokens.css" />
+    <link rel="stylesheet" href="/styles/brand.generated.css" />
     <link rel="stylesheet" href="/styles/base.css" />
     <link rel="stylesheet" href="/styles/layout.css" />
     <link rel="stylesheet" href="/styles/components.css" />
     <link rel="stylesheet" href="/styles/pages.css" />
     <script type="module" src="/scripts/main.js"></script>
+    {{ANALYTICS_SCRIPT}}
   </head>
   <body class="legal-page">
     <a class="skip-link" href="#main-content">Skip to content</a>
 
     <header class="site-header">
       <div class="container">
-        <a class="brand-link" href="/" aria-label="Your Company Name home">
-          <img class="brand-logo" src="/assets/svg/logo.svg" alt="Your Company Name" width="520" height="120" />
+        <a class="brand-link" href="/" aria-label="{{BRAND_NAME}} home">
+          <img class="brand-logo" src="{{ASSET_LOGO}}" alt="{{BRAND_NAME}}" width="520" height="120" />
         </a>
 
         <div class="nav-wrap">
           <nav class="site-nav" aria-label="Primary navigation">
             <a href="/">Home</a>
-            <a href="/privacy-policy/" aria-current="page">Privacy Policy</a>
-            <a href="/delete-my-data/">Delete My Data</a>
+            <a href="{{PRIVACY_POLICY_PATH}}" aria-current="page">Privacy Policy</a>
+            <a href="{{DELETE_MY_DATA_PATH}}">Delete My Data</a>
           </nav>
           <button type="button" class="menu-toggle" data-menu-toggle aria-expanded="false" aria-controls="mobile-nav">Menu</button>
         </div>
@@ -47,8 +64,8 @@
       <nav id="mobile-nav" class="mobile-nav" data-mobile-nav aria-label="Mobile navigation" hidden>
         <div class="container">
           <a href="/">Home</a>
-          <a href="/privacy-policy/" aria-current="page">Privacy Policy</a>
-          <a href="/delete-my-data/">Delete My Data</a>
+          <a href="{{PRIVACY_POLICY_PATH}}" aria-current="page">Privacy Policy</a>
+          <a href="{{DELETE_MY_DATA_PATH}}">Delete My Data</a>
         </div>
       </nav>
     </header>
@@ -58,10 +75,10 @@
         <div class="container">
           <span class="kicker">Legal Document</span>
           <h1>Privacy Policy</h1>
-          <p>This page is statically generated from the policy source document to ensure audit-ready accessibility.</p>
+          <p>{{PRIVACY_INTRO}}</p>
           <div class="legal-meta">
-            <span class="badge">Effective Date: 2026-02-12</span>
-            <span class="badge">Generated: 2026-02-12</span>
+            <span class="badge">Effective Date: {{LEGAL_EFFECTIVE_DATE}}</span>
+            <span class="badge">Last Updated: {{LEGAL_LAST_UPDATED}}</span>
           </div>
         </div>
       </section>
@@ -72,171 +89,58 @@
             <h2 id="policy-nav-title">On This Page</h2>
             <nav aria-label="Privacy policy sections">
               <ul class="policy-nav-list">
-              <li><a href="#who-we-are-and-what-this-policy-covers">Who We Are and What This Policy Covers</a></li>
-              <li><a href="#contact-details">Contact Details</a></li>
-              <li><a href="#information-we-collect">Information We Collect</a></li>
-              <li><a href="#how-we-collect-information">How We Collect Information</a></li>
-              <li><a href="#why-we-process-information-popia-and-other-applicable-laws">Why We Process Information</a></li>
-              <li><a href="#mobile-app-permissions-and-sensitive-data-handling">Mobile App Permissions and Sensitive Data Handling</a></li>
-              <li><a href="#disclosure-and-sharing">Disclosure and Sharing</a></li>
-              <li><a href="#cross-border-processing">Cross-Border Processing</a></li>
-              <li><a href="#data-security">Data Security</a></li>
-              <li><a href="#data-retention">Data Retention</a></li>
-              <li><a href="#your-rights">Your Rights</a></li>
-              <li><a href="#website-cookies-and-similar-technologies">Website Cookies and Similar Technologies</a></li>
-              <li><a href="#account-and-data-deletion-website-and-app">Account and Data Deletion</a></li>
-              <li><a href="#third-party-services-and-links">Third-Party Services and Links</a></li>
-              <li><a href="#children">Children</a></li>
-              <li><a href="#direct-marketing">Direct Marketing</a></li>
-              <li><a href="#changes-to-this-policy">Changes to This Policy</a></li>
-              <li><a href="#google-play-and-app-privacy-alignment">Google Play and App Privacy Alignment</a></li>
-              <li><a href="#contact-us">Contact Us</a></li>
+                <li><a href="#who-we-are">Who We Are</a></li>
+                <li><a href="#what-we-collect">Information We Collect</a></li>
+                <li><a href="#why-we-process">Why We Process Data</a></li>
+                <li><a href="#retention">Retention and Security</a></li>
+                <li><a href="#your-rights">Your Rights</a></li>
+                <li><a href="#contact">Contact</a></li>
               </ul>
             </nav>
           </aside>
+
           <article class="card reveal policy-content-card policy-content">
-<p><strong>Effective Date:</strong> 2026-02-12<br />
-<strong>Last Updated:</strong> 2026-02-12</p>
-<hr />
-<h2 id="who-we-are-and-what-this-policy-covers">1. Who We Are and What This Policy Covers</h2>
-<p>This Privacy Policy explains how <strong>Your Company Name</strong> (&quot;Company&quot;, &quot;we&quot;, &quot;us&quot;, &quot;our&quot;) collects, uses, shares, stores, and protects personal information.</p>
-<p>This policy applies to:</p>
-<ul>
-<li><strong>Website:</strong> <a href="https://example.com">https://example.com</a></li>
-<li><strong>Android Mobile App (Google Play):</strong> <a href="https://play.google.com/store/apps/details?id=com.example.app&amp;hl=en_ZA&amp;pli=1">https://play.google.com/store/apps/details?id=com.example.app&amp;hl=en_ZA&amp;pli=1</a></li>
-<li>Related customer support and privacy channels.</li>
-</ul>
-<hr />
-<h2 id="contact-details">2. Contact Details</h2>
-<p>For privacy requests, questions, or complaints, please use the contact details listed in the footer of this page.</p>
-<hr />
-<h2 id="information-we-collect">3. Information We Collect</h2>
-<p>Depending on how you use the website or mobile app, we may collect:</p>
-<ul>
-<li><strong>Identity and contact information:</strong> name, email, phone number, suburb/area, and related contact details.</li>
-<li><strong>Account and profile information:</strong> login/account information where an app account is used.</li>
-<li><strong>Request and incident information:</strong> reports, messages, attachments, and service-related communication.</li>
-<li><strong>Technical and device information:</strong> IP address, browser type, operating system, app version, device identifiers, crash logs, and diagnostics.</li>
-<li><strong>Usage information:</strong> pages/screens visited, feature interactions, session timestamps, and referral information.</li>
-<li><strong>Location information:</strong> precise or approximate location only when enabled/consented to for app functionality.</li>
-<li><strong>Cookie and similar data:</strong> cookie identifiers and similar technologies used for security, analytics, or functionality.</li>
-</ul>
-<p>We do not intentionally collect more information than is required for legitimate service, legal, and operational purposes.</p>
-<hr />
-<h2 id="how-we-collect-information">4. How We Collect Information</h2>
-<p>We collect personal information:</p>
-<ul>
-<li><strong>Directly from you</strong> (forms, account creation, support requests, deletion requests, email).</li>
-<li><strong>Automatically</strong> through website and app usage (logs, cookies, diagnostics, device metadata).</li>
-<li><strong>From trusted service providers</strong> that help operate the website/app and related services.</li>
-</ul>
-<hr />
-<h2 id="why-we-process-information-popia-and-other-applicable-laws">5. Why We Process Information (POPIA and Other Applicable Laws)</h2>
-<p>We process personal information for lawful purposes, including:</p>
-<ol>
-<li>Operating, maintaining, and securing the website and mobile app.</li>
-<li>Responding to enquiries, reports, and support requests.</li>
-<li>Verifying user identity and preventing fraud, misuse, and unauthorized access.</li>
-<li>Improving performance, reliability, and user experience.</li>
-<li>Meeting legal, regulatory, and contractual obligations.</li>
-<li>Establishing, exercising, or defending legal rights.</li>
-<li>Sending service and operational communications.</li>
-</ol>
-<p>Where required by law, we process information on consent and allow withdrawal of consent for consent-based processing.</p>
-<hr />
-<h2 id="mobile-app-permissions-and-sensitive-data-handling">6. Mobile App Permissions and Sensitive Data Handling</h2>
-<p>For mobile app features, we may request device permissions (for example location, camera, storage, or notifications) only when needed for specific functionality.</p>
-<ul>
-<li>Permissions are requested at runtime by your device/app.</li>
-<li>You can control permissions in your device settings.</li>
-<li>If a permission is denied, some app features may not function fully.</li>
-<li>Where required, we provide in-app disclosure and obtain consent before collection/use.</li>
-</ul>
-<hr />
-<h2 id="disclosure-and-sharing">7. Disclosure and Sharing</h2>
-<p>We may share personal information with:</p>
-<ul>
-<li>Infrastructure, hosting, security, analytics, communications, and support service providers.</li>
-<li>Professional advisers and auditors under confidentiality obligations.</li>
-<li>Competent authorities or regulators when legally required.</li>
-<li>Parties involved in a merger, acquisition, reorganization, or asset transfer (subject to legal safeguards).</li>
-</ul>
-<p>We do <strong>not</strong> sell personal information.</p>
-<hr />
-<h2 id="cross-border-processing">8. Cross-Border Processing</h2>
-<p>Some service providers may process personal information outside South Africa.<br />
-When this occurs, we implement reasonable contractual, technical, and organizational safeguards required by applicable law.</p>
-<hr />
-<h2 id="data-security">9. Data Security</h2>
-<p>We apply appropriate technical and organizational safeguards, which may include:</p>
-<ul>
-<li>Access controls and least-privilege access.</li>
-<li>Encryption in transit and other security controls.</li>
-<li>Logging, monitoring, and incident response procedures.</li>
-<li>Role-based confidentiality obligations.</li>
-</ul>
-<p>No internet-based system can be guaranteed as absolutely secure, but we continuously improve our safeguards.</p>
-<hr />
-<h2 id="data-retention">10. Data Retention</h2>
-<p>We retain personal information only for as long as necessary to fulfill the purposes described in this policy, including legal, contractual, security, dispute-resolution, and record-keeping obligations.</p>
-<p>When information is no longer required, we delete, anonymize, or de-identify it in line with applicable requirements.</p>
-<hr />
-<h2 id="your-rights">11. Your Rights</h2>
-<p>Subject to applicable law (including POPIA), you may have the right to:</p>
-<ul>
-<li>Request access to your personal information.</li>
-<li>Request correction of inaccurate or incomplete information.</li>
-<li>Request deletion of information where legally permissible.</li>
-<li>Object to or restrict certain processing.</li>
-<li>Withdraw consent where processing is consent-based.</li>
-<li>Lodge a complaint with the Information Regulator (South Africa).</li>
-</ul>
-<p>To exercise your rights, use the contact details listed in the footer of this page.</p>
-<hr />
-<h2 id="website-cookies-and-similar-technologies">12. Website Cookies and Similar Technologies</h2>
-<p>The website may use cookies and similar technologies to:</p>
-<ul>
-<li>Keep sessions secure and functional.</li>
-<li>Measure performance and reliability.</li>
-<li>Improve user experience and website operation.</li>
-</ul>
-<p>You can control cookies in your browser settings. Disabling some cookies may affect website functionality.</p>
-<hr />
-<h2 id="account-and-data-deletion-website-and-app">13. Account and Data Deletion (Website and App)</h2>
-<p>You can request deletion of personal information by:</p>
-<ul>
-<li>Using the contact details listed in the footer of this page</li>
-</ul>
-<p><a class="btn btn-primary" href="/delete-my-data/">Go to Delete My Data Page</a></p>
-<p>Where an app account exists, we process account/data deletion requests in accordance with applicable law and legitimate retention obligations (for example security, fraud prevention, tax, accounting, or legal claims).</p>
-<p>If full deletion is not legally possible, we will explain the applicable limitation and take lawful alternatives where required (such as restriction or de-identification).</p>
-<hr />
-<h2 id="third-party-services-and-links">14. Third-Party Services and Links</h2>
-<p>Our website and app may link to or integrate with third-party platforms and services (including app distribution platforms).<br />
-Their privacy practices are governed by their own policies and terms.</p>
-<hr />
-<h2 id="children">15. Children</h2>
-<p>Our website and app are not directed to children under 18, and we do not knowingly collect personal information from children without a lawful basis.</p>
-<p>If you believe a child provided personal information unlawfully, use the contact details listed in the footer of this page so we can investigate and take appropriate action.</p>
-<hr />
-<h2 id="direct-marketing">16. Direct Marketing</h2>
-<p>Where direct marketing is used, it will be handled in line with applicable legal requirements, and you may opt out at any time using provided unsubscribe/opt-out channels.</p>
-<hr />
-<h2 id="changes-to-this-policy">17. Changes to This Policy</h2>
-<p>We may update this Privacy Policy from time to time to reflect legal, operational, technical, or service changes.</p>
-<p>When we make material updates, we will update the <strong>Last Updated</strong> date and publish the revised policy on the website and/or in the app.</p>
-<hr />
-<h2 id="google-play-and-app-privacy-alignment">18. Google Play and App Privacy Alignment</h2>
-<p>For the Android app listing on Google Play, we maintain privacy disclosures and data safety declarations aligned to:</p>
-<ul>
-<li>Data collected and processed by the app.</li>
-<li>Data sharing and purpose disclosures.</li>
-<li>User rights and account/data deletion processes.</li>
-</ul>
-<p>If there is a conflict between a platform disclosure and this policy, we will correct the inconsistency as soon as reasonably possible.</p>
-<hr />
-<h2 id="contact-us">19. Contact Us</h2>
-<p>For any privacy-related matter, please use the contact details in the footer of this page.</p>
+            <h2 id="who-we-are">1. Who We Are</h2>
+            <p>
+              {{LEGAL_NAME}} ("{{BRAND_NAME}}", "we", "our", "us") operates {{PRIMARY_HOST}}.
+              This policy describes how we manage personal information in line with applicable law.
+            </p>
+
+            <h2 id="what-we-collect">2. Information We Collect</h2>
+            <ul>
+              <li>Identity and contact details when you submit requests or contact support.</li>
+              <li>Technical data such as browser information, IP address, and service diagnostics.</li>
+              <li>Request details relevant to legal, privacy, or support interactions.</li>
+            </ul>
+
+            <h2 id="why-we-process">3. Why We Process Data</h2>
+            <ul>
+              <li>To provide services and respond to enquiries.</li>
+              <li>To protect platform integrity, prevent abuse, and comply with legal obligations.</li>
+              <li>To maintain records required for operational, legal, and auditing purposes.</li>
+            </ul>
+
+            <h2 id="retention">4. Retention and Security</h2>
+            <p>
+              We retain personal information only for as long as required for legitimate service delivery,
+              compliance, and dispute resolution. We apply technical and organizational safeguards to reduce
+              unauthorized access, alteration, or loss.
+            </p>
+
+            <h2 id="your-rights">5. Your Rights</h2>
+            <p>
+              You may request access, correction, or deletion of personal information where lawful.
+              To submit a deletion request, visit <a href="{{DELETE_MY_DATA_PATH}}">{{DELETE_MY_DATA_URL}}</a>.
+            </p>
+
+            <h2 id="contact">6. Contact</h2>
+            <p>
+              Privacy requests: <a href="mailto:{{CONTACT_EMAIL}}">{{CONTACT_EMAIL}}</a><br />
+              Data deletion mailbox: <a href="mailto:{{DELETE_REQUEST_EMAIL}}">{{DELETE_REQUEST_EMAIL}}</a><br />
+              Support phone: <a href="tel:{{SUPPORT_PHONE_URI}}">{{SUPPORT_PHONE}}</a>
+            </p>
+            <p>Address: {{CONTACT_ADDRESS}}</p>
+            <p>Support hours: {{SUPPORT_HOURS}}</p>
           </article>
         </div>
       </section>
@@ -245,27 +149,28 @@ Their privacy practices are governed by their own policies and terms.</p>
     <footer class="site-footer">
       <div class="container footer-main">
         <section>
-          <h3>Your Company Name</h3>
-          <p>Serving communities across your service areas through structured monitoring, patrol coordination, and response support.</p>
+          <h3>{{BRAND_NAME}}</h3>
+          <p>{{TAGLINE}}</p>
         </section>
         <section>
           <h4>Legal</h4>
           <ul>
-            <li><a href="/privacy-policy/" aria-current="page">Privacy Policy</a></li>
-            <li><a href="/delete-my-data/">Delete My Data</a></li>
+            <li><a href="{{PRIVACY_POLICY_PATH}}" aria-current="page">Privacy Policy</a></li>
+            <li><a href="{{DELETE_MY_DATA_PATH}}">Delete My Data</a></li>
           </ul>
         </section>
         <section>
           <h4>Contact</h4>
           <ul>
-            <li><strong>Email:</strong> <a href="mailto:contact@example.com">contact@example.com</a></li>
-            <li><strong>Phone:</strong> <a href="tel:10000000000">+1 (000) 000-0000</a></li>
+            <li><strong>Email:</strong> <a href="mailto:{{CONTACT_EMAIL}}">{{CONTACT_EMAIL}}</a></li>
+            <li><strong>Delete:</strong> <a href="mailto:{{DELETE_REQUEST_EMAIL}}">{{DELETE_REQUEST_EMAIL}}</a></li>
+            <li><strong>Phone:</strong> <a href="tel:{{SUPPORT_PHONE_URI}}">{{SUPPORT_PHONE}}</a></li>
           </ul>
         </section>
       </div>
       <div class="container footer-legal">
-        <span>&copy; <span data-current-year></span> Your Legal Entity Name.</span>
-        <span><a href="https://example.com">example.com</a></span>
+        <span>&copy; <span data-current-year></span> {{LEGAL_NAME}}.</span>
+        <span><a href="{{BASE_URL}}">{{PRIMARY_HOST}}</a></span>
       </div>
     </footer>
   </body>

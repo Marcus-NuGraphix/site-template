@@ -1,0 +1,9 @@
+# Optional CODEOWNERS guidance
+# Uncomment and adjust owners for your team.
+
+# Example: all files owned by a core maintainer
+# * @your-org/frontend-lead
+
+# Example: route-specific owners
+# /delete-my-data/ @your-org/privacy-team
+# /.htaccess @your-org/devops-team

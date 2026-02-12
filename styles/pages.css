@@ -6,6 +6,7 @@
   min-height: 100vh;
   min-height: 100dvh;
   background:
+    var(--splash-bg-image) center bottom / min(340px, 30vw) no-repeat,
     radial-gradient(ellipse at 10% 80%, rgba(253, 242, 2, 0.16) 0%, transparent 42%),
     radial-gradient(ellipse at 88% 16%, rgba(128, 174, 255, 0.2) 0%, transparent 42%),
     linear-gradient(160deg, #05142e 0%, #0a2d6b 36%, #0b3c97 60%, #082b6d 100%);
@@ -143,6 +144,27 @@
   margin: 0.2rem 0 0.5rem;
   color: rgba(224, 237, 255, 0.92);
   line-height: 1.5;
+}
+
+.splash-footer-address {
+  margin: 0 0 0.55rem;
+}
+
+.social-links {
+  margin: 0 0 0.6rem;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem 0.85rem;
+  flex-wrap: wrap;
+}
+
+.social-links a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
 }
 
 /* Legal pages */

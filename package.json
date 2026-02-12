@@ -1,0 +1,10 @@
+{
+  "name": "site-template",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "brand:apply": "node tools/apply-branding.mjs",
+    "lint:js": "node tools/lint-js.mjs"
+  }
+}

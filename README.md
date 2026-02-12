@@ -1,82 +1,133 @@
-# Company Temporary Site (Production)
+# White-Label Static Site Template (xneelo-ready)
 
-Production-ready temporary website for `https://example.com/`, built for xneelo shared hosting.
+Reusable static template for quick client rollout on xneelo shared hosting.
 
-## Live Routes
+- Stack: static `HTML/CSS/JS` + optional `PHP` delete-request handler
+- Deploy target: xneelo `public_html`
+- Source of truth: `site.config.json`
 
-- `/` - Website under construction splash page
-- `/privacy-policy/` - Privacy policy endpoint
-- `/delete-my-data/` - Delete-my-data form
-- `/delete-my-data/submit.php` - PHP form handler (POST)
+## Why `site.config.json` (Option A)
 
-Legacy route redirects are included:
+This template uses `site.config.json` as the single branding source because it is simple, framework-free, and easy for non-developers to edit without executing JavaScript.
 
-- `/privacy-policy.html` -> `/privacy-policy/`
-- `/delete-my-data.html` -> `/delete-my-data/`
+## White-Label Workflow
 
-## Production Structure
+1. Update `site.config.json`.
+2. Replace assets under `assets/` (logos, icon, OG image, splash graphic).
+3. Run:
 
-- `assets/` - Images, logos, favicon
-- `styles/` - CSS tokens/base/layout/components/pages
-- `scripts/` - Front-end JS modules
-- `privacy-policy/index.html` - Static policy page
-- `delete-my-data/index.html` - Form page
-- `delete-my-data/submit.php` - Server-side request handler
-- `.htaccess` - HTTPS, redirects, headers, cache policy
-- `.data/.htaccess` - Protects fallback rate-limit storage path
-
-## Upload to xneelo
-
-1. Upload the full contents of this `site-template` folder into your domain web root (`public_html/`).
-2. Ensure SSL is enabled for the domain.
-3. Keep `.htaccess` in place so HTTP redirects to HTTPS.
-4. Configure mailbox/alias forwarding:
-   - Create `delete@<domain>`
-   - Forward to your operational inboxes
-5. In `delete-my-data/submit.php`, confirm constants match your live domain:
-   - `DELETE_REQUEST_TO`
-   - `MAIL_FROM`
-
-Reference docs aligned:
-
-- "How to set up mail forwarding via the xneelo Control Panel"
-- "Force HTTPS using a .htaccess file via the xneelo Control Panel"
-- "Is PHP available with all web hosting packages?"
-- "Do you support SendMail on your servers?"
-
-## Security and Behavior
-
-- Form submits same-origin to `/delete-my-data/submit.php`.
-- Server-side validation is authoritative.
-- Anti-spam controls:
-  - Honeypot field
-  - Minimum submit time
-  - IP rate limiting
-- Uses `From: no-reply@<domain>` and `Reply-To: requester email`.
-- Returns JSON responses with safe user-facing errors.
-
-## Pre-Launch Checklist
-
-1. `http://<domain>/` redirects to `https://<domain>/`
-2. `/privacy-policy/` and `/delete-my-data/` load correctly
-3. `/privacy-policy.html` and `/delete-my-data.html` return 301 redirects
-4. Delete form successful submit returns success and sends email to `delete@<domain>`
-5. Security headers are present (`CSP`, `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`)
-6. `robots.txt` currently disallows indexing for temporary phase
-7. `sitemap.xml` lists `/`, `/privacy-policy/`, `/delete-my-data/`
-
-## Local Quick Check (Optional)
-
-Serve from this folder as web root:
-
-```powershell
-python -m http.server 8080
+```bash
+npm run brand:apply
 ```
 
-Then open:
+4. Deploy the generated `public_html/` output.
 
-- `http://localhost:8080/`
-- `http://localhost:8080/privacy-policy/`
-- `http://localhost:8080/delete-my-data/`
+## What `brand:apply` Does
 
-Note: `python -m http.server` does not execute PHP; use hosting or a PHP-capable server for form endpoint tests.
+`tools/apply-branding.mjs` validates config and generates a deployable site in `public_html/`.
+
+- Replaces placeholders in:
+  - `index.html`
+  - `privacy-policy/index.html`
+  - `delete-my-data/index.html`
+  - `delete-my-data/submit.php`
+  - `.htaccess`
+  - `robots.txt`
+  - `sitemap.xml`
+- Generates `styles/brand.generated.css` from `theme` values
+- Copies static assets/scripts/styles into `public_html/`
+- Applies SEO/robots and CSP behavior based on feature flags
+
+## Placeholder Convention
+
+Core tokens are standardized in page templates, including:
+
+- `{{BRAND_NAME}}`, `{{TAGLINE}}`, `{{PRIMARY_HOST}}`, `{{CANONICAL_URL}}`
+- `{{PRIVACY_POLICY_URL}}`, `{{DELETE_MY_DATA_URL}}`
+- `{{CONTACT_EMAIL}}`, `{{DELETE_REQUEST_EMAIL}}`, `{{SUPPORT_PHONE}}`
+
+## xneelo Deployment Steps
+
+1. In local repo, run `npm run brand:apply`.
+2. Upload all contents of `public_html/` into your domain's hosting `public_html/`.
+3. Confirm SSL is enabled for the domain.
+4. Keep generated `.htaccess` in place to force HTTPS.
+5. Create mailbox forwarding for deletion/privacy requests:
+   - create `delete@<domain>` and forward externally as needed
+   - create `privacy@<domain>` if used
+6. Verify PHP endpoint support for delete form.
+
+xneelo help centre articles to reference:
+
+- "Force HTTPS using a .htaccess file via the xneelo Control Panel"
+- "How to set up mail forwarding via the xneelo Control Panel"
+- "Do you support SendMail on your servers?"
+- "Is PHP available with all web hosting packages?"
+
+## Delete My Data Form Behavior
+
+When `features.enableDeleteForm=true`:
+
+- Form posts/fetches `POST /delete-my-data/submit.php`
+- `submit.php` uses generated mailbox values from config
+- `Reply-To` is set to the requester email
+- Anti-spam controls:
+  - honeypot field
+  - minimum submit time
+  - IP rate limit window
+- Returns JSON responses with proper status codes
+
+When `features.enableDeleteForm=false`:
+
+- Page shows direct email submission instructions
+- PHP endpoint returns a disabled response
+
+Rate-limit storage path: `/.data/rate-limit/` (protected by `/.data/.htaccess`).
+
+## Security and Hosting Hardening
+
+Generated `.htaccess` includes:
+
+- HTTPS redirect first in rewrite rules
+- optional canonical host redirect (commented)
+- legacy redirect compatibility (`.html` to folder routes)
+- conservative caching for HTML/PHP and short cache for static assets
+- security headers (when `mod_headers` is available)
+- configurable CSP strict/relaxed via `features.enableCspStrict`
+
+## Indexing and Sitemap Toggle
+
+- `enableNoIndex=true`:
+  - page `<meta name="robots" content="noindex, nofollow">`
+  - `robots.txt` disallows all crawlers
+- `enableNoIndex=false`:
+  - page robots meta becomes `index, follow`
+  - `robots.txt` allows crawling and includes sitemap link
+
+## Optional Analytics
+
+No environment variables are required for base operation.
+
+If analytics is enabled (`features.enableAnalytics=true`), set:
+
+- `analytics.scriptUrl`
+- `analytics.dataDomain` (optional; defaults to primary host)
+
+## Lightweight JS Lint
+
+```bash
+npm run lint:js
+```
+
+Runs syntax checks over `scripts/` and `tools/`.
+
+## Testing Checklist
+
+1. `npm run brand:apply` succeeds without validation errors.
+2. `public_html/index.html`, `public_html/privacy-policy/index.html`, and `public_html/delete-my-data/index.html` render correctly.
+3. `public_html/robots.txt` matches expected index/noindex mode.
+4. `public_html/sitemap.xml` uses the correct base URL.
+5. `public_html/.htaccess` contains CSP mode and HTTPS redirect.
+6. Delete form behavior matches `enableDeleteForm` flag.
+7. When enabled, successful delete form submission sends mail via server Sendmail.
+8. `/.data/.htaccess` blocks direct web access to rate-limit storage.

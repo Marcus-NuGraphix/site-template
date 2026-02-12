@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Re-indexing later: keep URLs here, then switch robots/page meta tags to index, follow. -->
   <url>
-    <loc>https://example.com/</loc>
-    <lastmod>2026-02-12</lastmod>
+    <loc>{{BASE_URL}}/</loc>
+    <lastmod>{{TODAY}}</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://example.com/privacy-policy/</loc>
-    <lastmod>2026-02-12</lastmod>
+    <loc>{{PRIVACY_POLICY_URL}}</loc>
+    <lastmod>{{TODAY}}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://example.com/delete-my-data/</loc>
-    <lastmod>2026-02-12</lastmod>
+    <loc>{{DELETE_MY_DATA_URL}}</loc>
+    <lastmod>{{TODAY}}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

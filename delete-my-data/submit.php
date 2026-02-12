@@ -2,13 +2,16 @@
 declare(strict_types=1);
 
 /**
- * Minimal delete-request endpoint for xneelo shared hosting.
+ * Delete-request endpoint template for xneelo shared hosting.
  * References: "Is PHP available with all web hosting packages?"
  * References: "Do you support SendMail on your servers?"
  */
 
-const DELETE_REQUEST_TO = 'delete@example.com'; // Set to delete@<domain> for the live domain.
-const MAIL_FROM = 'delete@example.com'; // Use a real mailbox/alias on the same domain for better deliverability.
+const DELETE_REQUEST_TO = '{{DELETE_REQUEST_EMAIL}}';
+const MAIL_FROM = '{{FROM_NO_REPLY_EMAIL}}';
+const SITE_HOST = '{{PRIMARY_HOST}}';
+const DELETE_FORM_ENABLED = {{DELETE_FORM_ENABLED_PHP_BOOL}};
+
 const MIN_SUBMIT_SECONDS = 3;
 const MAX_REQUESTS_PER_WINDOW = 5;
 const RATE_LIMIT_WINDOW_SECONDS = 300;
@@ -16,6 +19,10 @@ const RATE_LIMIT_WINDOW_SECONDS = 300;
 header('Content-Type: application/json; charset=UTF-8');
 header('Cache-Control: no-store, no-cache, must-revalidate');
 header('Pragma: no-cache');
+
+if (!DELETE_FORM_ENABLED) {
+  respondJson(403, ['ok' => false, 'error' => 'Web form submissions are disabled. Please email the privacy team.']);
+}
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
   header('Allow: POST');
@@ -83,7 +90,7 @@ $userAgent = normalizeOneLine((string) ($_SERVER['HTTP_USER_AGENT'] ?? 'Unknown'
 $serverTime = gmdate('Y-m-d H:i:s') . ' UTC';
 
 $bodyLines = [
-  'Delete My Data request submitted from example.com',
+  'Delete My Data request submitted from ' . SITE_HOST,
   '',
   'Timestamp: ' . $serverTime,
   'Requester name: ' . $fullName,
@@ -104,7 +111,7 @@ $headers = [
   'From: ' . MAIL_FROM,
   'Reply-To: ' . $email,
   'Date: ' . gmdate('D, d M Y H:i:s') . ' +0000',
-  'Message-ID: <' . uniqid('delete-request-', true) . '@example.com>',
+  'Message-ID: <' . uniqid('delete-request-', true) . '@' . SITE_HOST . '>',
   'MIME-Version: 1.0',
   'Content-Type: text/plain; charset=UTF-8'
 ];
@@ -240,12 +247,12 @@ function checkRateLimit(string $ip): array
 
 function resolveRateLimitDirectory(): string
 {
-  $tempPath = rtrim(sys_get_temp_dir(), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'template-delete-request-rate-limit';
-  if (ensureDirectory($tempPath)) {
-    return $tempPath;
+  $preferred = dirname(__DIR__) . DIRECTORY_SEPARATOR . '.data' . DIRECTORY_SEPARATOR . 'rate-limit';
+  if (ensureDirectory($preferred)) {
+    return $preferred;
   }
 
-  $fallback = dirname(__DIR__) . DIRECTORY_SEPARATOR . '.data' . DIRECTORY_SEPARATOR . 'rate-limit';
+  $fallback = rtrim(sys_get_temp_dir(), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'site-template-delete-request-rate-limit';
   if (ensureDirectory($fallback)) {
     return $fallback;
   }

@@ -3,54 +3,78 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Template | New Website Launching Soon</title>
-    <meta
-      name="description"
-      content="Your Legal Entity Name is launching a new site soon. Access our privacy policy and data deletion request details here."
-    />
-    <meta name="robots" content="noindex, nofollow" />
+    <title>{{META_TITLE}}</title>
+    <meta name="description" content="{{META_DESCRIPTION}}" />
+    <meta name="robots" content="{{ROBOTS_META_CONTENT}}" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
-    <meta name="theme-color" content="#0b3c97" />
-    <link rel="canonical" href="https://example.com/" />
+    <meta name="theme-color" content="{{THEME_PRIMARY}}" />
+
+    <link rel="canonical" href="{{CANONICAL_URL}}" />
+
+    <meta property="og:title" content="{{OG_TITLE}}" />
+    <meta property="og:description" content="{{OG_DESCRIPTION}}" />
+    <meta property="og:type" content="{{OG_TYPE}}" />
+    <meta property="og:url" content="{{OG_URL}}" />
+    <meta property="og:image" content="{{OG_IMAGE_URL}}" />
+    <meta property="og:site_name" content="{{BRAND_NAME}}" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{TWITTER_TITLE}}" />
+    <meta name="twitter:description" content="{{TWITTER_DESCRIPTION}}" />
+    <meta name="twitter:image" content="{{TWITTER_IMAGE_URL}}" />
+    <meta name="twitter:site" content="{{TWITTER_HANDLE}}" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="icon" href="/assets/svg/icon.svg" type="image/svg+xml" />
+
+    <link rel="icon" href="{{ASSET_FAVICON}}" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="{{ASSET_ICON}}" />
+
     <link rel="stylesheet" href="/styles/tokens.css" />
+    <link rel="stylesheet" href="/styles/brand.generated.css" />
     <link rel="stylesheet" href="/styles/base.css" />
     <link rel="stylesheet" href="/styles/layout.css" />
     <link rel="stylesheet" href="/styles/components.css" />
     <link rel="stylesheet" href="/styles/pages.css" />
     <script type="module" src="/scripts/main.js"></script>
+    {{ANALYTICS_SCRIPT}}
   </head>
   <body class="splash-page">
     <a class="skip-link" href="#main-content">Skip to content</a>
 
     <main id="main-content" class="splash-main">
       <div class="splash-center">
-        <p class="status-pill">Website Under Construction</p>
+        <p class="status-pill">{{HOME_STATUS}}</p>
         <img
           class="splash-logo"
-          src="/assets/svg/logo-white.svg"
-          alt="Your Company Name"
+          src="{{ASSET_LOGO_WHITE}}"
+          alt="{{BRAND_NAME}}"
           width="520"
           height="120"
         />
-        <h1>Reliable community security support, now with a new digital home.</h1>
-        <p class="splash-subtitle">
-          We are rebuilding example.com for a faster, clearer experience. Legal pages remain available while launch work continues.
-        </p>
-        <div class="splash-actions">
-          <a class="btn btn-primary" href="/privacy-policy/">Privacy Policy</a>
-          <a class="btn btn-emergency" href="tel:10000000000" aria-label="Call control room on 10000000000">Emergency: +1 (000) 000-0000</a>
+        <h1>{{HOME_HEADLINE}}</h1>
+        <p class="splash-subtitle">{{HOME_SUBTITLE}}</p>
+
+        <div class="splash-actions" aria-label="Main actions">
+          <a class="btn btn-primary" href="{{PRIVACY_POLICY_PATH}}">Privacy Policy</a>
+          <a class="btn btn-secondary" href="{{DELETE_MY_DATA_PATH}}">Delete My Data</a>
+          <a
+            class="btn btn-emergency"
+            href="tel:{{SUPPORT_PHONE_URI}}"
+            aria-label="Call support on {{SUPPORT_PHONE}}"
+          >
+            Call: {{SUPPORT_PHONE}}
+          </a>
         </div>
       </div>
+
       <img
         class="splash-corner-graphic"
-        src="/assets/svg/under-construction-graphic.svg"
+        src="{{ASSET_SPLASH_BG}}"
         alt=""
         aria-hidden="true"
         loading="lazy"
@@ -60,15 +84,28 @@
 
     <footer class="splash-footer">
       <nav aria-label="Legal pages">
-        <a href="/privacy-policy/">Privacy Policy</a>
+        <a href="{{PRIVACY_POLICY_PATH}}">Privacy Policy</a>
         <span class="splash-footer-sep" aria-hidden="true">&middot;</span>
-        <a href="/delete-my-data/">Delete My Data</a>
+        <a href="{{DELETE_MY_DATA_PATH}}">Delete My Data</a>
       </nav>
+
       <p class="splash-footer-contact">
-        Email: <a href="mailto:contact@example.com">contact@example.com</a><br />
-        Phone: <a href="tel:10000000000">+1 (000) 000-0000</a>
+        Email: <a href="mailto:{{CONTACT_EMAIL}}">{{CONTACT_EMAIL}}</a><br />
+        Phone: <a href="tel:{{SUPPORT_PHONE_URI}}">{{SUPPORT_PHONE}}</a>
       </p>
-      <p>&copy; <span data-current-year></span> Your Legal Entity Name.</p>
+
+      <p class="splash-footer-address">{{CONTACT_ADDRESS}} | {{SUPPORT_HOURS}}</p>
+
+      <ul class="social-links" aria-label="Social media links">
+        <li><a href="{{FACEBOOK_URL}}" rel="noopener noreferrer" target="_blank">Facebook</a></li>
+        <li><a href="{{INSTAGRAM_URL}}" rel="noopener noreferrer" target="_blank">Instagram</a></li>
+        <li><a href="{{LINKEDIN_URL}}" rel="noopener noreferrer" target="_blank">LinkedIn</a></li>
+        <li><a href="{{X_URL}}" rel="noopener noreferrer" target="_blank">X</a></li>
+        <li><a href="{{YOUTUBE_URL}}" rel="noopener noreferrer" target="_blank">YouTube</a></li>
+      </ul>
+
+      <p>{{FOOTER_SUMMARY}}</p>
+      <p>&copy; <span data-current-year></span> {{LEGAL_NAME}}. {{PRIMARY_HOST}}</p>
     </footer>
   </body>
 </html>

@@ -26,6 +26,10 @@ body.menu-open {
   overflow: hidden;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 img,
 svg {
   display: block;

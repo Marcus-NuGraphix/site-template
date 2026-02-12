@@ -3,7 +3,11 @@ const MIN_SUBMIT_SECONDS = 3;
 
 export function initDeleteRequestForm() {
   const form = document.querySelector('[data-delete-request-form]');
-  if (!form) {
+  if (!(form instanceof HTMLFormElement)) {
+    return;
+  }
+
+  if (form.hasAttribute('data-form-disabled') || form.hidden) {
     return;
   }
 
