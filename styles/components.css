@@ -267,14 +267,14 @@ input:focus,
 textarea:focus,
 select:focus {
   border-color: color-mix(in srgb, var(--color-primary) 55%, var(--color-border));
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 16%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-ring) 38%, transparent);
 }
 
 input[aria-invalid="true"],
 textarea[aria-invalid="true"],
 select[aria-invalid="true"] {
   border-color: var(--error);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--error) 14%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--error) 18%, transparent);
 }
 
 .checkbox-line {

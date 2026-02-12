@@ -1,22 +1,23 @@
 {
   "brand": {
-    "name": "Client Brand",
-    "tagline": "Better digital experiences are coming soon.",
-    "legalName": "Client Brand (Pty) Ltd"
+    "name": "Nu Graphix",
+    "tagline": "Modern web templates & compliance-ready site starters.",
+    "legalName": "Nu Graphix (South Africa)",
+    "templateProvider": "Nu Graphix"
   },
   "domain": {
-    "primaryHost": "example.com",
-    "canonicalHost": "example.com",
-    "baseUrl": "https://example.com"
+    "primaryHost": "yourdomain.com",
+    "canonicalHost": "yourdomain.com",
+    "baseUrl": "https://yourdomain.com"
   },
   "emails": {
-    "deleteRequestsTo": "delete@example.com",
-    "privacyTo": "privacy@example.com",
-    "fromNoReply": "no-reply@example.com"
+    "deleteRequestsTo": "delete@yourdomain.com",
+    "privacyTo": "hello@yourdomain.com",
+    "fromNoReply": "no-reply@yourdomain.com"
   },
   "contact": {
-    "phone": "+1 (000) 000-0000",
-    "address": "123 Example Street, City, Country",
+    "phone": "+27 (0)10 000 0000",
+    "address": "Johannesburg, South Africa",
     "supportHours": "Mon-Fri, 08:00-17:00"
   },
   "urls": {
@@ -24,25 +25,42 @@
     "deleteMyDataPath": "/delete-my-data/"
   },
   "social": {
-    "facebook": "https://facebook.com/example",
-    "instagram": "https://instagram.com/example",
-    "linkedin": "https://linkedin.com/company/example",
-    "x": "https://x.com/example",
-    "youtube": "https://youtube.com/@example"
+    "facebook": "https://facebook.com/yourbrand",
+    "instagram": "https://instagram.com/yourbrand",
+    "linkedin": "https://linkedin.com/company/yourbrand",
+    "x": "https://x.com/yourbrand",
+    "youtube": "https://youtube.com/@yourbrand"
   },
   "theme": {
-    "primary": "#0b3c97",
-    "accent": "#fdf202",
-    "background": "#eef3fb",
-    "text": "#14233f",
-    "muted": "#425776",
-    "border": "#d0dced"
+    "primary": "#2F7DBA",
+    "accent": "#2ECFA0",
+    "destructive": "#E5483B",
+    "light": {
+      "background": "#FFFFFF",
+      "surface": "#FFFFFF",
+      "sidebar": "#FAFBFC",
+      "foreground": "#1F2937",
+      "muted": "#6B7280",
+      "secondary": "#F3F4F6",
+      "border": "#E5E7EB",
+      "ring": "#93A3B8"
+    },
+    "dark": {
+      "background": "#0E1623",
+      "surface": "#1B2432",
+      "sidebar": "#1B2432",
+      "foreground": "#F9FAFB",
+      "muted": "#9CA3AF",
+      "secondary": "#374151",
+      "border": "rgba(255,255,255,0.1)",
+      "ring": "#64748B"
+    }
   },
   "assets": {
     "logo": "/assets/svg/logo.svg",
     "logoWhite": "/assets/svg/logo-white.svg",
     "icon": "/assets/svg/icon.svg",
-    "favicon": "/assets/svg/icon.svg",
+    "favicon": "/assets/favicon.ico",
     "ogImage": "/assets/svg/under-construction-graphic.svg",
     "splashBg": "/assets/svg/under-construction-graphic.svg"
   },
@@ -50,17 +68,19 @@
     "enableDeleteForm": true,
     "enableNoIndex": true,
     "enableAnalytics": false,
-    "enableCspStrict": true
+    "enableCspStrict": true,
+    "enableTemplateProviderBanner": true
   },
   "copy": {
-    "homeStatus": "Website Under Construction",
-    "homeHeadline": "A polished new website is on the way.",
-    "homeSubtitle": "We are updating our digital presence for faster access to services, support, and legal resources.",
-    "footerSummary": "Official communication and legal pages remain available while this website is being updated.",
-    "privacyIntro": "This Privacy Policy explains how we collect, use, and protect personal information.",
+    "homeStatus": "We're working on something new.",
+    "homeHeadline": "Website under construction",
+    "homeSubtitle": "This site is being prepared with Nu Graphix.",
+    "footerSummary": "Temporary compliance and legal pages are available while the site is being prepared.",
+    "templateCredit": "Template by Nu Graphix.",
+    "privacyIntro": "This privacy policy template explains common data-handling practices for compliance-ready websites.",
     "deleteIntro": "Use this page to request deletion of personal information, subject to legal and operational requirements.",
-    "siteDescription": "Official splash and legal pages for temporary operations and compliance.",
-    "deleteFormNote": "This form is for privacy requests only. It is not an emergency response channel."
+    "siteDescription": "Nu Graphix white-label starter template with temporary splash, privacy policy, and delete-my-data routes.",
+    "deleteFormNote": "This form is for privacy requests only and is not an emergency communication channel."
   },
   "legal": {
     "effectiveDate": "2026-02-12",

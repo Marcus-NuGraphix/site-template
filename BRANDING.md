@@ -1,57 +1,112 @@
-# Branding Quick Start
+# BRANDING Guide
 
-This repo is a white-label template driven by a single config file: `site.config.json`.
+This template uses one active source-of-truth config file at repo root: `site.config.json`.
 
-## 10-Minute Setup
+Use it to control brand, domain, contact details, palette, assets, and feature toggles without manual HTML/CSS edits.
+
+## Rebrand in Under 10 Minutes
 
 1. Edit `site.config.json`.
-2. Replace brand assets in `assets/` and keep root-absolute paths in config:
-   - `assets.logo`
-   - `assets.logoWhite`
-   - `assets.icon`
-   - `assets.favicon`
-   - `assets.ogImage`
-   - `assets.splashBg`
+2. Replace assets referenced in config:
+   - `/assets/svg/logo.svg`
+   - `/assets/svg/logo-white.svg`
+   - `/assets/svg/icon.svg`
+   - `/assets/favicon.ico`
+   - `/assets/svg/under-construction-graphic.svg` (or your own path)
 3. Run:
 
 ```bash
 npm run brand:apply
 ```
 
-4. Upload the contents of `public_html/` to your hosting `public_html/` directory.
+4. Upload generated `public_html/` to xneelo `public_html/`.
 
-## Required Config Groups
+## Create a New Client Config Fast
 
-- `brand` - name, tagline, legal entity
-- `domain` - hosts and base URL
-- `emails` - privacy/delete/no-reply mailboxes
-- `contact` - phone/address/hours
-- `urls` - privacy and delete page paths
-- `social` - social links
-- `theme` - six core hex colors
-- `assets` - logos/icons/OG/splash paths
-- `features` - toggles (`enableDeleteForm`, `enableNoIndex`, `enableAnalytics`, `enableCspStrict`)
+```bash
+npm run client:new -- <clientSlug> "<Client Name>" <domain>
+```
 
-## What `brand:apply` Generates
+Example:
 
-- Branded HTML in `public_html/`
-- `public_html/styles/brand.generated.css` from theme colors
-- Branded `public_html/sitemap.xml`
-- `public_html/robots.txt` with index/noindex mode
-- Branded `public_html/.htaccess` with CSP strict/relaxed mode
-- Branded `public_html/delete-my-data/submit.php`
+```bash
+npm run client:new -- acme "Acme Security" acme.co.za
+```
 
-## Feature Toggles
+This creates:
 
-- `enableDeleteForm=true`: web form enabled (`/delete-my-data/submit.php`)
-- `enableDeleteForm=false`: email-only deletion instructions shown
-- `enableNoIndex=true`: `robots.txt` disallows indexing and pages emit `noindex`
-- `enableNoIndex=false`: indexing allowed and sitemap line included in `robots.txt`
-- `enableAnalytics=true`: injects analytics script tag from `analytics.scriptUrl`
-- `enableCspStrict=true`: strict CSP header; set false for relaxed CSP
+- `clients/acme/site.config.json`
+- `clients/acme/assets/.gitkeep`
+
+Then build directly from that config:
+
+```bash
+npm run brand:apply -- --config clients/acme/site.config.json
+```
+
+## What `brand:apply` Updates
+
+- Branded pages:
+  - `index.html`
+  - `privacy-policy/index.html`
+  - `delete-my-data/index.html`
+- Host/config files:
+  - `.htaccess`
+  - `robots.txt`
+  - `sitemap.xml`
+  - `delete-my-data/submit.php`
+- Generated CSS:
+  - `styles/brand.generated.css`
+
+## Config Sections
+
+- `brand`: names/tagline/template provider label
+- `domain`: hosts and canonical base URL
+- `emails`: privacy/delete/no-reply mailboxes
+- `contact`: phone/address/hours
+- `urls`: clean route paths
+- `social`: social profile URLs
+- `theme`: Nu Graphix semantic color model (primary/accent/destructive + light/dark sets)
+- `assets`: logo/icon/favicon/OG/splash paths
+- `features`: behavior toggles
+- `copy`: UI microcopy strings
+- `legal`: effective and updated dates
+- `analytics`: optional analytics script settings
+
+## Key Placeholder Tokens
+
+Common placeholders used across templates:
+
+- `{{BRAND_NAME}}`, `{{LEGAL_NAME}}`, `{{TAGLINE}}`
+- `{{TEMPLATE_PROVIDER_NAME}}`, `{{TEMPLATE_CREDIT_LINE}}`
+- `{{PRIMARY_HOST}}`, `{{BASE_URL}}`, `{{CANONICAL_URL}}`
+- `{{PRIVACY_POLICY_PATH}}`, `{{DELETE_MY_DATA_PATH}}`
+- `{{PRIVACY_POLICY_URL}}`, `{{DELETE_MY_DATA_URL}}`
+- `{{CONTACT_EMAIL}}`, `{{DELETE_REQUEST_EMAIL}}`, `{{FROM_NO_REPLY_EMAIL}}`
+- `{{SUPPORT_PHONE}}`, `{{SUPPORT_PHONE_URI}}`, `{{CONTACT_ADDRESS}}`, `{{SUPPORT_HOURS}}`
+- `{{THEME_PRIMARY}}`, `{{THEME_ACCENT}}`, `{{THEME_DESTRUCTIVE}}`
+- `{{ASSET_LOGO}}`, `{{ASSET_LOGO_WHITE}}`, `{{ASSET_ICON}}`, `{{ASSET_FAVICON}}`, `{{ASSET_OG_IMAGE}}`, `{{ASSET_SPLASH_BG}}`
+
+Feature-driven placeholders:
+
+- `{{DELETE_FORM_CARD_HIDDEN_ATTR}}`
+- `{{DELETE_FORM_DISABLED_NOTE_HIDDEN_ATTR}}`
+- `{{DELETE_FORM_DISABLED_ATTR}}`
+- `{{TEMPLATE_PROVIDER_BANNER_HIDDEN_ATTR}}`
+
+## Theme Override
+
+By default, generated CSS follows `prefers-color-scheme`.
+
+Manual override options:
+
+- `<html data-theme="light">`
+- `<html data-theme="dark">`
+
+(also supported on `<body>`)
 
 ## Notes
 
-- Keep paths root-absolute (for example `/assets/svg/logo.svg`).
-- Form endpoint includes honeypot, min-submit-time, and IP rate limiting.
-- Rate-limit data is stored in `/.data/rate-limit/` and protected by `/.data/.htaccess`.
+- Keep all paths root-absolute in config.
+- Keep `.htaccess` and `/.data/.htaccess` in deployment output.
+- Delete-form endpoint uses anti-spam controls and returns JSON status codes.

@@ -1,8 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 225 225" role="img" aria-labelledby="icon-title icon-desc">
-  <title id="icon-title">Template Icon</title>
-  <desc id="icon-desc">Placeholder icon for template reuse.</desc>
-  <rect width="225" height="225" rx="45" fill="#0b3c97"/>
-  <circle cx="112.5" cy="112.5" r="58" fill="#fdf202"/>
-  <path d="M77 112.5h71" stroke="#0b3c97" stroke-width="15" stroke-linecap="round"/>
-  <path d="M112.5 77v71" stroke="#0b3c97" stroke-width="15" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">Nu Graphix icon</title>
+  <desc id="desc">NG monogram icon.</desc>
+  <defs>
+    <linearGradient id="primary" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2F7DBA" />
+      <stop offset="100%" stop-color="#266A9F" />
+    </linearGradient>
+  </defs>
+
+  <rect x="12" y="12" width="232" height="232" rx="56" fill="url(#primary)" />
+  <path d="M52 186V70h30l45 68V70h30v116h-30l-45-69v69H52z" fill="#ffffff" />
+  <path d="M170 176c-12 9-26 14-42 14-34 0-59-24-59-60s25-60 59-60c17 0 31 5 43 16l-18 19c-7-6-15-9-25-9-18 0-31 15-31 34s13 34 31 34c7 0 13-1 19-4v-12h-20v-27h51v55h-8z" fill="#2ECFA0" />
 </svg>

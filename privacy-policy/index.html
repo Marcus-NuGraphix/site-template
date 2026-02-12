@@ -24,7 +24,7 @@
     <meta name="twitter:image" content="{{TWITTER_IMAGE_URL}}" />
     <meta name="twitter:site" content="{{TWITTER_HANDLE}}" />
 
-    <link rel="icon" href="{{ASSET_FAVICON}}" type="image/svg+xml" />
+    <link rel="icon" href="{{ASSET_FAVICON}}" />
     <link rel="apple-touch-icon" href="{{ASSET_ICON}}" />
 
     <link rel="stylesheet" href="/styles/tokens.css" />
@@ -67,6 +67,7 @@
       <section class="page-hero" aria-labelledby="privacy-title">
         <div class="container">
           <a class="back-link" href="/">Back to Home</a>
+          <p class="badge" {{TEMPLATE_PROVIDER_BANNER_HIDDEN_ATTR}}>Template provided by {{TEMPLATE_PROVIDER_NAME}}</p>
           <p class="kicker">Privacy and Data Protection</p>
           <h1 id="privacy-title">Privacy Policy</h1>
           <p>{{PRIVACY_INTRO}}</p>
@@ -206,6 +207,7 @@
         <section>
           <h3>{{BRAND_NAME}}</h3>
           <p>{{TAGLINE}}</p>
+          <p>{{TEMPLATE_CREDIT_LINE}}</p>
           <p>{{CONTACT_ADDRESS}}</p>
         </section>
         <section>

@@ -24,7 +24,7 @@
     <meta name="twitter:image" content="{{TWITTER_IMAGE_URL}}" />
     <meta name="twitter:site" content="{{TWITTER_HANDLE}}" />
 
-    <link rel="icon" href="{{ASSET_FAVICON}}" type="image/svg+xml" />
+    <link rel="icon" href="{{ASSET_FAVICON}}" />
     <link rel="apple-touch-icon" href="{{ASSET_ICON}}" />
 
     <link rel="stylesheet" href="/styles/tokens.css" />
@@ -68,12 +68,12 @@
         <div class="splash-hero-content reveal">
           <p class="status-pill">{{HOME_STATUS}}</p>
           <img class="splash-logo" src="{{ASSET_LOGO_WHITE}}" alt="{{BRAND_NAME}}" width="520" height="120" />
-          <h1 id="splash-title" class="splash-title">Website under construction</h1>
+          <h1 id="splash-title" class="splash-title">{{HOME_HEADLINE}}</h1>
           <p class="splash-copy">{{HOME_SUBTITLE}}</p>
           <p class="splash-copy">{{TAGLINE}}</p>
 
           <div class="inline-actions" aria-label="Main actions">
-            <a class="btn btn-primary" href="mailto:{{CONTACT_EMAIL}}">Contact Support</a>
+            <a class="btn btn-primary" href="mailto:{{CONTACT_EMAIL}}">Contact us</a>
             <a class="btn btn-secondary" href="{{PRIVACY_POLICY_PATH}}">Privacy Policy</a>
             <a class="btn btn-secondary" href="{{DELETE_MY_DATA_PATH}}">Delete My Data</a>
           </div>
@@ -111,6 +111,7 @@
         <section>
           <h3>{{BRAND_NAME}}</h3>
           <p>{{TAGLINE}}</p>
+          <p>{{TEMPLATE_CREDIT_LINE}}</p>
           <p>{{CONTACT_ADDRESS}}</p>
         </section>
         <section>

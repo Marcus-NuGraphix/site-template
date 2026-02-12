@@ -1,149 +1,181 @@
-# White-Label Static Site Template (xneelo-ready)
+# Nu Graphix Site Template (xneelo-ready)
 
-Reusable static template for quick client rollout on xneelo shared hosting.
+Nu Graphix default product template for temporary launch pages and compliance URLs.
 
-- Stack: static `HTML/CSS/JS` + optional `PHP` delete-request handler
-- Deploy target: xneelo `public_html`
-- Source of truth: `site.config.json`
-- Asset strategy: local assets only (no required external CDN dependencies)
+- Stack: static `HTML/CSS/JS` + optional `PHP` delete-request endpoint
+- Hosting target: xneelo shared hosting (`public_html`)
+- Single source of truth: root `site.config.json`
+- Local assets only: no required external CDN assets
 
-## Why `site.config.json` (Option A)
+## Nu Graphix Default Brand
 
-This template uses `site.config.json` as the single branding source because it is simple, framework-free, and easy for non-developers to edit without executing JavaScript.
+Out of the box this template ships as a Nu Graphix product:
 
-## White-Label Workflow
+- Brand: `Nu Graphix`
+- Legal descriptor: `Nu Graphix (South Africa)`
+- Tagline: `Modern web templates & compliance-ready site starters.`
+- Palette and semantic tokens are generated from the Nu Graphix brand system.
 
-1. Update `site.config.json`.
-2. Replace assets under `assets/` (logos, icon, OG image, splash graphic).
+## Quick Start
+
+1. Edit `site.config.json`.
+2. Update assets referenced by config (`logo`, `logoWhite`, `icon`, `favicon`, `ogImage`, `splashBg`).
 3. Run:
 
 ```bash
 npm run brand:apply
 ```
 
-4. Deploy the generated `public_html/` output.
+4. Upload generated `public_html/` contents to xneelo `public_html/`.
 
-## What `brand:apply` Does
+## Local Development (Docker)
 
-`tools/apply-branding.mjs` validates config and generates a deployable site in `public_html/`.
+This repo supports a local Docker environment for previewing the generated `public_html/` output with Apache + PHP.
 
-- Replaces placeholders in:
-  - `index.html`
-  - `privacy-policy/index.html`
-  - `delete-my-data/index.html`
-  - `delete-my-data/submit.php`
-  - `.htaccess`
-  - `robots.txt`
-  - `sitemap.xml`
-- Generates `styles/brand.generated.css` from `theme` values
-- Copies static assets/scripts/styles into `public_html/`
-- Applies SEO/robots and CSP behavior based on feature flags
-
-## Placeholder Convention
-
-Core tokens are standardized in page templates, including:
-
-- `{{BRAND_NAME}}`, `{{TAGLINE}}`, `{{PRIMARY_HOST}}`, `{{CANONICAL_URL}}`
-- `{{PRIVACY_POLICY_URL}}`, `{{DELETE_MY_DATA_URL}}`
-- `{{CONTACT_EMAIL}}`, `{{DELETE_REQUEST_EMAIL}}`, `{{SUPPORT_PHONE}}`
-
-## xneelo Deployment Steps
-
-1. In local repo, run `npm run brand:apply`.
-2. Upload all contents of `public_html/` into your domain's hosting `public_html/`.
-3. Confirm SSL is enabled for the domain.
-4. Keep generated `.htaccess` in place to force HTTPS.
-5. Create mailbox forwarding for deletion/privacy requests:
-   - create `delete@<domain>` and forward externally as needed
-   - create `privacy@<domain>` if used
-6. Verify PHP endpoint support for delete form.
-
-xneelo help centre articles to reference:
-
-- "Force HTTPS using a .htaccess file via the xneelo Control Panel"
-- "How to set up mail forwarding via the xneelo Control Panel"
-- "Do you support SendMail on your servers?"
-- "Is PHP available with all web hosting packages?"
-
-## Delete My Data Form Behavior
-
-When `features.enableDeleteForm=true`:
-
-- Form posts/fetches `POST /delete-my-data/submit.php`
-- `submit.php` uses generated mailbox values from config
-- `Reply-To` is set to the requester email
-- Anti-spam controls:
-  - honeypot field
-  - minimum submit time
-  - IP rate limit window
-- Returns JSON responses with proper status codes
-
-When `features.enableDeleteForm=false`:
-
-- Page shows direct email submission instructions
-- PHP endpoint returns a disabled response
-
-Rate-limit storage path: `/.data/rate-limit/` (protected by `/.data/.htaccess`).
-
-## Security and Hosting Hardening
-
-Generated `.htaccess` includes:
-
-- HTTPS redirect first in rewrite rules
-- optional canonical host redirect (commented)
-- legacy redirect compatibility (`.html` to folder routes)
-- conservative caching for HTML/PHP and short cache for static assets
-- security headers (when `mod_headers` is available)
-- configurable CSP strict/relaxed via `features.enableCspStrict`
-
-## Indexing and Sitemap Toggle
-
-- `enableNoIndex=true`:
-  - page `<meta name="robots" content="noindex, nofollow">`
-  - `robots.txt` disallows all crawlers
-- `enableNoIndex=false`:
-  - page robots meta becomes `index, follow`
-  - `robots.txt` allows crawling and includes sitemap link
-
-## Optional Analytics
-
-No environment variables are required for base operation.
-
-If analytics is enabled (`features.enableAnalytics=true`), set:
-
-- `analytics.scriptUrl`
-- `analytics.dataDomain` (optional; defaults to primary host)
-
-## Lightweight JS Lint
+One-time setup:
 
 ```bash
+npm run dev:setup
+```
+
+Before `dev:up`, ensure Docker Desktop (or Docker Engine) is running.
+
+Run locally:
+
+```bash
+npm run dev:up
+```
+
+Stop:
+
+```bash
+npm run dev:down
+```
+
+Logs:
+
+```bash
+npm run dev:logs
+```
+
+Open `http://localhost:8080`.
+
+Local dev files are intentionally git-ignored:
+
+- `docker-compose.local.yml`
+- `Dockerfile.local`
+- `.docker-local/`
+
+## Branding Workflow
+
+`tools/apply-branding.mjs`:
+
+- validates config and fails with clear messages
+- generates `styles/brand.generated.css` with semantic light/dark brand tokens
+- replaces placeholders in HTML, `robots.txt`, `sitemap.xml`, `.htaccess`, and `submit.php`
+- updates SEO/OG metadata and canonical URLs from config
+
+### Scripts
+
+```bash
+npm run brand:apply
+npm run client:new -- <clientSlug> <clientName> <domain>
+npm run dev:setup
+npm run dev:up
+npm run dev:down
 npm run lint:js
 ```
 
-Runs syntax checks over `scripts/` and `tools/`.
+## New Client Bootstrap
 
-## Testing Checklist
+Create a new client config scaffold:
 
-1. `npm run brand:apply` succeeds without validation errors.
-2. Mobile layout remains usable down to `320px` width on all pages.
-3. Keyboard-only navigation works for skip-link, menu, links, and form controls.
-4. Screen reader basics are present:
-   - labels associated with every input
-   - `aria-live` updates for form status
-   - error summary announced and focusable
-5. Form failure and success flows are verified:
-   - client-side validation errors
-   - server-side failure message handling
-   - success panel with request reference ID
-6. HTTP status checks:
-   - `GET /` returns `200`
-   - `GET /privacy-policy/` returns `200`
-   - `GET /delete-my-data/` returns `200`
-   - `POST /delete-my-data/submit.php` returns JSON status (`200/4xx/5xx`)
-7. Cache behavior:
-   - HTML/PHP are not cached aggressively
-   - static assets receive short-term cache headers
-8. `public_html/robots.txt` and page robots meta match expected `enableNoIndex` mode.
-9. `public_html/sitemap.xml` uses correct base URL and clean routes.
-10. `public_html/.htaccess` contains HTTPS redirect and generated CSP mode.
-11. `/.data/.htaccess` blocks direct web access to rate-limit storage.
+```bash
+npm run client:new -- acme "Acme Security" acme.co.za
+```
+
+This generates:
+
+- `clients/acme/site.config.json`
+- `clients/acme/assets/.gitkeep`
+
+Build using that client config:
+
+```bash
+npm run brand:apply -- --config clients/acme/site.config.json
+```
+
+## Theme Tokens and Dark Mode
+
+Generated CSS exposes semantic tokens including:
+
+- `--color-primary`
+- `--color-accent`
+- `--color-destructive`
+- `--color-bg`
+- `--color-surface`
+- `--color-sidebar`
+- `--color-fg`
+- `--color-muted`
+- `--color-secondary`
+- `--color-border`
+- `--color-ring`
+
+Derived tokens are also generated (`--color-primary-foreground`, `--color-accent-foreground`, etc.).
+
+Theme behavior:
+
+- default: system preference via `prefers-color-scheme`
+- manual override: set `data-theme="light"` or `data-theme="dark"` on `<html>` (or `<body>`)
+
+## App-Store Compliance URL Checklist
+
+Ensure these URLs are public and correct before app listing submissions:
+
+1. `/privacy-policy/`
+2. `/delete-my-data/`
+
+They are designed as stable, clean routes and are included in sitemap output.
+
+## Noindex Toggle for Temporary Sites
+
+`features.enableNoIndex` controls both:
+
+- page robots meta (`noindex, nofollow` vs `index, follow`)
+- generated `robots.txt` rules
+
+Use `true` for temporary/private launches, and `false` when ready for indexing.
+
+## xneelo Deployment Notes
+
+1. Upload generated `public_html/` files to domain web root (`public_html/`).
+2. Enable SSL for domain.
+3. Keep generated `.htaccess` in place (HTTPS redirect + headers).
+4. Configure mailbox forwarding (for example `delete@domain` and `hello@domain`).
+5. Verify PHP + SendMail support for delete form endpoint.
+
+xneelo help centre articles referenced by name:
+
+- "How to set up mail forwarding via the xneelo Control Panel"
+- "Force HTTPS using a .htaccess file via the xneelo Control Panel"
+- "Is PHP available with all web hosting packages?"
+- "Do you support SendMail on your servers?"
+
+### Mail Forwarding Workflow (recommended)
+
+- Form endpoint sends to `delete@domain` (or configured delete mailbox)
+- xneelo mail forwarder routes that mailbox to operational external inboxes
+- keeps a clean domain-specific compliance address while preserving existing team inbox tooling
+
+## Quality Checklist
+
+1. `npm run brand:apply` succeeds.
+2. Mobile layout works at `320px` width.
+3. Keyboard-only navigation works on all pages.
+4. Screen reader basics present (labels, status regions, error summary focus).
+5. Delete request failure/success flows verified.
+6. Core status checks: `GET /`, `GET /privacy-policy/`, `GET /delete-my-data/` => `200`.
+7. Endpoint checks: `POST /delete-my-data/submit.php` returns JSON with proper status code.
+8. Cache policy verifies HTML/PHP not aggressively cached.
+9. `enableNoIndex` behavior reflected in robots meta and `robots.txt`.
+10. `/.data/.htaccess` blocks direct access to rate-limit storage.

@@ -12,9 +12,17 @@ import {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const ROOT_DIR = path.resolve(__dirname, '..');
-const OUTPUT_DIR = path.join(ROOT_DIR, 'public_html');
-const CONFIG_PATH = path.join(ROOT_DIR, 'site.config.json');
+const DEFAULT_CONFIG_PATH = path.join(ROOT_DIR, 'site.config.json');
+const DEFAULT_OUTPUT_DIR = path.join(ROOT_DIR, 'public_html');
 const BRAND_CSS_PATH = path.join(ROOT_DIR, 'styles', 'brand.generated.css');
+
+const args = parseArgs(process.argv.slice(2));
+const configPath = args.config
+  ? resolvePathFromRoot(args.config)
+  : DEFAULT_CONFIG_PATH;
+const outputDir = args.out
+  ? resolvePathFromRoot(args.out)
+  : DEFAULT_OUTPUT_DIR;
 
 const HTML_PAGE_DEFINITIONS = [
   {
@@ -44,22 +52,10 @@ const HTML_PAGE_DEFINITIONS = [
 ];
 
 const TEMPLATE_FILE_DEFINITIONS = [
-  {
-    src: 'delete-my-data/submit.php',
-    dest: 'delete-my-data/submit.php',
-  },
-  {
-    src: '.htaccess',
-    dest: '.htaccess',
-  },
-  {
-    src: 'robots.txt',
-    dest: 'robots.txt',
-  },
-  {
-    src: 'sitemap.xml',
-    dest: 'sitemap.xml',
-  },
+  { src: 'delete-my-data/submit.php', dest: 'delete-my-data/submit.php' },
+  { src: '.htaccess', dest: '.htaccess' },
+  { src: 'robots.txt', dest: 'robots.txt' },
+  { src: 'sitemap.xml', dest: 'sitemap.xml' },
 ];
 
 const STATIC_DIRECTORIES = ['assets', 'scripts', 'styles'];
@@ -70,11 +66,11 @@ main().catch((error) => {
 });
 
 async function main() {
-  const rawConfig = await loadJson(CONFIG_PATH);
+  const rawConfig = await loadJson(configPath);
   const validationErrors = validateConfig(rawConfig);
   if (validationErrors.length > 0) {
     const formatted = validationErrors.map((entry) => `- ${entry}`).join('\n');
-    throw new Error(`Invalid site.config.json:\n${formatted}`);
+    throw new Error(`Invalid config file (${path.relative(ROOT_DIR, configPath)}):\n${formatted}`);
   }
 
   const config = normalizeConfig(rawConfig);
@@ -85,24 +81,22 @@ async function main() {
 
   await writeFile(BRAND_CSS_PATH, brandCss, 'utf8');
 
-  await rm(OUTPUT_DIR, { recursive: true, force: true });
-  await mkdir(OUTPUT_DIR, { recursive: true });
+  await rm(outputDir, { recursive: true, force: true });
+  await mkdir(outputDir, { recursive: true });
 
   for (const directory of STATIC_DIRECTORIES) {
-    const sourceDir = path.join(ROOT_DIR, directory);
-    const destinationDir = path.join(OUTPUT_DIR, directory);
-    await cp(sourceDir, destinationDir, { recursive: true, force: true });
+    await cp(path.join(ROOT_DIR, directory), path.join(outputDir, directory), {
+      recursive: true,
+      force: true,
+    });
   }
 
-  await mkdir(path.join(OUTPUT_DIR, '.data', 'rate-limit'), { recursive: true });
-  await cp(path.join(ROOT_DIR, '.data', '.htaccess'), path.join(OUTPUT_DIR, '.data', '.htaccess'), {
-    force: true,
-  });
+  await mkdir(path.join(outputDir, '.data', 'rate-limit'), { recursive: true });
+  await cp(path.join(ROOT_DIR, '.data', '.htaccess'), path.join(outputDir, '.data', '.htaccess'), { force: true });
 
   for (const page of HTML_PAGE_DEFINITIONS) {
     const templatePath = path.join(ROOT_DIR, page.src);
-    const outputPath = path.join(OUTPUT_DIR, page.dest);
-
+    const outputPath = path.join(outputDir, page.dest);
     const template = await readFile(templatePath, 'utf8');
 
     const canonicalPath = typeof page.canonicalPath === 'function'
@@ -131,6 +125,7 @@ async function main() {
       DELETE_FORM_CARD_HIDDEN_ATTR: config.features.enableDeleteForm ? '' : 'hidden',
       DELETE_FORM_DISABLED_NOTE_HIDDEN_ATTR: config.features.enableDeleteForm ? 'hidden' : '',
       DELETE_FORM_DISABLED_ATTR: config.features.enableDeleteForm ? '' : 'data-form-disabled="true"',
+      TEMPLATE_PROVIDER_BANNER_HIDDEN_ATTR: config.features.enableTemplateProviderBanner ? '' : 'hidden',
     };
 
     const rendered = replacePlaceholders(template, pageTokens, page.src);
@@ -139,14 +134,40 @@ async function main() {
 
   for (const file of TEMPLATE_FILE_DEFINITIONS) {
     const templatePath = path.join(ROOT_DIR, file.src);
-    const outputPath = path.join(OUTPUT_DIR, file.dest);
+    const outputPath = path.join(outputDir, file.dest);
     const template = await readFile(templatePath, 'utf8');
     const rendered = replacePlaceholders(template, globalTokens, file.src);
     await writeRenderedFile(outputPath, rendered);
   }
 
   console.log('[brand:apply] Completed successfully.');
-  console.log(`[brand:apply] Generated deployable output in ${path.relative(ROOT_DIR, OUTPUT_DIR)}`);
+  console.log(`[brand:apply] Config: ${path.relative(ROOT_DIR, configPath)}`);
+  console.log(`[brand:apply] Output: ${path.relative(ROOT_DIR, outputDir)}`);
+}
+
+function parseArgs(argv) {
+  const parsed = {};
+  for (let index = 0; index < argv.length; index += 1) {
+    const entry = argv[index];
+    if (entry === '--config') {
+      parsed.config = argv[index + 1] || '';
+      index += 1;
+      continue;
+    }
+
+    if (entry === '--out') {
+      parsed.out = argv[index + 1] || '';
+      index += 1;
+    }
+  }
+  return parsed;
+}
+
+function resolvePathFromRoot(inputPath) {
+  if (path.isAbsolute(inputPath)) {
+    return inputPath;
+  }
+  return path.join(ROOT_DIR, inputPath);
 }
 
 async function writeRenderedFile(filePath, content) {
@@ -165,6 +186,7 @@ function validateConfig(config) {
   assertString(config, 'brand.name', errors);
   assertString(config, 'brand.tagline', errors);
   assertString(config, 'brand.legalName', errors);
+  assertString(config, 'brand.templateProvider', errors);
 
   assertString(config, 'domain.primaryHost', errors);
   assertString(config, 'domain.canonicalHost', errors);
@@ -189,10 +211,13 @@ function validateConfig(config) {
 
   assertString(config, 'theme.primary', errors);
   assertString(config, 'theme.accent', errors);
-  assertString(config, 'theme.background', errors);
-  assertString(config, 'theme.text', errors);
-  assertString(config, 'theme.muted', errors);
-  assertString(config, 'theme.border', errors);
+  assertString(config, 'theme.destructive', errors);
+
+  for (const mode of ['light', 'dark']) {
+    for (const tokenName of ['background', 'surface', 'sidebar', 'foreground', 'muted', 'secondary', 'border', 'ring']) {
+      assertString(config, `theme.${mode}.${tokenName}`, errors);
+    }
+  }
 
   assertString(config, 'assets.logo', errors);
   assertString(config, 'assets.logoWhite', errors);
@@ -205,6 +230,9 @@ function validateConfig(config) {
   assertBoolean(config, 'features.enableNoIndex', errors);
   assertBoolean(config, 'features.enableAnalytics', errors);
   assertBoolean(config, 'features.enableCspStrict', errors);
+  if (getPath(config, 'features.enableTemplateProviderBanner') !== undefined) {
+    assertBoolean(config, 'features.enableTemplateProviderBanner', errors);
+  }
 
   if (typeof config.domain?.baseUrl === 'string' && !/^https?:\/\//.test(config.domain.baseUrl.trim())) {
     errors.push('domain.baseUrl must start with http:// or https://');
@@ -224,10 +252,10 @@ function validateConfig(config) {
     }
   }
 
-  for (const themeField of ['theme.primary', 'theme.accent', 'theme.background', 'theme.text', 'theme.muted', 'theme.border']) {
-    const value = getPath(config, themeField);
+  for (const colorField of ['theme.primary', 'theme.accent', 'theme.destructive']) {
+    const value = getPath(config, colorField);
     if (typeof value === 'string' && !/^#[0-9a-fA-F]{6}$/.test(value.trim())) {
-      errors.push(`${themeField} must be a 6-digit hex color (example: #0b3c97).`);
+      errors.push(`${colorField} must be a 6-digit hex color.`);
     }
   }
 
@@ -264,19 +292,26 @@ function normalizeConfig(config) {
   normalized.urls.privacyPolicyPath = normalizePath(normalized.urls.privacyPolicyPath);
   normalized.urls.deleteMyDataPath = normalizePath(normalized.urls.deleteMyDataPath);
 
-  for (const key of Object.keys(normalized.theme)) {
-    normalized.theme[key] = normalized.theme[key].trim().toLowerCase();
+  normalized.theme.primary = normalized.theme.primary.trim();
+  normalized.theme.accent = normalized.theme.accent.trim();
+  normalized.theme.destructive = normalized.theme.destructive.trim();
+
+  for (const mode of ['light', 'dark']) {
+    for (const tokenName of ['background', 'surface', 'sidebar', 'foreground', 'muted', 'secondary', 'border', 'ring']) {
+      normalized.theme[mode][tokenName] = normalized.theme[mode][tokenName].trim();
+    }
   }
 
   normalized.copy = {
-    homeStatus: 'Website Under Construction',
-    homeHeadline: 'A polished new website is on the way.',
-    homeSubtitle: 'We are updating our digital presence for faster access to services, support, and legal resources.',
-    footerSummary: 'Official communication and legal pages remain available while this website is being updated.',
-    privacyIntro: 'This Privacy Policy explains how we collect, use, and protect personal information.',
+    homeStatus: "We're working on something new.",
+    homeHeadline: 'Website under construction',
+    homeSubtitle: 'This site is being prepared with Nu Graphix.',
+    footerSummary: 'Temporary compliance and legal pages are available while the site is being prepared.',
+    templateCredit: `Template by ${normalized.brand.templateProvider || 'Nu Graphix'}.`,
+    privacyIntro: 'This privacy policy template explains common data-handling practices for compliance-ready websites.',
     deleteIntro: 'Use this page to request deletion of personal information, subject to legal and operational requirements.',
     siteDescription: '',
-    deleteFormNote: 'This form is for privacy requests only. It is not an emergency response channel.',
+    deleteFormNote: 'This form is for privacy requests only and is not an emergency communication channel.',
     ...normalized.copy,
   };
 
@@ -292,18 +327,28 @@ function normalizeConfig(config) {
     ...normalized.analytics,
   };
 
+  normalized.features = {
+    enableDeleteForm: true,
+    enableNoIndex: true,
+    enableAnalytics: false,
+    enableCspStrict: true,
+    enableTemplateProviderBanner: true,
+    ...normalized.features,
+  };
+
   return normalized;
 }
 
 function buildGlobalTokens(config, today) {
   const privacyPolicyUrl = buildAbsoluteUrl(config.domain.baseUrl, config.urls.privacyPolicyPath);
   const deleteMyDataUrl = buildAbsoluteUrl(config.domain.baseUrl, config.urls.deleteMyDataPath);
-  const supportPhoneUri = formatTelUri(config.contact.phone);
 
   return {
     BRAND_NAME: config.brand.name,
     TAGLINE: config.brand.tagline,
     LEGAL_NAME: config.brand.legalName,
+    TEMPLATE_PROVIDER_NAME: config.brand.templateProvider,
+
     PRIMARY_HOST: config.domain.primaryHost,
     CANONICAL_HOST: config.domain.canonicalHost,
     CANONICAL_HOST_REGEX: escapeForRegex(config.domain.canonicalHost),
@@ -314,7 +359,7 @@ function buildGlobalTokens(config, today) {
     FROM_NO_REPLY_EMAIL: config.emails.fromNoReply,
 
     SUPPORT_PHONE: config.contact.phone,
-    SUPPORT_PHONE_URI: supportPhoneUri,
+    SUPPORT_PHONE_URI: formatTelUri(config.contact.phone),
     CONTACT_ADDRESS: config.contact.address,
     SUPPORT_HOURS: config.contact.supportHours,
 
@@ -331,10 +376,7 @@ function buildGlobalTokens(config, today) {
 
     THEME_PRIMARY: config.theme.primary,
     THEME_ACCENT: config.theme.accent,
-    THEME_BACKGROUND: config.theme.background,
-    THEME_TEXT: config.theme.text,
-    THEME_MUTED: config.theme.muted,
-    THEME_BORDER: config.theme.border,
+    THEME_DESTRUCTIVE: config.theme.destructive,
 
     ASSET_LOGO: config.assets.logo,
     ASSET_LOGO_WHITE: config.assets.logoWhite,
@@ -347,6 +389,7 @@ function buildGlobalTokens(config, today) {
     HOME_HEADLINE: config.copy.homeHeadline,
     HOME_SUBTITLE: config.copy.homeSubtitle,
     FOOTER_SUMMARY: config.copy.footerSummary,
+    TEMPLATE_CREDIT_LINE: config.copy.templateCredit,
     PRIVACY_INTRO: config.copy.privacyIntro,
     DELETE_INTRO: config.copy.deleteIntro,
     SITE_DESCRIPTION: config.copy.siteDescription,
@@ -368,21 +411,129 @@ function buildGlobalTokens(config, today) {
 }
 
 function buildBrandCss(config) {
-  const primary = config.theme.primary;
-  const accent = config.theme.accent;
-  const background = config.theme.background;
-  const text = config.theme.text;
-  const muted = config.theme.muted;
-  const border = config.theme.border;
+  const light = config.theme.light;
+  const dark = config.theme.dark;
 
-  const primaryDeep = shiftHex(primary, -24);
-  const primaryBright = shiftHex(primary, 14);
-  const accentDeep = shiftHex(accent, -16);
-  const pageSurfaceAlt = shiftHex(background, 6);
-  const textOnDark = contrastColor(primary);
-  const splashBackground = config.assets.splashBg ? `url("${config.assets.splashBg}")` : 'none';
+  const primaryFg = readableForeground(config.theme.primary, '#0b111b', '#ffffff');
+  const accentFg = readableForeground(config.theme.accent, '#0b111b', '#ffffff');
+  const destructiveFg = readableForeground(config.theme.destructive, '#0b111b', '#ffffff');
 
-  return `/* Auto-generated by tools/apply-branding.mjs. */\n:root {\n  --brand-blue: ${primary};\n  --brand-blue-deep: ${primaryDeep};\n  --brand-blue-bright: ${primaryBright};\n  --brand-yellow: ${accent};\n  --brand-yellow-deep: ${accentDeep};\n\n  --text-primary: ${text};\n  --text-secondary: ${muted};\n  --text-on-dark: ${textOnDark};\n\n  --bg-page: ${background};\n  --bg-surface: #ffffff;\n  --bg-surface-alt: ${pageSurfaceAlt};\n  --border: ${border};\n\n  --theme-primary: ${primary};\n  --theme-accent: ${accent};\n  --theme-background: ${background};\n  --theme-text: ${text};\n  --theme-muted: ${muted};\n  --theme-border: ${border};\n\n  --splash-bg-image: ${splashBackground};\n}\n`;
+  const baseBlock = buildThemeTokenBlock({
+    primary: config.theme.primary,
+    accent: config.theme.accent,
+    destructive: config.theme.destructive,
+    primaryForeground: primaryFg,
+    accentForeground: accentFg,
+    destructiveForeground: destructiveFg,
+    background: light.background,
+    surface: light.surface,
+    sidebar: light.sidebar,
+    foreground: light.foreground,
+    muted: light.muted,
+    secondary: light.secondary,
+    border: light.border,
+    ring: light.ring,
+    textOnDark: dark.foreground,
+    splashBg: config.assets.splashBg,
+  });
+
+  const darkBlock = buildThemeTokenBlock({
+    primary: config.theme.primary,
+    accent: config.theme.accent,
+    destructive: config.theme.destructive,
+    primaryForeground: primaryFg,
+    accentForeground: accentFg,
+    destructiveForeground: destructiveFg,
+    background: dark.background,
+    surface: dark.surface,
+    sidebar: dark.sidebar,
+    foreground: dark.foreground,
+    muted: dark.muted,
+    secondary: dark.secondary,
+    border: dark.border,
+    ring: dark.ring,
+    textOnDark: dark.foreground,
+    splashBg: config.assets.splashBg,
+  });
+
+  return `/* Auto-generated by tools/apply-branding.mjs. */\n:root {\n${indent(baseBlock, 2)}\n}\n\n@media (prefers-color-scheme: dark) {\n  :root:not([data-theme="light"]) {\n${indent(darkBlock, 4)}\n  }\n}\n\n:root[data-theme="light"],\nbody[data-theme="light"] {\n${indent(baseBlock, 2)}\n}\n\n:root[data-theme="dark"],\nbody[data-theme="dark"] {\n${indent(darkBlock, 2)}\n}\n`;
+}
+
+function buildThemeTokenBlock(theme) {
+  return [
+    `--color-primary: ${theme.primary};`,
+    `--color-primary-foreground: ${theme.primaryForeground};`,
+    `--color-accent: ${theme.accent};`,
+    `--color-accent-foreground: ${theme.accentForeground};`,
+    `--color-destructive: ${theme.destructive};`,
+    `--color-destructive-foreground: ${theme.destructiveForeground};`,
+    `--color-bg: ${theme.background};`,
+    `--color-surface: ${theme.surface};`,
+    `--color-sidebar: ${theme.sidebar};`,
+    `--color-fg: ${theme.foreground};`,
+    `--color-muted: ${theme.muted};`,
+    `--color-secondary: ${theme.secondary};`,
+    `--color-border: ${theme.border};`,
+    `--color-ring: ${theme.ring};`,
+    `--color-primary-strong: color-mix(in srgb, var(--color-primary) 82%, #001325);`,
+    `--color-primary-soft: color-mix(in srgb, var(--color-primary) 18%, var(--color-surface));`,
+    `--color-bg-elevated: var(--color-surface);`,
+    `--color-bg-muted: var(--color-secondary);`,
+    `--color-text: var(--color-fg);`,
+    `--color-text-muted: var(--color-muted);`,
+    `--theme-primary: var(--color-primary);`,
+    `--theme-accent: var(--color-accent);`,
+    `--theme-background: var(--color-bg);`,
+    `--theme-text: var(--color-fg);`,
+    `--theme-muted: var(--color-muted);`,
+    `--theme-border: var(--color-border);`,
+    `--brand-blue: var(--color-primary);`,
+    `--brand-blue-deep: var(--color-primary-strong);`,
+    `--brand-blue-bright: color-mix(in srgb, var(--color-primary) 72%, #ffffff);`,
+    `--brand-yellow: var(--color-accent);`,
+    `--brand-yellow-deep: color-mix(in srgb, var(--color-accent) 74%, #0f1d18);`,
+    `--text-primary: var(--color-fg);`,
+    `--text-secondary: var(--color-muted);`,
+    `--text-on-dark: ${theme.textOnDark};`,
+    `--bg-page: var(--color-bg);`,
+    `--bg-surface: var(--color-surface);`,
+    `--bg-surface-alt: var(--color-secondary);`,
+    `--border: var(--color-border);`,
+    `--success: #15803d;`,
+    `--warning: #a36b00;`,
+    `--error: var(--color-destructive);`,
+    `--info: var(--color-primary);`,
+    `--splash-bg-image: url("${theme.splashBg}");`,
+  ].join('\n');
+}
+
+function readableForeground(hexColor, darkForeground, lightForeground) {
+  const parsed = parseHexColor(hexColor);
+  if (!parsed) {
+    return lightForeground;
+  }
+
+  const [r, g, b] = parsed;
+  const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+  return luminance > 0.62 ? darkForeground : lightForeground;
+}
+
+function parseHexColor(colorValue) {
+  const trimmed = String(colorValue).trim();
+  if (!/^#[0-9a-fA-F]{6}$/.test(trimmed)) {
+    return null;
+  }
+
+  return [
+    Number.parseInt(trimmed.slice(1, 3), 16),
+    Number.parseInt(trimmed.slice(3, 5), 16),
+    Number.parseInt(trimmed.slice(5, 7), 16),
+  ];
+}
+
+function indent(value, spaces) {
+  const prefix = ' '.repeat(spaces);
+  return value.split('\n').map((line) => `${prefix}${line}`).join('\n');
 }
 
 function buildAnalyticsScript(config) {
@@ -451,8 +602,8 @@ function replacePlaceholders(template, tokens, contextLabel) {
 
   const unresolvedMatches = rendered.match(/{{[A-Z0-9_]+}}/g);
   if (unresolvedMatches) {
-    const uniqueUnresolved = [...new Set(unresolvedMatches)].join(', ');
-    throw new Error(`Unresolved placeholders in ${contextLabel}: ${uniqueUnresolved}`);
+    const unique = [...new Set(unresolvedMatches)].join(', ');
+    throw new Error(`Unresolved placeholders in ${contextLabel}: ${unique}`);
   }
 
   return rendered;
@@ -516,45 +667,11 @@ function formatTelUri(phone) {
     return '';
   }
 
-  const prefixed = trimmed.startsWith('+') ? `+${trimmed.slice(1).replace(/\D/g, '')}` : trimmed.replace(/\D/g, '');
-  return prefixed;
-}
+  const normalized = trimmed.startsWith('+')
+    ? `+${trimmed.slice(1).replace(/\D/g, '')}`
+    : trimmed.replace(/\D/g, '');
 
-function shiftHex(hexColor, percent) {
-  const amount = Math.round((255 * percent) / 100);
-  const [r, g, b] = parseHex(hexColor);
-  const next = [
-    clamp(r + amount, 0, 255),
-    clamp(g + amount, 0, 255),
-    clamp(b + amount, 0, 255),
-  ];
-
-  return toHex(next[0], next[1], next[2]);
-}
-
-function parseHex(hexColor) {
-  const normalized = hexColor.replace('#', '');
-  return [
-    Number.parseInt(normalized.slice(0, 2), 16),
-    Number.parseInt(normalized.slice(2, 4), 16),
-    Number.parseInt(normalized.slice(4, 6), 16),
-  ];
-}
-
-function toHex(r, g, b) {
-  return `#${[r, g, b]
-    .map((value) => value.toString(16).padStart(2, '0'))
-    .join('')}`;
-}
-
-function clamp(value, min, max) {
-  return Math.max(min, Math.min(max, value));
-}
-
-function contrastColor(hexColor) {
-  const [r, g, b] = parseHex(hexColor);
-  const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
-  return luminance > 0.56 ? '#111111' : '#f5f7ff';
+  return normalized;
 }
 
 function escapeForRegex(value) {

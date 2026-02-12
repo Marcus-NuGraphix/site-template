@@ -1,11 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 710 270" role="img" aria-labelledby="logo-title logo-desc">
-  <title id="logo-title">Template Logo</title>
-  <desc id="logo-desc">Placeholder logo for template reuse.</desc>
-  <rect width="710" height="270" fill="#ffffff"/>
-  <rect x="35" y="35" width="200" height="200" rx="36" fill="#0b3c97"/>
-  <circle cx="135" cy="135" r="60" fill="#fdf202"/>
-  <path d="M95 135h80" stroke="#0b3c97" stroke-width="16" stroke-linecap="round"/>
-  <path d="M135 95v80" stroke="#0b3c97" stroke-width="16" stroke-linecap="round"/>
-  <text x="270" y="132" font-family="Arial, sans-serif" font-size="56" font-weight="700" fill="#0b3c97">YOUR</text>
-  <text x="270" y="188" font-family="Arial, sans-serif" font-size="56" font-weight="700" fill="#0b3c97">COMPANY</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 180" role="img" aria-labelledby="title desc">
+  <title id="title">Nu Graphix logo</title>
+  <desc id="desc">Nu Graphix wordmark with NG monogram.</desc>
+  <defs>
+    <linearGradient id="ngBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2F7DBA" />
+      <stop offset="100%" stop-color="#266A9F" />
+    </linearGradient>
+  </defs>
+
+  <rect x="8" y="18" width="144" height="144" rx="32" fill="url(#ngBlue)" />
+  <path d="M40 132V48h22l33 50V48h22v84H95L62 82v50H40z" fill="#ffffff" />
+  <path d="M126 124c-8 6-18 10-29 10-25 0-44-18-44-44s19-44 44-44c12 0 23 4 31 12l-13 14c-5-4-11-7-18-7-13 0-23 11-23 25s10 25 23 25c5 0 10-1 14-3v-9H97V84h40v40h-11z" fill="#2ECFA0" fill-opacity="0.95" />
+
+  <g fill="#1F2937">
+    <text x="186" y="96" font-size="58" font-weight="700" font-family="Avenir Next, Segoe UI, Arial, sans-serif" letter-spacing="-1">Nu Graphix</text>
+    <text x="188" y="128" font-size="19" font-weight="500" font-family="Avenir Next, Segoe UI, Arial, sans-serif" fill="#4B5563">Template product starter</text>
+  </g>
 </svg>

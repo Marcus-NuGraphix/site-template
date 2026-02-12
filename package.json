@@ -5,6 +5,11 @@
   "type": "module",
   "scripts": {
     "brand:apply": "node tools/apply-branding.mjs",
+    "client:new": "node tools/new-client.mjs",
+    "dev:setup": "node tools/setup-local-dev.mjs",
+    "dev:up": "npm run brand:apply && docker compose -f docker-compose.local.yml up --build",
+    "dev:down": "docker compose -f docker-compose.local.yml down",
+    "dev:logs": "docker compose -f docker-compose.local.yml logs -f",
     "lint:js": "node tools/lint-js.mjs"
   }
 }
