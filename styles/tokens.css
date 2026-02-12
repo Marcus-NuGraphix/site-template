@@ -1,46 +1,105 @@
 :root {
-  --font-body: "Public Sans", "Segoe UI", Arial, sans-serif;
-  --font-heading: "Sora", "Avenir Next", "Segoe UI", Arial, sans-serif;
+  --font-body: "Avenir Next", "Segoe UI", "Trebuchet MS", system-ui, sans-serif;
+  --font-heading: "Gill Sans", "Avenir Next", "Segoe UI", sans-serif;
 
   --brand-blue: #0b3c97;
   --brand-blue-deep: #082b6d;
-  --brand-blue-bright: #0f4cb7;
+  --brand-blue-bright: #1a5bc0;
   --brand-yellow: #fdf202;
-  --brand-yellow-deep: #ddcf00;
+  --brand-yellow-deep: #d4c900;
 
   --text-primary: #14233f;
   --text-secondary: #425776;
-  --text-on-dark: #eaf1ff;
+  --text-on-dark: #f5f7ff;
 
   --bg-page: #eef3fb;
   --bg-surface: #ffffff;
-  --bg-surface-alt: #e8effa;
+  --bg-surface-alt: #fdffff;
   --border: #d0dced;
 
-  --success: #16a34a;
-  --warning: #f59e0b;
-  --error: #dc2626;
-  --info: #2563eb;
+  --theme-primary: var(--brand-blue);
+  --theme-accent: var(--brand-yellow);
+  --theme-background: var(--bg-page);
+  --theme-text: var(--text-primary);
+  --theme-muted: var(--text-secondary);
+  --theme-border: var(--border);
 
-  --shadow-soft: 0 10px 30px rgba(8, 28, 67, 0.08);
-  --shadow-strong: 0 16px 40px rgba(8, 28, 67, 0.14);
+  --color-primary: var(--theme-primary);
+  --color-primary-strong: var(--brand-blue-deep);
+  --color-primary-soft: color-mix(in srgb, var(--theme-primary) 16%, white);
+  --color-accent: var(--theme-accent);
+  --color-accent-strong: var(--brand-yellow-deep);
 
-  --radius-sm: 10px;
-  --radius-md: 16px;
-  --radius-lg: 24px;
+  --color-bg: var(--theme-background);
+  --color-bg-elevated: var(--bg-surface);
+  --color-bg-muted: var(--bg-surface-alt);
+  --color-border: var(--theme-border);
+  --color-text: var(--theme-text);
+  --color-text-muted: var(--theme-muted);
 
-  --space-1: 0.5rem;
-  --space-2: 0.75rem;
-  --space-3: 1rem;
-  --space-4: 1.5rem;
-  --space-5: 2rem;
-  --space-6: 3rem;
+  --success: #18864c;
+  --warning: #ad6f06;
+  --error: #c23b3b;
+  --info: #1f64bf;
 
-  --content-max: 1120px;
-  --content-narrow: 860px;
-  --nav-height: 80px;
+  --shadow-xs: 0 1px 2px rgba(5, 17, 45, 0.09);
+  --shadow-sm: 0 8px 18px rgba(7, 22, 58, 0.08);
+  --shadow-md: 0 14px 30px rgba(7, 22, 58, 0.12);
 
-  --dur-fast: 160ms;
-  --dur-base: 220ms;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.875rem;
+  --radius-lg: 1.25rem;
+  --radius-pill: 999px;
+
+  --step--1: clamp(0.8125rem, 0.79rem + 0.12vw, 0.875rem);
+  --step-0: clamp(1rem, 0.95rem + 0.22vw, 1.125rem);
+  --step-1: clamp(1.125rem, 1.03rem + 0.42vw, 1.375rem);
+  --step-2: clamp(1.25rem, 1.08rem + 0.82vw, 1.75rem);
+  --step-3: clamp(1.5rem, 1.24rem + 1.22vw, 2.25rem);
+  --step-4: clamp(1.875rem, 1.5rem + 1.7vw, 2.875rem);
+
+  --line-tight: 1.2;
+  --line-body: 1.65;
+  --line-loose: 1.8;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-7: 2rem;
+  --space-8: 2.5rem;
+  --space-9: 3rem;
+  --space-10: 4rem;
+
+  --content-max: 74rem;
+  --content-reading: 68ch;
+  --content-form: 58rem;
+
+  --header-height: 4.5rem;
+  --dur-fast: 150ms;
+  --dur-base: 240ms;
   --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+
+  --splash-bg-image: none;
+  --splash-bg-overlay: linear-gradient(165deg, rgba(8, 22, 52, 0.92), rgba(9, 42, 103, 0.92));
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: color-mix(in srgb, var(--theme-primary) 28%, #03060f);
+    --color-bg-elevated: color-mix(in srgb, var(--theme-primary) 14%, #0b1222);
+    --color-bg-muted: color-mix(in srgb, var(--theme-primary) 24%, #0f1a31);
+    --color-text: #e8eefc;
+    --color-text-muted: #bfd0ee;
+    --color-border: color-mix(in srgb, var(--theme-primary) 38%, #7589ac);
+    --color-primary-soft: color-mix(in srgb, var(--theme-primary) 35%, #0f1e3e);
+
+    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.28);
+    --shadow-sm: 0 10px 26px rgba(0, 0, 0, 0.24);
+    --shadow-md: 0 18px 34px rgba(0, 0, 0, 0.32);
+
+    --splash-bg-overlay: linear-gradient(165deg, rgba(4, 10, 24, 0.94), rgba(6, 30, 74, 0.9));
+  }
 }

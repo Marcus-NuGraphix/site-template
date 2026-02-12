@@ -2,6 +2,7 @@ import { initMenu } from './menu.js';
 import { initReveal } from './reveal.js';
 import { initYear } from './year.js';
 import { initDeleteRequestForm } from './forms/delete-request-form.js';
+import { initPolicyToc } from './policy-toc.js';
 
 document.documentElement.classList.add('has-js');
 
@@ -24,6 +25,7 @@ function initSite() {
   initMenu();
   initReveal();
   initYear();
+  initPolicyToc();
   initDeleteRequestForm();
 }
 

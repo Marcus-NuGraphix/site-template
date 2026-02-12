@@ -417,9 +417,9 @@ function buildCspHeader(config) {
       "frame-ancestors 'none'",
       "object-src 'none'",
       `script-src ${scriptSrc.join(' ')}`,
-      "style-src 'self' https://fonts.googleapis.com",
+      "style-src 'self'",
       "img-src 'self' data: https:",
-      "font-src 'self' https://fonts.gstatic.com data:",
+      "font-src 'self' data:",
       `connect-src ${connectSrc.join(' ')}`,
       "upgrade-insecure-requests",
     ].join('; ');
@@ -431,11 +431,11 @@ function buildCspHeader(config) {
     "form-action 'self'",
     "frame-ancestors 'none'",
     "object-src 'none'",
-    `script-src ${scriptSrc.join(' ')} 'unsafe-inline' https:`,
-    "style-src 'self' 'unsafe-inline' https:",
+    `script-src ${scriptSrc.join(' ')} 'unsafe-inline'`,
+    "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data: https:",
-    "font-src 'self' data: https:",
-    `connect-src ${connectSrc.join(' ')} https:`,
+    "font-src 'self' data:",
+    `connect-src ${connectSrc.join(' ')}`,
     "upgrade-insecure-requests",
   ].join('; ');
 }

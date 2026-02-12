@@ -24,13 +24,6 @@
     <meta name="twitter:image" content="{{TWITTER_IMAGE_URL}}" />
     <meta name="twitter:site" content="{{TWITTER_HANDLE}}" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap"
-      rel="stylesheet"
-    />
-
     <link rel="icon" href="{{ASSET_FAVICON}}" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="{{ASSET_ICON}}" />
 
@@ -47,7 +40,7 @@
     <a class="skip-link" href="#main-content">Skip to content</a>
 
     <header class="site-header">
-      <div class="container">
+      <div class="container site-header-inner">
         <a class="brand-link" href="/" aria-label="{{BRAND_NAME}} home">
           <img class="brand-logo" src="{{ASSET_LOGO}}" alt="{{BRAND_NAME}}" width="520" height="120" />
         </a>
@@ -70,80 +63,137 @@
       </nav>
     </header>
 
-    <main id="main-content">
-      <section class="page-hero">
+    <main id="main-content" class="page-main delete-main">
+      <section class="page-hero" aria-labelledby="delete-title">
         <div class="container">
-          <span class="kicker">Data Subject Request</span>
-          <h1>Delete My Data</h1>
+          <a class="back-link" href="/">Back to Home</a>
+          <p class="kicker">Data Subject Request</p>
+          <h1 id="delete-title">Delete My Data</h1>
           <p>{{DELETE_INTRO}}</p>
-          <div class="legal-meta">
-            <span class="badge">Request Channel: {{DELETE_REQUEST_EMAIL}}</span>
-            <span class="badge">Support: {{SUPPORT_HOURS}}</span>
+          <div class="hero-meta">
+            <span class="badge">Typical response window: 7-14 business days</span>
+            <span class="badge">Identity verification required</span>
           </div>
         </div>
       </section>
 
-      <section class="section alt">
-        <div class="container delete-form-shell">
-          <article class="card reveal highlight-card" {{DELETE_FORM_CARD_HIDDEN_ATTR}}>
-            <h2>Submit Request Form</h2>
-            <form
-              data-delete-request-form
-              action="/delete-my-data/submit.php"
-              method="post"
-              novalidate
-              {{DELETE_FORM_DISABLED_ATTR}}
-            >
+      <section class="section">
+        <div class="container delete-layout">
+          <article class="card reveal delete-form-card" {{DELETE_FORM_CARD_HIDDEN_ATTR}}>
+            <h2>Submit a Deletion Request</h2>
+            <p>
+              Use this form to request deletion of personal information held by {{BRAND_NAME}}.
+              Please provide accurate details so we can verify your identity and process your request.
+            </p>
+            <ul class="delete-trust-list">
+              <li>Required: full name, email address, and request details.</li>
+              <li>Optional: phone number for follow-up if your email response bounces.</li>
+              <li>We may ask for additional verification before final deletion.</li>
+            </ul>
+
+            <div class="form-error-summary" data-form-error-summary role="alert" aria-live="assertive" tabindex="-1" hidden>
+              <p>Please correct the fields below:</p>
+              <ul data-form-error-list></ul>
+            </div>
+
+            <form data-delete-request-form class="form-layout" action="/delete-my-data/submit.php" method="post" novalidate {{DELETE_FORM_DISABLED_ATTR}}>
               <div class="hp-field" aria-hidden="true">
                 <label for="company-field">Company</label>
                 <input id="company-field" name="company" type="text" tabindex="-1" autocomplete="off" />
               </div>
 
               <input type="hidden" name="submitted_at" value="" data-submitted-at />
+              <input type="hidden" name="reference_id" value="" data-reference-id />
 
-              <div class="form-grid">
-                <div>
-                  <label for="full-name">Full Name</label>
-                  <input id="full-name" name="full_name" type="text" autocomplete="name" required minlength="2" maxlength="120" />
-                </div>
-                <div>
-                  <label for="email">Email Address</label>
-                  <input id="email" name="email" type="email" autocomplete="email" required maxlength="160" />
-                </div>
-                <div>
-                  <label for="phone">Phone Number (optional)</label>
-                  <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="40" />
+              <div class="form-section" aria-labelledby="requester-info-title">
+                <h3 id="requester-info-title">1. Your details</h3>
+                <div class="form-grid">
+                  <div class="form-field">
+                    <label for="full-name">Full Name</label>
+                    <input
+                      id="full-name"
+                      name="full_name"
+                      type="text"
+                      autocomplete="name"
+                      required
+                      minlength="2"
+                      maxlength="120"
+                      aria-describedby="full-name-help full-name-error"
+                    />
+                    <p class="field-help" id="full-name-help">Enter the name used when interacting with our services.</p>
+                    <p class="field-error" id="full-name-error" data-field-error-for="full-name"></p>
+                  </div>
+
+                  <div class="form-field">
+                    <label for="email">Email Address</label>
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      autocomplete="email"
+                      required
+                      maxlength="160"
+                      aria-describedby="email-help email-error"
+                    />
+                    <p class="field-help" id="email-help">We will use this email for verification and updates.</p>
+                    <p class="field-error" id="email-error" data-field-error-for="email"></p>
+                  </div>
+
+                  <div class="form-field">
+                    <label for="phone">Phone Number (optional)</label>
+                    <input
+                      id="phone"
+                      name="phone"
+                      type="tel"
+                      inputmode="tel"
+                      autocomplete="tel"
+                      maxlength="40"
+                      aria-describedby="phone-help phone-error"
+                    />
+                    <p class="field-help" id="phone-help">Include country code if available.</p>
+                    <p class="field-error" id="phone-error" data-field-error-for="phone"></p>
+                  </div>
                 </div>
               </div>
 
-              <div class="stack-top-sm">
-                <label for="request-details">Request Details</label>
-                <textarea
-                  id="request-details"
-                  name="request_details"
-                  placeholder="Describe the records or data categories you want removed."
-                  required
-                  minlength="20"
-                  maxlength="4000"
-                ></textarea>
-                <p class="field-help">Include relevant date ranges, channels used, and any references to help us find your data.</p>
-              </div>
+              <div class="form-section" aria-labelledby="request-details-title">
+                <h3 id="request-details-title">2. Request details</h3>
+                <div class="form-field">
+                  <label for="request-details">What data should be deleted?</label>
+                  <textarea
+                    id="request-details"
+                    name="request_details"
+                    placeholder="Describe the records, accounts, or interactions you want deleted."
+                    required
+                    minlength="20"
+                    maxlength="4000"
+                    aria-describedby="request-details-help request-details-error"
+                  ></textarea>
+                  <p class="field-help" id="request-details-help">Mention date ranges, account IDs, and relevant communication channels.</p>
+                  <p class="field-error" id="request-details-error" data-field-error-for="request-details"></p>
+                </div>
 
-              <div class="stack-top-sm">
                 <label class="checkbox-line" for="confirmation">
-                  <input id="confirmation" name="confirmation" type="checkbox" value="1" required />
-                  <span>I confirm this request is accurate and I am authorized to submit it.</span>
+                  <input id="confirmation" name="confirmation" type="checkbox" value="1" required aria-describedby="confirmation-error" />
+                  <span>I confirm that this request is accurate and I am authorized to submit it.</span>
                 </label>
+                <p class="field-error" id="confirmation-error" data-field-error-for="confirmation"></p>
               </div>
 
               <p class="form-note">{{DELETE_FORM_NOTE}}</p>
               <noscript>
-                <p class="form-note">JavaScript is required for protected form submission on this page. Email {{DELETE_REQUEST_EMAIL}} instead.</p>
+                <p class="notice notice-warning">JavaScript is disabled. The form will still submit, but you will see a raw server response.</p>
               </noscript>
 
               <div class="inline-actions">
-                <button class="btn btn-primary" type="submit">Submit Delete Request</button>
+                <button class="btn btn-primary" type="submit">Submit Request</button>
                 <a class="btn btn-secondary" href="{{PRIVACY_POLICY_PATH}}">Review Privacy Policy</a>
+              </div>
+
+              <div class="form-success-panel" data-form-success hidden>
+                <p>Your request was submitted successfully.</p>
+                <p>Reference ID: <strong class="delete-reference" data-reference-output></strong></p>
+                <p>Keep this reference for follow-up communication.</p>
               </div>
 
               <p class="form-status" data-form-status role="status" aria-live="polite"></p>
@@ -151,30 +201,35 @@
           </article>
 
           <article class="card reveal" {{DELETE_FORM_DISABLED_NOTE_HIDDEN_ATTR}}>
-            <h2>Form Currently Disabled</h2>
+            <h2>Form submissions are disabled for this site</h2>
             <p>
-              Web form submissions are temporarily disabled for this brand configuration.
-              Please email your request directly to
-              <a href="mailto:{{DELETE_REQUEST_EMAIL}}">{{DELETE_REQUEST_EMAIL}}</a>.
+              To request data deletion, email
+              <a class="inline-link" href="mailto:{{DELETE_REQUEST_EMAIL}}">{{DELETE_REQUEST_EMAIL}}</a>
+              with your full name, preferred contact email, and request details.
             </p>
-            <div class="notice stack-top-md">
-              Include your full name, contact email, and a clear description of the data to delete.
+            <div class="notice notice-info">
+              For your protection, identity verification will still be required before deletion is completed.
             </div>
           </article>
 
-          <aside class="card reveal delete-alt-card">
-            <h2>Alternative Submission Method</h2>
-            <p>
-              You can email your request to
-              <a href="mailto:{{DELETE_REQUEST_EMAIL}}">{{DELETE_REQUEST_EMAIL}}</a>
-              and include your full name, contact details, and request information.
-            </p>
-            <div class="notice stack-top-md">
-              <strong>Important:</strong> Submission does not result in automatic deletion. Verification and lawful review are required.
-            </div>
-            <div class="inline-actions">
-              <a class="btn btn-soft" href="/">Return to Home</a>
-            </div>
+          <aside class="delete-side-stack reveal">
+            <article class="panel">
+              <h2>What happens after you submit</h2>
+              <ul class="delete-trust-list">
+                <li>We acknowledge your request and provide a reference ID.</li>
+                <li>Our team verifies identity and confirms scope.</li>
+                <li>We process deletion and notify you of completion or lawful limitations.</li>
+              </ul>
+            </article>
+
+            <article class="panel panel-muted delete-fallback-card">
+              <h2>Alternative submission method</h2>
+              <p>
+                You can always send your request directly to
+                <a class="inline-link" href="mailto:{{DELETE_REQUEST_EMAIL}}">{{DELETE_REQUEST_EMAIL}}</a>.
+              </p>
+              <p class="form-note">Support hours: {{SUPPORT_HOURS}}</p>
+            </article>
           </aside>
         </div>
       </section>
@@ -185,6 +240,7 @@
         <section>
           <h3>{{BRAND_NAME}}</h3>
           <p>{{TAGLINE}}</p>
+          <p>{{CONTACT_ADDRESS}}</p>
         </section>
         <section>
           <h4>Legal</h4>

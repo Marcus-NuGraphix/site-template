@@ -5,6 +5,7 @@ Reusable static template for quick client rollout on xneelo shared hosting.
 - Stack: static `HTML/CSS/JS` + optional `PHP` delete-request handler
 - Deploy target: xneelo `public_html`
 - Source of truth: `site.config.json`
+- Asset strategy: local assets only (no required external CDN dependencies)
 
 ## Why `site.config.json` (Option A)
 
@@ -124,10 +125,25 @@ Runs syntax checks over `scripts/` and `tools/`.
 ## Testing Checklist
 
 1. `npm run brand:apply` succeeds without validation errors.
-2. `public_html/index.html`, `public_html/privacy-policy/index.html`, and `public_html/delete-my-data/index.html` render correctly.
-3. `public_html/robots.txt` matches expected index/noindex mode.
-4. `public_html/sitemap.xml` uses the correct base URL.
-5. `public_html/.htaccess` contains CSP mode and HTTPS redirect.
-6. Delete form behavior matches `enableDeleteForm` flag.
-7. When enabled, successful delete form submission sends mail via server Sendmail.
-8. `/.data/.htaccess` blocks direct web access to rate-limit storage.
+2. Mobile layout remains usable down to `320px` width on all pages.
+3. Keyboard-only navigation works for skip-link, menu, links, and form controls.
+4. Screen reader basics are present:
+   - labels associated with every input
+   - `aria-live` updates for form status
+   - error summary announced and focusable
+5. Form failure and success flows are verified:
+   - client-side validation errors
+   - server-side failure message handling
+   - success panel with request reference ID
+6. HTTP status checks:
+   - `GET /` returns `200`
+   - `GET /privacy-policy/` returns `200`
+   - `GET /delete-my-data/` returns `200`
+   - `POST /delete-my-data/submit.php` returns JSON status (`200/4xx/5xx`)
+7. Cache behavior:
+   - HTML/PHP are not cached aggressively
+   - static assets receive short-term cache headers
+8. `public_html/robots.txt` and page robots meta match expected `enableNoIndex` mode.
+9. `public_html/sitemap.xml` uses correct base URL and clean routes.
+10. `public_html/.htaccess` contains HTTPS redirect and generated CSP mode.
+11. `/.data/.htaccess` blocks direct web access to rate-limit storage.

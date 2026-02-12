@@ -58,6 +58,7 @@ $email = normalizeOneLine((string) ($_POST['email'] ?? ''));
 $phone = normalizeOneLine((string) ($_POST['phone'] ?? ''));
 $requestDetails = trim((string) ($_POST['request_details'] ?? ''));
 $confirmation = (string) ($_POST['confirmation'] ?? '');
+$referenceId = normalizeOneLine((string) ($_POST['reference_id'] ?? ''));
 
 if (!isConfirmationChecked($confirmation)) {
   respondJson(400, ['ok' => false, 'error' => 'Please confirm the request before submitting.']);
@@ -79,12 +80,16 @@ if (!isValidLength($requestDetails, 20, 4000)) {
   respondJson(400, ['ok' => false, 'error' => 'Please provide enough detail for your request.']);
 }
 
-if (containsHeaderInjection($fullName) || containsHeaderInjection($email) || containsHeaderInjection($phone)) {
+if ($referenceId === '' || !preg_match('/^DR-\d{8}-[A-Z0-9]{6,12}$/', $referenceId)) {
+  respondJson(400, ['ok' => false, 'error' => 'Invalid request reference. Please refresh and try again.']);
+}
+
+if (containsHeaderInjection($fullName) || containsHeaderInjection($email) || containsHeaderInjection($phone) || containsHeaderInjection($referenceId)) {
   respondJson(400, ['ok' => false, 'error' => 'Invalid request data.']);
 }
 
 $subjectName = preg_replace('/\s+/', ' ', $fullName) ?: 'Unknown';
-$subject = 'Delete My Data Request - ' . $subjectName;
+$subject = 'Delete My Data Request [' . $referenceId . '] - ' . $subjectName;
 
 $userAgent = normalizeOneLine((string) ($_SERVER['HTTP_USER_AGENT'] ?? 'Unknown'));
 $serverTime = gmdate('Y-m-d H:i:s') . ' UTC';
@@ -93,6 +98,7 @@ $bodyLines = [
   'Delete My Data request submitted from ' . SITE_HOST,
   '',
   'Timestamp: ' . $serverTime,
+  'Reference ID: ' . $referenceId,
   'Requester name: ' . $fullName,
   'Requester email: ' . $email,
   'Requester phone: ' . ($phone !== '' ? $phone : 'Not provided'),
@@ -126,7 +132,7 @@ if (!$sent) {
   respondJson(500, ['ok' => false, 'error' => 'Unable to submit request right now. Please try again later.']);
 }
 
-respondJson(200, ['ok' => true]);
+respondJson(200, ['ok' => true, 'referenceId' => $referenceId]);
 
 function respondJson(int $statusCode, array $payload): void
 {

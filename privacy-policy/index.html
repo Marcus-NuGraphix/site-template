@@ -24,13 +24,6 @@
     <meta name="twitter:image" content="{{TWITTER_IMAGE_URL}}" />
     <meta name="twitter:site" content="{{TWITTER_HANDLE}}" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap"
-      rel="stylesheet"
-    />
-
     <link rel="icon" href="{{ASSET_FAVICON}}" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="{{ASSET_ICON}}" />
 
@@ -47,7 +40,7 @@
     <a class="skip-link" href="#main-content">Skip to content</a>
 
     <header class="site-header">
-      <div class="container">
+      <div class="container site-header-inner">
         <a class="brand-link" href="/" aria-label="{{BRAND_NAME}} home">
           <img class="brand-logo" src="{{ASSET_LOGO}}" alt="{{BRAND_NAME}}" width="520" height="120" />
         </a>
@@ -70,77 +63,139 @@
       </nav>
     </header>
 
-    <main id="main-content">
-      <section class="page-hero">
+    <main id="main-content" class="page-main privacy-main">
+      <section class="page-hero" aria-labelledby="privacy-title">
         <div class="container">
-          <span class="kicker">Legal Document</span>
-          <h1>Privacy Policy</h1>
+          <a class="back-link" href="/">Back to Home</a>
+          <p class="kicker">Privacy and Data Protection</p>
+          <h1 id="privacy-title">Privacy Policy</h1>
           <p>{{PRIVACY_INTRO}}</p>
-          <div class="legal-meta">
-            <span class="badge">Effective Date: {{LEGAL_EFFECTIVE_DATE}}</span>
-            <span class="badge">Last Updated: {{LEGAL_LAST_UPDATED}}</span>
+          <div class="hero-meta">
+            <span class="badge">Last updated: {{LEGAL_LAST_UPDATED}}</span>
+            <span class="badge">Effective date: {{LEGAL_EFFECTIVE_DATE}}</span>
           </div>
         </div>
       </section>
 
       <section class="section">
-        <div class="policy-shell policy-layout">
-          <aside class="card reveal policy-aside" aria-labelledby="policy-nav-title">
-            <h2 id="policy-nav-title">On This Page</h2>
+        <div class="container policy-overview-grid">
+          <article class="panel reveal" aria-labelledby="quick-summary-title">
+            <h2 id="quick-summary-title">Quick Summary</h2>
+            <ul class="policy-summary-list">
+              <li>We collect only the information needed to provide services, support requests, and legal compliance.</li>
+              <li>We do not sell personal information.</li>
+              <li>You can request access, correction, or deletion of your personal information where law permits.</li>
+              <li>Deletion requests are reviewed, verified, and processed with legal retention duties in mind.</li>
+              <li>For privacy questions, use the contact details below.</li>
+            </ul>
+          </article>
+
+          <aside class="panel panel-muted reveal policy-contact-box" aria-labelledby="privacy-contact-title">
+            <h2 id="privacy-contact-title">Contact for Privacy Questions</h2>
+            <ul class="contact-list">
+              <li><a class="contact-item" href="mailto:{{CONTACT_EMAIL}}">{{CONTACT_EMAIL}}</a></li>
+              <li><a class="contact-item" href="mailto:{{DELETE_REQUEST_EMAIL}}">{{DELETE_REQUEST_EMAIL}}</a></li>
+              <li><a class="contact-item" href="tel:{{SUPPORT_PHONE_URI}}">{{SUPPORT_PHONE}}</a></li>
+            </ul>
+            <p class="policy-update-meta">Support hours: {{SUPPORT_HOURS}}</p>
+            <p class="policy-update-meta">Address: {{CONTACT_ADDRESS}}</p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container policy-layout">
+          <aside class="panel panel-compact policy-aside" aria-labelledby="policy-nav-title">
+            <h2 id="policy-nav-title">On this page</h2>
             <nav aria-label="Privacy policy sections">
               <ul class="policy-nav-list">
-                <li><a href="#who-we-are">Who We Are</a></li>
-                <li><a href="#what-we-collect">Information We Collect</a></li>
-                <li><a href="#why-we-process">Why We Process Data</a></li>
-                <li><a href="#retention">Retention and Security</a></li>
-                <li><a href="#your-rights">Your Rights</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#scope">1. Scope</a></li>
+                <li><a href="#data-collect">2. Information We Collect</a></li>
+                <li><a href="#lawful-processing">3. Lawful Processing</a></li>
+                <li><a href="#sharing">4. Sharing and Processors</a></li>
+                <li><a href="#retention-security">5. Retention and Security</a></li>
+                <li><a href="#rights">6. Your Rights</a></li>
+                <li><a href="#deletion">7. Deletion Requests</a></li>
+                <li><a href="#updates">8. Policy Updates</a></li>
               </ul>
             </nav>
           </aside>
 
-          <article class="card reveal policy-content-card policy-content">
-            <h2 id="who-we-are">1. Who We Are</h2>
-            <p>
-              {{LEGAL_NAME}} ("{{BRAND_NAME}}", "we", "our", "us") operates {{PRIMARY_HOST}}.
-              This policy describes how we manage personal information in line with applicable law.
-            </p>
+          <article class="panel reveal policy-content" aria-label="Full privacy policy content">
+            <section id="scope" aria-labelledby="scope-title">
+              <h2 id="scope-title">1. Scope</h2>
+              <p>
+                This policy explains how {{LEGAL_NAME}} ("{{BRAND_NAME}}", "we", "our", "us") manages personal information
+                collected through {{PRIMARY_HOST}}, support channels, and related compliance workflows.
+              </p>
+            </section>
 
-            <h2 id="what-we-collect">2. Information We Collect</h2>
-            <ul>
-              <li>Identity and contact details when you submit requests or contact support.</li>
-              <li>Technical data such as browser information, IP address, and service diagnostics.</li>
-              <li>Request details relevant to legal, privacy, or support interactions.</li>
-            </ul>
+            <section id="data-collect" aria-labelledby="data-collect-title">
+              <h2 id="data-collect-title">2. Information We Collect</h2>
+              <p>Depending on your interaction, we may collect:</p>
+              <ul>
+                <li>Identity and contact information you submit in forms or support messages.</li>
+                <li>Technical information such as browser type, IP address, timestamps, and diagnostics.</li>
+                <li>Service records needed to respond to requests, including privacy and deletion enquiries.</li>
+              </ul>
+            </section>
 
-            <h2 id="why-we-process">3. Why We Process Data</h2>
-            <ul>
-              <li>To provide services and respond to enquiries.</li>
-              <li>To protect platform integrity, prevent abuse, and comply with legal obligations.</li>
-              <li>To maintain records required for operational, legal, and auditing purposes.</li>
-            </ul>
+            <section id="lawful-processing" aria-labelledby="lawful-processing-title">
+              <h2 id="lawful-processing-title">3. Lawful Processing</h2>
+              <p>We process personal information for legitimate purposes, including:</p>
+              <ul>
+                <li>Service operation, security, and fraud prevention.</li>
+                <li>Communication, support, and incident handling.</li>
+                <li>Compliance with legal and contractual obligations.</li>
+              </ul>
+            </section>
 
-            <h2 id="retention">4. Retention and Security</h2>
-            <p>
-              We retain personal information only for as long as required for legitimate service delivery,
-              compliance, and dispute resolution. We apply technical and organizational safeguards to reduce
-              unauthorized access, alteration, or loss.
-            </p>
+            <section id="sharing" aria-labelledby="sharing-title">
+              <h2 id="sharing-title">4. Sharing and Processors</h2>
+              <p>
+                We may share information with trusted providers who support hosting, security, and communication.
+                We require confidentiality and appropriate safeguards, and we do not sell personal information.
+              </p>
+            </section>
 
-            <h2 id="your-rights">5. Your Rights</h2>
-            <p>
-              You may request access, correction, or deletion of personal information where lawful.
-              To submit a deletion request, visit <a href="{{DELETE_MY_DATA_PATH}}">{{DELETE_MY_DATA_URL}}</a>.
-            </p>
+            <section id="retention-security" aria-labelledby="retention-security-title">
+              <h2 id="retention-security-title">5. Retention and Security</h2>
+              <p>
+                Information is retained only as long as necessary for service delivery, legal compliance, and dispute handling.
+                We use technical and organizational controls to reduce unauthorized access, misuse, or loss.
+              </p>
+            </section>
 
-            <h2 id="contact">6. Contact</h2>
-            <p>
-              Privacy requests: <a href="mailto:{{CONTACT_EMAIL}}">{{CONTACT_EMAIL}}</a><br />
-              Data deletion mailbox: <a href="mailto:{{DELETE_REQUEST_EMAIL}}">{{DELETE_REQUEST_EMAIL}}</a><br />
-              Support phone: <a href="tel:{{SUPPORT_PHONE_URI}}">{{SUPPORT_PHONE}}</a>
-            </p>
-            <p>Address: {{CONTACT_ADDRESS}}</p>
-            <p>Support hours: {{SUPPORT_HOURS}}</p>
+            <section id="rights" aria-labelledby="rights-title">
+              <h2 id="rights-title">6. Your Rights</h2>
+              <p>You may have the right to request:</p>
+              <ul>
+                <li>Access to personal information.</li>
+                <li>Correction of inaccurate or incomplete details.</li>
+                <li>Deletion where legally permissible.</li>
+                <li>Restriction or objection to certain processing activities.</li>
+              </ul>
+            </section>
+
+            <section id="deletion" aria-labelledby="deletion-title">
+              <h2 id="deletion-title">7. Deletion Requests</h2>
+              <p>
+                To request deletion, use the form at <a class="inline-link" href="{{DELETE_MY_DATA_PATH}}">{{DELETE_MY_DATA_URL}}</a>
+                or email <a class="inline-link" href="mailto:{{DELETE_REQUEST_EMAIL}}">{{DELETE_REQUEST_EMAIL}}</a>.
+              </p>
+              <p>
+                Requests are identity-verified and reviewed against legal, accounting, fraud-prevention,
+                and security retention obligations.
+              </p>
+            </section>
+
+            <section id="updates" aria-labelledby="updates-title">
+              <h2 id="updates-title">8. Policy Updates</h2>
+              <p>
+                We may update this policy to reflect legal, technical, or operational changes.
+                The "Last updated" date on this page is revised whenever material updates are published.
+              </p>
+            </section>
           </article>
         </div>
       </section>
@@ -151,6 +206,7 @@
         <section>
           <h3>{{BRAND_NAME}}</h3>
           <p>{{TAGLINE}}</p>
+          <p>{{CONTACT_ADDRESS}}</p>
         </section>
         <section>
           <h4>Legal</h4>
@@ -162,9 +218,9 @@
         <section>
           <h4>Contact</h4>
           <ul>
-            <li><strong>Email:</strong> <a href="mailto:{{CONTACT_EMAIL}}">{{CONTACT_EMAIL}}</a></li>
-            <li><strong>Delete:</strong> <a href="mailto:{{DELETE_REQUEST_EMAIL}}">{{DELETE_REQUEST_EMAIL}}</a></li>
-            <li><strong>Phone:</strong> <a href="tel:{{SUPPORT_PHONE_URI}}">{{SUPPORT_PHONE}}</a></li>
+            <li><a href="mailto:{{CONTACT_EMAIL}}">{{CONTACT_EMAIL}}</a></li>
+            <li><a href="mailto:{{DELETE_REQUEST_EMAIL}}">{{DELETE_REQUEST_EMAIL}}</a></li>
+            <li><a href="tel:{{SUPPORT_PHONE_URI}}">{{SUPPORT_PHONE}}</a></li>
           </ul>
         </section>
       </div>
