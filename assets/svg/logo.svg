@@ -1,19 +1,87 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 180" role="img" aria-labelledby="title desc">
-  <title id="title">Nu Graphix logo</title>
-  <desc id="desc">Nu Graphix wordmark with NG monogram.</desc>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 256">
+  <!-- Generator: Adobe Illustrator 30.1.0, SVG Export Plug-In . SVG Version: 2.1.1 Build 136)  -->
   <defs>
-    <linearGradient id="ngBlue" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#2F7DBA" />
-      <stop offset="100%" stop-color="#266A9F" />
+    <style>
+      .st0 {
+        fill: url(#linear-gradient2);
+      }
+
+      .st1 {
+        fill: #030712;
+      }
+
+      .st2 {
+        fill: url(#linear-gradient1);
+      }
+
+      .st3 {
+        fill: url(#linear-gradient4);
+      }
+
+      .st4 {
+        fill: url(#linear-gradient3);
+      }
+
+      .st5 {
+        fill: url(#linear-gradient);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="-58.75" y1="157.73" x2="221.53" y2="-4.09" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#155e75"/>
+      <stop offset=".35" stop-color="#06b6d4"/>
+      <stop offset="1" stop-color="#67e8f9"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient1" x1="-24.99" y1="138.24" x2="215.2" y2="-.43" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0891b2"/>
+      <stop offset=".35" stop-color="#22d3ee"/>
+      <stop offset=".48" stop-color="#4fddf2"/>
+      <stop offset=".66" stop-color="#86e9f7"/>
+      <stop offset=".81" stop-color="#adf2fa"/>
+      <stop offset=".93" stop-color="#c6f7fd"/>
+      <stop offset="1" stop-color="#cffafe"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient2" x1="41.75" y1="238.79" x2="278.52" y2="63.55" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#065f46"/>
+      <stop offset=".35" stop-color="#10b981"/>
+      <stop offset=".69" stop-color="#3fd09c"/>
+      <stop offset="1" stop-color="#6ee7b7"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient3" x1="51.31" y1="208.08" x2="259.82" y2="53.76" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#059669"/>
+      <stop offset=".35" stop-color="#34d399"/>
+      <stop offset=".41" stop-color="#46d7a1"/>
+      <stop offset=".61" stop-color="#81e6be"/>
+      <stop offset=".79" stop-color="#acf0d3"/>
+      <stop offset=".92" stop-color="#c7f7e0"/>
+      <stop offset="1" stop-color="#d1fae5"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient4" x1="152.58" y1="201.84" x2="230.55" y2="144.13" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#059669"/>
+      <stop offset=".4" stop-color="#34d399"/>
+      <stop offset=".45" stop-color="#46d7a1"/>
+      <stop offset=".64" stop-color="#81e6be"/>
+      <stop offset=".8" stop-color="#acf0d3"/>
+      <stop offset=".93" stop-color="#c7f7e0"/>
+      <stop offset="1" stop-color="#d1fae5"/>
     </linearGradient>
   </defs>
-
-  <rect x="8" y="18" width="144" height="144" rx="32" fill="url(#ngBlue)" />
-  <path d="M40 132V48h22l33 50V48h22v84H95L62 82v50H40z" fill="#ffffff" />
-  <path d="M126 124c-8 6-18 10-29 10-25 0-44-18-44-44s19-44 44-44c12 0 23 4 31 12l-13 14c-5-4-11-7-18-7-13 0-23 11-23 25s10 25 23 25c5 0 10-1 14-3v-9H97V84h40v40h-11z" fill="#2ECFA0" fill-opacity="0.95" />
-
-  <g fill="#1F2937">
-    <text x="186" y="96" font-size="58" font-weight="700" font-family="Avenir Next, Segoe UI, Arial, sans-serif" letter-spacing="-1">Nu Graphix</text>
-    <text x="188" y="128" font-size="19" font-weight="500" font-family="Avenir Next, Segoe UI, Arial, sans-serif" fill="#4B5563">Template product starter</text>
+  <g>
+    <polygon id="n-base" class="st5" points="200.59 63.81 0 179.63 0 132.19 118.43 63.81 103.92 55.44 0 115.44 0 68 51.96 38 103.92 8 155.88 38 200.59 63.81"/>
+    <polygon id="n-highlight" class="st2" points="192.71 63.81 92.73 121.54 59.53 102.37 126.31 63.81 103.92 50.89 37.14 89.44 3.94 70.28 103.92 12.55 192.71 63.81"/>
+    <path id="u-base" class="st0" d="M207.85,123.81l-118.43,68.37,14.5,8.37,103.92-60v47.44c-25.9,14.96-78.03,45.05-103.92,60-24.04-13.88-72.79-42.03-96.67-55.81l200.59-115.81v47.44Z"/>
+    <polygon id="u-highlight-1" class="st4" points="203.9 83.2 203.9 121.54 148.32 153.63 115.11 134.46 203.9 83.2"/>
+    <polygon id="u-highlight-2" class="st3" points="170.7 166.56 203.9 147.38 203.9 185.72 170.7 166.56"/>
+  </g>
+  <g>
+    <path class="st1" d="M297.1,176.83l-38.69-73.46v73.46h-18.41v-97.8h31.15l38.73,73.32v-73.32h18.41v97.8h-31.19Z"/>
+    <path class="st1" d="M417.93,134.89v5.72c0,15.25-2.62,25.29-7.86,30.13-5.24,4.84-13.32,7.26-24.24,7.26l-16-.15c-8.48,0-14.97-.69-19.47-2.05-4.5-1.37-8.13-4.84-10.89-10.41-2.76-5.57-4.15-14.32-4.15-26.25v-59.97h19.57v51.17c0,9.77.77,16.13,2.31,19.06,1.54,2.93,5.43,4.4,11.66,4.4l8.77.15,8.1-.15c5.33,0,8.75-1.27,10.26-3.81,1.51-2.54,2.26-7.67,2.26-15.39v-55.42h19.66v55.72Z"/>
+    <path class="st1" d="M522.12,121.7l.1,20.53c0,12.03-1.37,20.95-4.1,26.76-2.73,5.82-8.05,8.73-15.95,8.73l-10.22.15-11.66-.15-10.12-.15c-7.39,0-13.25-.76-17.59-2.27s-7.78-4.86-10.31-10.04c-2.54-5.18-3.81-13.1-3.81-23.75l-.19-12.32c0-19.06,1.54-32.26,4.63-39.59,3.08-7.33,10.34-11,21.78-11l14.65-.44,5.4-.15,13.11.44c8.48,0,14.63,2.22,18.46,6.67,3.82,4.45,5.73,13.03,5.73,25.73v1.76h-19.18c0-2.35-.23-4.35-.67-6.01-.45-1.66-1.29-2.83-2.51-3.52-1.22-.68-2.39-1.1-3.52-1.25-1.13-.15-2.75-.22-4.87-.22l-22.65-.15c-4.63,0-7.55,1.71-8.77,5.13-1.22,3.42-1.83,9.19-1.83,17.3v9.09c0,6.75.61,11.75,1.83,15.03,1.22,3.28,2.96,5.13,5.21,5.57,2.25.44,3.98.71,5.2.81,1.22.1,2.76.15,4.63.15l17.45.15c3.28,0,5.86-.83,7.76-2.49,1.89-1.66,2.84-4.79,2.84-9.39l-.1-2.79h-24.77v-18.33h44.05Z"/>
+    <path class="st1" d="M587.76,79.03c7.71,0,13.22,2.27,16.53,6.82,3.31,4.55,4.97,12.59,4.97,24.12,0,4.4-.16,8.16-.48,11.29-.32,3.13-.96,5.84-1.93,8.14-.96,2.3-2.09,4.01-3.37,5.13-1.28,1.12-3.98,2.71-8.09,4.76,4.5.88,7.81,2.62,9.93,5.21,2.12,2.59,3.18,7.11,3.18,13.56v18.77h-19.85v-9.38c0-4.79-.27-8.6-.82-11.44-.55-2.83-3.1-4.25-7.66-4.25h-32.68v25.07h-19.57v-97.8h59.86ZM579.57,128c4.43,0,7.19-.83,8.29-2.49,1.09-1.66,1.64-5.38,1.64-11.15,0-3.22-.21-5.62-.63-7.18-.42-1.56-1.29-2.64-2.6-3.23-1.32-.59-2.39-.93-3.23-1.03-.84-.1-1.83-.15-2.99-.15h-32.58v25.22h32.1Z"/>
+    <path class="st1" d="M632.2,176.83h-21.58l35.84-97.8h26.41l35.07,97.8h-21.52l-6.05-17.74h-41.86l-6.3,17.74ZM645.47,138.85h28.04l-13.9-41.07-14.15,41.07Z"/>
+    <path class="st1" d="M761.93,79.03c9.7,0,16.43,2.4,20.19,7.19,3.76,4.79,5.64,14.42,5.64,28.89,0,13.69-1.46,23.34-4.38,28.96-2.93,5.62-9.05,8.43-18.36,8.43h-35.57v24.34h-19.57v-97.8h52.05ZM768,116.12c0-5.47-.77-9.07-2.31-10.78-1.54-1.71-4.24-2.57-8.1-2.57h-28.14v25.95h28.43c3.73,0,6.35-.81,7.86-2.42,1.51-1.61,2.26-5.01,2.26-10.19Z"/>
+    <path class="st1" d="M875.37,79.03v97.8h-19.66v-37.68h-44.34v37.68h-19.57v-97.8h19.57v35.78h44.34v-35.78h19.66Z"/>
+    <path class="st1" d="M882.51,176.83v-97.8h19.57v97.8h-19.57Z"/>
+    <path class="st1" d="M1000,176.83h-26.81l-21.7-31.19-21.56,31.19h-26.6l35.18-49.86-33.35-47.95h26.1l20.61,29.33,20.61-29.33h25.21l-32.94,47.64,35.25,50.16Z"/>
   </g>
 </svg>

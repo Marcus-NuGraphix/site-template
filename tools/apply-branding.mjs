@@ -462,21 +462,33 @@ function buildBrandCss(config) {
 function buildThemeTokenBlock(theme) {
   return [
     `--color-primary: ${theme.primary};`,
+    `--color-primary-rgb: ${toRgbTriplet(theme.primary, '47 125 186')};`,
     `--color-primary-foreground: ${theme.primaryForeground};`,
     `--color-accent: ${theme.accent};`,
+    `--color-accent-rgb: ${toRgbTriplet(theme.accent, '46 207 160')};`,
     `--color-accent-foreground: ${theme.accentForeground};`,
+    `--color-accent-strong: color-mix(in srgb, var(--color-accent) 84%, #0f1726);`,
+    `--color-accent-soft: rgb(var(--color-accent-rgb) / 0.15);`,
     `--color-destructive: ${theme.destructive};`,
+    `--color-destructive-rgb: ${toRgbTriplet(theme.destructive, '229 72 59')};`,
     `--color-destructive-foreground: ${theme.destructiveForeground};`,
     `--color-bg: ${theme.background};`,
+    `--color-bg-rgb: ${toRgbTriplet(theme.background, '255 255 255')};`,
     `--color-surface: ${theme.surface};`,
+    `--color-surface-rgb: ${toRgbTriplet(theme.surface, '255 255 255')};`,
     `--color-sidebar: ${theme.sidebar};`,
+    `--color-sidebar-rgb: ${toRgbTriplet(theme.sidebar, '250 251 252')};`,
     `--color-fg: ${theme.foreground};`,
+    `--color-fg-rgb: ${toRgbTriplet(theme.foreground, '31 41 55')};`,
     `--color-muted: ${theme.muted};`,
+    `--color-muted-rgb: ${toRgbTriplet(theme.muted, '107 114 128')};`,
     `--color-secondary: ${theme.secondary};`,
+    `--color-secondary-rgb: ${toRgbTriplet(theme.secondary, '243 244 246')};`,
     `--color-border: ${theme.border};`,
     `--color-ring: ${theme.ring};`,
+    `--color-ring-rgb: ${toRgbTriplet(theme.ring, '147 163 184')};`,
     `--color-primary-strong: color-mix(in srgb, var(--color-primary) 82%, #001325);`,
-    `--color-primary-soft: color-mix(in srgb, var(--color-primary) 18%, var(--color-surface));`,
+    `--color-primary-soft: rgb(var(--color-primary-rgb) / 0.16);`,
     `--color-bg-elevated: var(--color-surface);`,
     `--color-bg-muted: var(--color-secondary);`,
     `--color-text: var(--color-fg);`,
@@ -529,6 +541,23 @@ function parseHexColor(colorValue) {
     Number.parseInt(trimmed.slice(3, 5), 16),
     Number.parseInt(trimmed.slice(5, 7), 16),
   ];
+}
+
+function toRgbTriplet(colorValue, fallback) {
+  const parsedHex = parseHexColor(colorValue);
+  if (parsedHex) {
+    return parsedHex.join(' ');
+  }
+
+  const numericMatches = String(colorValue).match(/[\d.]+/g);
+  if (numericMatches && numericMatches.length >= 3) {
+    const [r, g, b] = numericMatches.slice(0, 3).map((value) => Number.parseFloat(value));
+    if ([r, g, b].every((value) => Number.isFinite(value))) {
+      return `${Math.round(r)} ${Math.round(g)} ${Math.round(b)}`;
+    }
+  }
+
+  return fallback;
 }
 
 function indent(value, spaces) {

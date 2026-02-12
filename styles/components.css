@@ -3,14 +3,14 @@
   align-items: center;
   gap: var(--space-2);
   border-radius: var(--radius-pill);
-  border: 1px solid color-mix(in srgb, var(--text-on-dark) 36%, transparent);
-  background: color-mix(in srgb, var(--color-primary-strong) 60%, transparent);
-  color: color-mix(in srgb, var(--text-on-dark) 92%, transparent);
+  border: 1px solid rgb(255 255 255 / 0.34);
+  background: rgb(7 18 36 / 0.42);
+  color: rgb(249 250 251 / 0.9);
   font-size: var(--step--1);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  padding: 0.32rem 0.72rem;
+  letter-spacing: 0.08em;
+  padding: 0.35rem 0.74rem;
 }
 
 .badge {
@@ -18,12 +18,16 @@
   align-items: center;
   gap: var(--space-1);
   border-radius: var(--radius-pill);
-  border: 1px solid color-mix(in srgb, var(--color-primary) 22%, white);
-  background: color-mix(in srgb, var(--color-primary) 10%, white);
-  color: var(--color-primary-strong);
+  border: 1px solid rgb(var(--color-primary-rgb) / 0.38);
+  background: rgb(var(--color-primary-rgb) / 0.14);
+  color: var(--color-text);
   font-size: var(--step--1);
   font-weight: 700;
-  padding: 0.28rem 0.68rem;
+  padding: 0.3rem 0.68rem;
+}
+
+.template-banner {
+  margin-bottom: var(--space-3);
 }
 
 .inline-actions {
@@ -45,6 +49,7 @@
   gap: var(--space-2);
   font-size: var(--step--1);
   font-weight: 700;
+  letter-spacing: 0.02em;
   line-height: 1.2;
   text-decoration: none;
   cursor: pointer;
@@ -67,7 +72,7 @@
 .btn-primary {
   background: var(--color-accent);
   border-color: var(--color-accent);
-  color: #111;
+  color: var(--color-accent-foreground);
   box-shadow: var(--shadow-xs);
 }
 
@@ -78,31 +83,31 @@
 }
 
 .btn-secondary {
-  background: var(--color-bg-elevated);
-  border-color: var(--color-border);
+  background: rgb(var(--color-bg-rgb) / 0.92);
+  border-color: rgb(var(--color-primary-rgb) / 0.36);
   color: var(--color-primary-strong);
 }
 
 .btn-secondary:hover,
 .btn-secondary:focus-visible {
-  background: var(--color-primary-soft);
-  border-color: color-mix(in srgb, var(--color-primary) 44%, var(--color-border));
+  background: rgb(var(--color-primary-rgb) / 0.14);
+  border-color: rgb(var(--color-primary-rgb) / 0.48);
 }
 
 .btn-ghost {
   background: transparent;
-  border-color: color-mix(in srgb, var(--text-on-dark) 40%, transparent);
+  border-color: rgb(255 255 255 / 0.35);
   color: var(--text-on-dark);
 }
 
 .btn-ghost:hover,
 .btn-ghost:focus-visible {
-  background: color-mix(in srgb, var(--text-on-dark) 14%, transparent);
+  background: rgb(249 250 251 / 0.15);
 }
 
 .btn:disabled,
 .btn[aria-disabled="true"] {
-  opacity: 0.62;
+  opacity: 0.6;
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
@@ -110,15 +115,26 @@
 
 .card,
 .panel {
-  background: var(--color-bg-elevated);
+  position: relative;
+  background: rgb(var(--color-surface-rgb) / 0.95);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: clamp(var(--space-4), 2vw, var(--space-6));
   box-shadow: var(--shadow-sm);
 }
 
+.card::before,
+.panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  border: 1px solid rgb(var(--color-primary-rgb) / 0.1);
+}
+
 .panel-muted {
-  background: var(--color-bg-muted);
+  background: rgb(var(--color-secondary-rgb) / 0.76);
 }
 
 .panel-compact {
@@ -135,22 +151,22 @@
 
 .notice-info {
   color: var(--info);
-  background: color-mix(in srgb, var(--info) 10%, var(--color-bg-elevated));
+  background: rgb(var(--color-primary-rgb) / 0.11);
 }
 
 .notice-success {
   color: var(--success);
-  background: color-mix(in srgb, var(--success) 10%, var(--color-bg-elevated));
+  background: rgb(21 128 61 / 0.1);
 }
 
 .notice-warning {
   color: var(--warning);
-  background: color-mix(in srgb, var(--warning) 12%, var(--color-bg-elevated));
+  background: rgb(163 107 0 / 0.12);
 }
 
 .notice-error {
   color: var(--error);
-  background: color-mix(in srgb, var(--error) 10%, var(--color-bg-elevated));
+  background: rgb(var(--color-destructive-rgb) / 0.11);
 }
 
 .back-link {
@@ -161,7 +177,7 @@
   font-weight: 600;
   font-size: var(--step--1);
   text-decoration: none;
-  color: color-mix(in srgb, var(--text-on-dark) 90%, transparent);
+  color: rgb(249 250 251 / 0.9);
 }
 
 .back-link::before {
@@ -175,7 +191,7 @@
 
 .back-link:hover,
 .back-link:focus-visible {
-  color: #fff;
+  color: #ffffff;
 }
 
 .inline-link {
@@ -208,7 +224,7 @@
 }
 
 .form-section {
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid rgb(var(--color-primary-rgb) / 0.22);
   padding-top: var(--space-4);
 }
 
@@ -231,6 +247,10 @@
 .field-help {
   color: var(--color-text-muted);
   font-size: var(--step--1);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  justify-content: space-between;
 }
 
 .field-error {
@@ -240,6 +260,19 @@
   font-weight: 600;
 }
 
+.char-counter {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+
+.char-counter.is-near-limit {
+  color: var(--warning);
+}
+
+.char-counter.is-at-limit {
+  color: var(--error);
+}
+
 input,
 textarea,
 select {
@@ -247,7 +280,7 @@ select {
   min-height: 2.8rem;
   border-radius: var(--radius-md);
   border: 1px solid var(--color-border);
-  background: var(--color-bg-elevated);
+  background: rgb(var(--color-bg-rgb) / 0.92);
   color: var(--color-text);
   padding: 0.64rem 0.78rem;
   transition: border-color var(--dur-fast) var(--ease-standard), box-shadow var(--dur-fast) var(--ease-standard);
@@ -260,21 +293,21 @@ textarea {
 
 input::placeholder,
 textarea::placeholder {
-  color: color-mix(in srgb, var(--color-text-muted) 80%, transparent);
+  color: rgb(var(--color-muted-rgb) / 0.85);
 }
 
 input:focus,
 textarea:focus,
 select:focus {
-  border-color: color-mix(in srgb, var(--color-primary) 55%, var(--color-border));
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-ring) 38%, transparent);
+  border-color: rgb(var(--color-primary-rgb) / 0.65);
+  box-shadow: 0 0 0 3px rgb(var(--color-ring-rgb, 147 163 184) / 0.32);
 }
 
 input[aria-invalid="true"],
 textarea[aria-invalid="true"],
 select[aria-invalid="true"] {
   border-color: var(--error);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--error) 18%, transparent);
+  box-shadow: 0 0 0 3px rgb(var(--color-destructive-rgb) / 0.18);
 }
 
 .checkbox-line {
@@ -307,16 +340,16 @@ select[aria-invalid="true"] {
 }
 
 .form-error-summary {
-  border: 1px solid color-mix(in srgb, var(--error) 40%, var(--color-border));
+  border: 1px solid rgb(var(--color-destructive-rgb) / 0.42);
   border-left: 0.35rem solid var(--error);
   border-radius: var(--radius-md);
-  background: color-mix(in srgb, var(--error) 8%, var(--color-bg-elevated));
+  background: rgb(var(--color-destructive-rgb) / 0.08);
   padding: var(--space-4);
 }
 
-.form-error-summary p {
+.form-error-summary h3 {
   margin-bottom: var(--space-2);
-  font-weight: 700;
+  font-size: var(--step-0);
   color: var(--error);
 }
 
@@ -327,19 +360,23 @@ select[aria-invalid="true"] {
   gap: var(--space-1);
 }
 
+.form-error-summary a {
+  color: var(--error);
+}
+
 .form-success-panel {
-  border: 1px solid color-mix(in srgb, var(--success) 34%, var(--color-border));
+  border: 1px solid rgb(21 128 61 / 0.42);
   border-left: 0.35rem solid var(--success);
   border-radius: var(--radius-md);
-  background: color-mix(in srgb, var(--success) 9%, var(--color-bg-elevated));
+  background: rgb(21 128 61 / 0.1);
   padding: var(--space-4);
   display: grid;
   gap: var(--space-2);
 }
 
 .form-success-panel strong {
-  font-size: var(--step-1);
   color: var(--success);
+  font-family: var(--font-mono);
 }
 
 .form-status {
@@ -366,13 +403,14 @@ select[aria-invalid="true"] {
   padding: 0;
   list-style: none;
   display: grid;
-  gap: var(--space-2);
+  gap: var(--space-3);
 }
 
 .contact-item {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
+  text-decoration: none;
 }
 
 .contact-item svg {
@@ -383,8 +421,8 @@ select[aria-invalid="true"] {
 
 .menu-toggle {
   min-height: 2.75rem;
-  border: 1px solid var(--color-border);
-  background: var(--color-bg-elevated);
+  border: 1px solid rgb(var(--color-primary-rgb) / 0.32);
+  background: rgb(var(--color-bg-rgb) / 0.75);
   color: var(--color-primary-strong);
   border-radius: var(--radius-pill);
   padding: 0.44rem 0.9rem;
@@ -422,5 +460,151 @@ select[aria-invalid="true"] {
 
   .btn {
     width: 100%;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root:not([data-contrast="normal"]) .kicker,
+  :root:not([data-contrast="normal"]) .badge,
+  :root:not([data-contrast="normal"]) .btn,
+  :root:not([data-contrast="normal"]) .menu-toggle,
+  :root:not([data-contrast="normal"]) .card,
+  :root:not([data-contrast="normal"]) .panel,
+  :root:not([data-contrast="normal"]) input,
+  :root:not([data-contrast="normal"]) textarea,
+  :root:not([data-contrast="normal"]) select {
+    box-shadow: none;
+  }
+
+  :root:not([data-contrast="normal"]) .btn,
+  :root:not([data-contrast="normal"]) .menu-toggle,
+  :root:not([data-contrast="normal"]) input,
+  :root:not([data-contrast="normal"]) textarea,
+  :root:not([data-contrast="normal"]) select {
+    border-width: 2px;
+  }
+
+  :root:not([data-contrast="normal"]) .card,
+  :root:not([data-contrast="normal"]) .panel,
+  :root:not([data-contrast="normal"]) .form-error-summary,
+  :root:not([data-contrast="normal"]) .form-success-panel,
+  :root:not([data-contrast="normal"]) .notice {
+    border-width: 2px;
+    background: var(--color-bg-elevated);
+  }
+
+  :root:not([data-contrast="normal"]) .card::before,
+  :root:not([data-contrast="normal"]) .panel::before {
+    border-color: rgb(var(--color-fg-rgb) / 0.44);
+  }
+
+  :root:not([data-contrast="normal"]) .btn-secondary {
+    background: var(--color-bg-elevated);
+    color: var(--color-text);
+  }
+
+  :root:not([data-contrast="normal"]) input::placeholder,
+  :root:not([data-contrast="normal"]) textarea::placeholder {
+    color: rgb(var(--color-muted-rgb));
+  }
+}
+
+:root[data-contrast="high"] .kicker,
+:root[data-contrast="high"] .badge,
+:root[data-contrast="high"] .btn,
+:root[data-contrast="high"] .menu-toggle,
+:root[data-contrast="high"] .card,
+:root[data-contrast="high"] .panel,
+:root[data-contrast="high"] input,
+:root[data-contrast="high"] textarea,
+:root[data-contrast="high"] select,
+body[data-contrast="high"] .kicker,
+body[data-contrast="high"] .badge,
+body[data-contrast="high"] .btn,
+body[data-contrast="high"] .menu-toggle,
+body[data-contrast="high"] .card,
+body[data-contrast="high"] .panel,
+body[data-contrast="high"] input,
+body[data-contrast="high"] textarea,
+body[data-contrast="high"] select {
+  box-shadow: none;
+}
+
+:root[data-contrast="high"] .btn,
+:root[data-contrast="high"] .menu-toggle,
+:root[data-contrast="high"] input,
+:root[data-contrast="high"] textarea,
+:root[data-contrast="high"] select,
+body[data-contrast="high"] .btn,
+body[data-contrast="high"] .menu-toggle,
+body[data-contrast="high"] input,
+body[data-contrast="high"] textarea,
+body[data-contrast="high"] select {
+  border-width: 2px;
+}
+
+:root[data-contrast="high"] .card,
+:root[data-contrast="high"] .panel,
+:root[data-contrast="high"] .form-error-summary,
+:root[data-contrast="high"] .form-success-panel,
+:root[data-contrast="high"] .notice,
+body[data-contrast="high"] .card,
+body[data-contrast="high"] .panel,
+body[data-contrast="high"] .form-error-summary,
+body[data-contrast="high"] .form-success-panel,
+body[data-contrast="high"] .notice {
+  border-width: 2px;
+  background: var(--color-bg-elevated);
+}
+
+:root[data-contrast="high"] .card::before,
+:root[data-contrast="high"] .panel::before,
+body[data-contrast="high"] .card::before,
+body[data-contrast="high"] .panel::before {
+  border-color: rgb(var(--color-fg-rgb) / 0.44);
+}
+
+:root[data-contrast="high"] .btn-secondary,
+body[data-contrast="high"] .btn-secondary {
+  background: var(--color-bg-elevated);
+  color: var(--color-text);
+}
+
+:root[data-contrast="high"] input::placeholder,
+:root[data-contrast="high"] textarea::placeholder,
+body[data-contrast="high"] input::placeholder,
+body[data-contrast="high"] textarea::placeholder {
+  color: rgb(var(--color-muted-rgb));
+}
+
+@media (forced-colors: active) {
+  .btn,
+  .menu-toggle,
+  input,
+  textarea,
+  select,
+  .card,
+  .panel,
+  .notice,
+  .form-error-summary,
+  .form-success-panel,
+  .badge,
+  .kicker {
+    forced-color-adjust: none;
+    border: 1px solid ButtonText;
+    background: Canvas;
+    color: CanvasText;
+  }
+
+  .btn-primary,
+  .btn-secondary,
+  .btn-ghost {
+    background: ButtonFace;
+    color: ButtonText;
+  }
+
+  .form-status.is-error,
+  .field-error {
+    color: CanvasText;
   }
 }

@@ -1,33 +1,92 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
-  <title id="title">Nu Graphix construction background</title>
-  <desc id="desc">Abstract Nu Graphix branded geometric background.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" role="img" aria-labelledby="title desc">
+  <title id="title">Nu Graphix under construction background</title>
+  <desc id="desc">Full-bleed abstract cyber-tech background in Nu Graphix brand colors.</desc>
   <defs>
     <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0E1623" />
-      <stop offset="100%" stop-color="#1B2432" />
+      <stop offset="0%" stop-color="#020617" />
+      <stop offset="52%" stop-color="#042131" />
+      <stop offset="100%" stop-color="#063243" />
     </linearGradient>
-    <linearGradient id="orbBlue" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#2F7DBA" stop-opacity="0.95" />
-      <stop offset="100%" stop-color="#2F7DBA" stop-opacity="0.15" />
+
+    <radialGradient id="cyanBloom" cx="80%" cy="14%" r="52%">
+      <stop offset="0%" stop-color="#67E8F9" stop-opacity="0.56" />
+      <stop offset="45%" stop-color="#06B6D4" stop-opacity="0.24" />
+      <stop offset="100%" stop-color="#06B6D4" stop-opacity="0" />
+    </radialGradient>
+
+    <radialGradient id="greenBloom" cx="16%" cy="92%" r="55%">
+      <stop offset="0%" stop-color="#6EE7B7" stop-opacity="0.48" />
+      <stop offset="48%" stop-color="#10B981" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#10B981" stop-opacity="0" />
+    </radialGradient>
+
+    <linearGradient id="traceCyan" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#22D3EE" stop-opacity="0" />
+      <stop offset="44%" stop-color="#22D3EE" stop-opacity="0.55" />
+      <stop offset="100%" stop-color="#67E8F9" stop-opacity="0.16" />
     </linearGradient>
-    <linearGradient id="orbGreen" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#2ECFA0" stop-opacity="0.85" />
-      <stop offset="100%" stop-color="#2ECFA0" stop-opacity="0.1" />
+
+    <linearGradient id="traceGreen" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10B981" stop-opacity="0" />
+      <stop offset="50%" stop-color="#34D399" stop-opacity="0.52" />
+      <stop offset="100%" stop-color="#6EE7B7" stop-opacity="0.16" />
     </linearGradient>
+
+    <pattern id="techGrid" width="84" height="84" patternUnits="userSpaceOnUse">
+      <path d="M84 0H0V84" fill="none" stroke="#67E8F9" stroke-opacity="0.08" stroke-width="1" />
+      <circle cx="0" cy="0" r="1.3" fill="#34D399" fill-opacity="0.32" />
+    </pattern>
+
+    <filter id="softGlow" x="-15%" y="-15%" width="130%" height="130%">
+      <feGaussianBlur stdDeviation="9" />
+    </filter>
   </defs>
 
-  <rect width="1200" height="630" fill="url(#bg)" />
-  <circle cx="1010" cy="120" r="260" fill="url(#orbBlue)" />
-  <circle cx="220" cy="560" r="290" fill="url(#orbGreen)" />
+  <rect width="1920" height="1080" fill="url(#bg)" />
+  <rect width="1920" height="1080" fill="url(#techGrid)" />
 
-  <g stroke="#9FC8E6" stroke-opacity="0.35" fill="none">
-    <path d="M100 500C280 420 360 360 520 260C690 155 840 125 1100 132" stroke-width="2" />
-    <path d="M90 540C310 450 420 390 575 300C735 207 870 190 1120 198" stroke-width="1.5" />
+  <ellipse cx="1560" cy="140" rx="720" ry="380" fill="url(#cyanBloom)" />
+  <ellipse cx="210" cy="980" rx="760" ry="420" fill="url(#greenBloom)" />
+
+  <g fill="none" stroke-linecap="round">
+    <path d="M-60 846C250 700 510 610 768 548C1070 474 1356 440 2010 436" stroke="url(#traceCyan)" stroke-width="3" />
+    <path d="M-120 908C310 734 668 608 960 544C1258 478 1518 466 2040 478" stroke="url(#traceCyan)" stroke-width="1.6" />
+    <path d="M-80 988C356 840 678 730 998 658C1318 588 1536 578 2030 604" stroke="url(#traceGreen)" stroke-width="2.2" />
   </g>
 
-  <g transform="translate(70,72)">
-    <rect x="0" y="0" width="138" height="138" rx="30" fill="#2F7DBA" />
-    <path d="M29 118V20h20l32 48V20h20v98H81L49 70v48H29z" fill="#fff" />
-    <path d="M120 109c-7 5-15 8-24 8-20 0-36-14-36-35s16-35 36-35c10 0 19 3 26 9l-11 11c-4-3-9-5-14-5-10 0-18 9-18 20s8 20 18 20c4 0 8-1 11-2v-7h-12V78h29v31h-5z" fill="#2ECFA0" />
+  <g fill="none" stroke-linecap="round" stroke-opacity="0.45">
+    <path d="M210 332H410L476 266H638" stroke="#22D3EE" stroke-width="2" />
+    <path d="M320 396H510L590 316H822" stroke="#67E8F9" stroke-width="1.4" />
+    <path d="M1254 302H1440L1512 230H1706" stroke="#34D399" stroke-width="2" />
+    <path d="M1162 384H1366L1450 302H1650" stroke="#6EE7B7" stroke-width="1.4" />
+  </g>
+
+  <g>
+    <circle cx="410" cy="332" r="8" fill="#67E8F9" fill-opacity="0.72" filter="url(#softGlow)" />
+    <circle cx="638" cy="332" r="7" fill="#22D3EE" fill-opacity="0.74" filter="url(#softGlow)" />
+    <circle cx="510" cy="396" r="7" fill="#22D3EE" fill-opacity="0.62" filter="url(#softGlow)" />
+    <circle cx="822" cy="316" r="6" fill="#67E8F9" fill-opacity="0.6" filter="url(#softGlow)" />
+    <circle cx="1440" cy="302" r="8" fill="#6EE7B7" fill-opacity="0.7" filter="url(#softGlow)" />
+    <circle cx="1706" cy="230" r="7" fill="#34D399" fill-opacity="0.68" filter="url(#softGlow)" />
+    <circle cx="1366" cy="384" r="6" fill="#34D399" fill-opacity="0.58" filter="url(#softGlow)" />
+    <circle cx="1650" cy="302" r="6" fill="#6EE7B7" fill-opacity="0.6" filter="url(#softGlow)" />
+  </g>
+
+  <g opacity="0.3">
+    <polygon points="980 184 1172 294 980 404 788 294" fill="none" stroke="#67E8F9" stroke-width="2" />
+    <polygon points="980 256 1048 294 980 332 912 294" fill="#22D3EE" fill-opacity="0.34" />
+  </g>
+
+  <g opacity="0.26">
+    <polygon points="242 640 432 748 242 856 52 748" fill="none" stroke="#6EE7B7" stroke-width="2" />
+    <polygon points="242 692 336 748 242 804 148 748" fill="#34D399" fill-opacity="0.3" />
+  </g>
+
+  <g opacity="0.24" fill="none" stroke="#22D3EE">
+    <rect x="1512" y="712" width="262" height="168" rx="14" stroke-width="2" />
+    <rect x="1540" y="740" width="146" height="16" rx="8" stroke-width="1.5" />
+    <rect x="1540" y="774" width="212" height="12" rx="6" stroke-width="1.2" />
+    <rect x="1540" y="802" width="170" height="12" rx="6" stroke-width="1.2" />
+    <rect x="1540" y="830" width="98" height="12" rx="6" stroke-width="1.2" />
   </g>
 </svg>

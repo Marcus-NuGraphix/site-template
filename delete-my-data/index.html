@@ -72,7 +72,7 @@
           <p>{{DELETE_INTRO}}</p>
           <div class="hero-meta">
             <span class="badge">Typical response window: 7-14 business days</span>
-            <span class="badge">Identity verification required</span>
+            <span class="badge">Identity verification is required</span>
           </div>
         </div>
       </section>
@@ -80,19 +80,26 @@
       <section class="section">
         <div class="container delete-layout">
           <article class="card reveal delete-form-card" {{DELETE_FORM_CARD_HIDDEN_ATTR}}>
-            <h2>Submit a Deletion Request</h2>
+            <h2>Submit a deletion request</h2>
             <p>
               Use this form to request deletion of personal information held by {{BRAND_NAME}}.
-              Please provide accurate details so we can verify your identity and process your request.
+              Please provide accurate information so we can verify your identity and process your request safely.
             </p>
+
+            <ol class="delete-step-list" aria-label="How this request works">
+              <li><span>STEP 01</span>Complete your identity and contact details.</li>
+              <li><span>STEP 02</span>Describe what records should be deleted.</li>
+              <li><span>STEP 03</span>Receive your reference ID and verification follow-up.</li>
+            </ol>
+
             <ul class="delete-trust-list">
               <li>Required: full name, email address, and request details.</li>
-              <li>Optional: phone number for follow-up if your email response bounces.</li>
-              <li>We may ask for additional verification before final deletion.</li>
+              <li>Optional: phone number for fallback contact if email fails.</li>
+              <li>We may request extra identity checks before deletion is finalized.</li>
             </ul>
 
             <div class="form-error-summary" data-form-error-summary role="alert" aria-live="assertive" tabindex="-1" hidden>
-              <p>Please correct the fields below:</p>
+              <h3>There is a problem with your submission</h3>
               <ul data-form-error-list></ul>
             </div>
 
@@ -135,7 +142,7 @@
                       maxlength="160"
                       aria-describedby="email-help email-error"
                     />
-                    <p class="field-help" id="email-help">We will use this email for verification and updates.</p>
+                    <p class="field-help" id="email-help">We use this address for verification and completion updates.</p>
                     <p class="field-error" id="email-error" data-field-error-for="email"></p>
                   </div>
 
@@ -169,29 +176,32 @@
                     maxlength="4000"
                     aria-describedby="request-details-help request-details-error"
                   ></textarea>
-                  <p class="field-help" id="request-details-help">Mention date ranges, account IDs, and relevant communication channels.</p>
+                  <p class="field-help" id="request-details-help">
+                    Mention date ranges, account IDs, and relevant communication channels.
+                    <span class="char-counter" data-char-counter data-for="request-details" data-max="4000" aria-live="polite">0/4000</span>
+                  </p>
                   <p class="field-error" id="request-details-error" data-field-error-for="request-details"></p>
                 </div>
 
                 <label class="checkbox-line" for="confirmation">
                   <input id="confirmation" name="confirmation" type="checkbox" value="1" required aria-describedby="confirmation-error" />
-                  <span>I confirm that this request is accurate and I am authorized to submit it.</span>
+                  <span>I confirm this request is accurate and I am authorized to submit it.</span>
                 </label>
                 <p class="field-error" id="confirmation-error" data-field-error-for="confirmation"></p>
               </div>
 
               <p class="form-note">{{DELETE_FORM_NOTE}}</p>
               <noscript>
-                <p class="notice notice-warning">JavaScript is disabled. The form will still submit, but you will see a raw server response.</p>
+                <p class="notice notice-warning">JavaScript is disabled. The form still submits, but responses are shown as raw server output.</p>
               </noscript>
 
               <div class="inline-actions">
-                <button class="btn btn-primary" type="submit">Submit Request</button>
-                <a class="btn btn-secondary" href="{{PRIVACY_POLICY_PATH}}">Review Privacy Policy</a>
+                <button class="btn btn-primary" type="submit" data-submit-label="Submit request">Submit request</button>
+                <a class="btn btn-secondary" href="{{PRIVACY_POLICY_PATH}}">Review privacy policy</a>
               </div>
 
               <div class="form-success-panel" data-form-success hidden>
-                <p>Your request was submitted successfully.</p>
+                <p>Request submitted successfully.</p>
                 <p>Reference ID: <strong class="delete-reference" data-reference-output></strong></p>
                 <p>Keep this reference for follow-up communication.</p>
               </div>
@@ -208,7 +218,7 @@
               with your full name, preferred contact email, and request details.
             </p>
             <div class="notice notice-info">
-              For your protection, identity verification will still be required before deletion is completed.
+              Identity verification is still required before deletion can be completed.
             </div>
           </article>
 
@@ -216,16 +226,16 @@
             <article class="panel">
               <h2>What happens after you submit</h2>
               <ul class="delete-trust-list">
-                <li>We acknowledge your request and provide a reference ID.</li>
-                <li>Our team verifies identity and confirms scope.</li>
-                <li>We process deletion and notify you of completion or lawful limitations.</li>
+                <li>We acknowledge your request and log your reference ID.</li>
+                <li>Our team verifies identity and confirms request scope.</li>
+                <li>We process deletion and confirm completion or lawful limitations.</li>
               </ul>
             </article>
 
             <article class="panel panel-muted delete-fallback-card">
               <h2>Alternative submission method</h2>
               <p>
-                You can always send your request directly to
+                You can send your request directly to
                 <a class="inline-link" href="mailto:{{DELETE_REQUEST_EMAIL}}">{{DELETE_REQUEST_EMAIL}}</a>.
               </p>
               <p class="form-note">Support hours: {{SUPPORT_HOURS}}</p>

@@ -26,9 +26,32 @@ export function initDeleteRequestForm() {
     return;
   }
 
+  const submitLabel = (submitButton.getAttribute('data-submit-label') || submitButton.textContent || 'Submit request').trim();
+
   const validatableFields = Array.from(form.querySelectorAll('input, textarea, select'))
     .filter((field) => field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement || field instanceof HTMLSelectElement)
     .filter((field) => field.name !== 'company' && field.name !== 'submitted_at' && field.name !== 'reference_id');
+
+  const charCounters = Array.from(form.querySelectorAll('[data-char-counter]'))
+    .map((counter) => {
+      if (!(counter instanceof HTMLElement)) {
+        return null;
+      }
+
+      const fieldId = counter.getAttribute('data-for') || '';
+      const field = form.querySelector(`#${fieldId}`);
+      if (!(field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement)) {
+        return null;
+      }
+
+      const max = Number.parseInt(counter.getAttribute('data-max') || '', 10);
+      if (!Number.isFinite(max) || max <= 0) {
+        return null;
+      }
+
+      return { counter, field, max };
+    })
+    .filter(Boolean);
 
   const supportsAsyncSubmit = typeof window.fetch === 'function' && typeof window.FormData === 'function';
   const escapeSelector = (value) => {
@@ -38,6 +61,7 @@ export function initDeleteRequestForm() {
 
     return String(value).replace(/["\\]/g, '\\$&');
   };
+
   let isSubmitting = false;
 
   const setStatus = (message, state = '') => {
@@ -53,7 +77,7 @@ export function initDeleteRequestForm() {
     isSubmitting = busy;
     submitButton.disabled = busy;
     submitButton.setAttribute('aria-busy', busy ? 'true' : 'false');
-    submitButton.textContent = busy ? 'Submitting...' : 'Submit Request';
+    submitButton.textContent = busy ? 'Submitting...' : submitLabel;
   };
 
   const stampSubmitTime = () => {
@@ -102,10 +126,13 @@ export function initDeleteRequestForm() {
 
   const saveSuccess = (referenceId) => {
     try {
-      sessionStorage.setItem(SUCCESS_STORAGE_KEY, JSON.stringify({
-        referenceId,
-        timestamp: Date.now(),
-      }));
+      sessionStorage.setItem(
+        SUCCESS_STORAGE_KEY,
+        JSON.stringify({
+          referenceId,
+          timestamp: Date.now(),
+        })
+      );
     } catch {
       // no-op
     }
@@ -130,6 +157,7 @@ export function initDeleteRequestForm() {
       }
 
       showSuccess(parsed.referenceId);
+      setStatus(`Last successful request reference: ${parsed.referenceId}`, 'is-success');
     } catch {
       // no-op
     }
@@ -151,9 +179,7 @@ export function initDeleteRequestForm() {
   };
 
   const validateField = (field) => {
-    const value = field instanceof HTMLInputElement && field.type === 'checkbox'
-      ? field.checked
-      : field.value.trim();
+    const value = field instanceof HTMLInputElement && field.type === 'checkbox' ? field.checked : field.value.trim();
 
     let errorMessage = '';
 
@@ -199,10 +225,18 @@ export function initDeleteRequestForm() {
     return errorMessage;
   };
 
+  const updateCharCounter = (entry) => {
+    const length = entry.field.value.length;
+    entry.counter.textContent = `${length}/${entry.max}`;
+    entry.counter.classList.toggle('is-near-limit', length >= Math.floor(entry.max * 0.85) && length < entry.max);
+    entry.counter.classList.toggle('is-at-limit', length >= entry.max);
+  };
+
   const clearErrorSummary = () => {
     if (errorSummary instanceof HTMLElement) {
       errorSummary.hidden = true;
     }
+
     if (errorList instanceof HTMLElement) {
       errorList.innerHTML = '';
     }
@@ -277,10 +311,20 @@ export function initDeleteRequestForm() {
       if (field.getAttribute('aria-invalid') === 'true') {
         validateField(field);
       }
+
+      const counterEntry = charCounters.find((entry) => entry.field === field);
+      if (counterEntry) {
+        updateCharCounter(counterEntry);
+      }
+
       clearErrorSummary();
       setStatus('');
       hideSuccess();
     });
+  });
+
+  charCounters.forEach((entry) => {
+    updateCharCounter(entry);
   });
 
   form.addEventListener('submit', async (event) => {
@@ -307,9 +351,7 @@ export function initDeleteRequestForm() {
     setSubmittingState(true);
     setStatus('Submitting your request...', 'is-info');
 
-    const currentReferenceId = referenceIdInput instanceof HTMLInputElement
-      ? referenceIdInput.value
-      : '';
+    const currentReferenceId = referenceIdInput instanceof HTMLInputElement ? referenceIdInput.value : '';
 
     try {
       const formData = new FormData(form);
@@ -334,31 +376,27 @@ export function initDeleteRequestForm() {
       }
 
       if (!response.ok || !payload || payload.ok !== true) {
-        const message = payload && typeof payload.error === 'string'
-          ? payload.error
-          : 'Unable to submit right now. Please try again later.';
+        const message = payload && typeof payload.error === 'string' ? payload.error : 'Unable to submit right now. Please try again later.';
         throw new Error(message);
       }
 
-      const responseReferenceId = payload && typeof payload.referenceId === 'string' && payload.referenceId
-        ? payload.referenceId
-        : currentReferenceId;
+      const responseReferenceId = payload && typeof payload.referenceId === 'string' && payload.referenceId ? payload.referenceId : currentReferenceId;
 
       form.reset();
       validatableFields.forEach((field) => setFieldError(field, ''));
+      charCounters.forEach((entry) => updateCharCounter(entry));
       stampSubmitTime();
       issueReferenceId();
+
       if (responseReferenceId) {
         showSuccess(responseReferenceId);
         saveSuccess(responseReferenceId);
       }
-      clearErrorSummary();
-      setStatus('Request submitted successfully. We will reply by email after verification.', 'is-success');
-    } catch (error) {
-      const message = error instanceof Error
-        ? error.message
-        : 'Unable to submit right now. Please try again later.';
 
+      clearErrorSummary();
+      setStatus('Request submitted successfully. Check your email for verification steps.', 'is-success');
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Unable to submit right now. Please try again later.';
       showErrorSummary([{ fieldId: '', message }]);
       setStatus(message, 'is-error');
     } finally {

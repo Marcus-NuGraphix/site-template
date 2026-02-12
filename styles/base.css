@@ -22,6 +22,19 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+body.legal-page,
+body.delete-page {
+  background:
+    linear-gradient(to bottom, rgb(var(--color-bg-rgb)), rgb(var(--color-sidebar-rgb))),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 3rem,
+      rgb(var(--color-primary-rgb) / 0.05) 3rem,
+      rgb(var(--color-primary-rgb) / 0.05) calc(3rem + 1px)
+    );
+}
+
 body.menu-open {
   overflow: hidden;
 }
@@ -41,8 +54,9 @@ picture {
 a {
   color: var(--color-primary-strong);
   text-decoration: underline;
-  text-underline-offset: 0.16em;
   text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.15em;
+  transition: color var(--dur-fast) var(--ease-standard), opacity var(--dur-fast) var(--ease-standard);
 }
 
 a:hover {
@@ -70,8 +84,8 @@ h5,
 h6 {
   margin: 0;
   font-family: var(--font-heading);
-  line-height: var(--line-tight);
-  letter-spacing: -0.02em;
+  line-height: var(--line-heading);
+  letter-spacing: 0.01em;
   color: var(--color-text);
 }
 
@@ -104,15 +118,15 @@ code,
 kbd,
 pre,
 samp {
-  font-family: "Cascadia Code", Consolas, Menlo, monospace;
+  font-family: var(--font-mono);
 }
 
 code {
   font-size: 0.9em;
-  padding: 0.1em 0.34em;
-  border-radius: 0.4rem;
-  background: color-mix(in srgb, var(--color-primary) 10%, transparent);
-  border: 1px solid color-mix(in srgb, var(--color-primary) 20%, transparent);
+  padding: 0.08em 0.34em;
+  border-radius: 0.38rem;
+  background: rgb(var(--color-primary-rgb) / 0.12);
+  border: 1px solid rgb(var(--color-primary-rgb) / 0.22);
 }
 
 hr {
@@ -132,10 +146,10 @@ button {
   position: absolute;
   z-index: 1000;
   left: var(--space-3);
-  top: calc(-1 * var(--space-10));
+  top: calc(-1 * var(--space-11));
   border-radius: var(--radius-sm);
   padding: var(--space-2) var(--space-4);
-  color: #111;
+  color: #0d1117;
   font-size: var(--step--1);
   font-weight: 700;
   background: var(--color-accent);
@@ -148,8 +162,8 @@ button {
 }
 
 :focus-visible {
-  outline: 3px solid var(--color-ring);
-  outline-offset: 2px;
+  outline: var(--focus-outline-width) solid var(--color-ring);
+  outline-offset: var(--focus-outline-offset);
 }
 
 .visually-hidden {
@@ -185,5 +199,74 @@ button {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast:
+   - automatic when OS/browser requests more contrast
+   - manual override via data-contrast="high" on html/body
+   - opt out of automatic mode with data-contrast="normal" on html */
+@media (prefers-contrast: more) {
+  :root:not([data-contrast="normal"]) {
+    --focus-outline-width: 4px;
+    --focus-outline-offset: 3px;
+    --color-primary-soft: rgb(var(--color-primary-rgb) / 0.24);
+    --shadow-xs: none;
+    --shadow-sm: none;
+    --shadow-md: none;
+    --shadow-glow: none;
+  }
+
+  :root:not([data-contrast="normal"]) body,
+  :root:not([data-contrast="normal"]) body.legal-page,
+  :root:not([data-contrast="normal"]) body.delete-page {
+    background: var(--color-bg);
+  }
+
+  :root:not([data-contrast="normal"]) a {
+    text-decoration-thickness: 0.12em;
+    text-underline-offset: 0.18em;
+    font-weight: 700;
+  }
+}
+
+:root[data-contrast="high"],
+body[data-contrast="high"] {
+  --focus-outline-width: 4px;
+  --focus-outline-offset: 3px;
+  --color-primary-soft: rgb(var(--color-primary-rgb) / 0.24);
+  --shadow-xs: none;
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-glow: none;
+}
+
+:root[data-contrast="high"] body,
+body[data-contrast="high"],
+:root[data-contrast="high"] body.legal-page,
+:root[data-contrast="high"] body.delete-page,
+body[data-contrast="high"].legal-page,
+body[data-contrast="high"].delete-page {
+  background: var(--color-bg);
+}
+
+:root[data-contrast="high"] a,
+body[data-contrast="high"] a {
+  text-decoration-thickness: 0.12em;
+  text-underline-offset: 0.18em;
+  font-weight: 700;
+}
+
+@media (forced-colors: active) {
+  :focus-visible {
+    outline: 2px solid CanvasText;
+    outline-offset: 2px;
+  }
+
+  .skip-link {
+    forced-color-adjust: none;
+    border: 1px solid CanvasText;
+    background: Canvas;
+    color: CanvasText;
   }
 }

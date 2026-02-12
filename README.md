@@ -60,6 +60,8 @@ npm run dev:logs
 
 Open `http://localhost:8080`.
 
+Note: local Docker preview is HTTP on port `8080` (not HTTPS).
+
 Local dev files are intentionally git-ignored:
 
 - `docker-compose.local.yml`
@@ -127,6 +129,10 @@ Theme behavior:
 
 - default: system preference via `prefers-color-scheme`
 - manual override: set `data-theme="light"` or `data-theme="dark"` on `<html>` (or `<body>`)
+- high contrast:
+  - automatic: `prefers-contrast: more`
+  - manual override: set `data-contrast="high"` on `<html>` (or `<body>`)
+  - opt out of automatic high contrast for testing: set `data-contrast="normal"` on `<html>`
 
 ## App-Store Compliance URL Checklist
 
@@ -179,3 +185,5 @@ xneelo help centre articles referenced by name:
 8. Cache policy verifies HTML/PHP not aggressively cached.
 9. `enableNoIndex` behavior reflected in robots meta and `robots.txt`.
 10. `/.data/.htaccess` blocks direct access to rate-limit storage.
+11. High-contrast pass: verify readability with `prefers-contrast: more` and `data-contrast="high"`.
+12. Print preview pass on `/privacy-policy/`: clean A4 pagination, readable metadata, and link target visibility.
