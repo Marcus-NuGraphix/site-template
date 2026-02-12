@@ -33,7 +33,11 @@
     <link rel="stylesheet" href="/styles/layout.css" />
     <link rel="stylesheet" href="/styles/components.css" />
     <link rel="stylesheet" href="/styles/pages.css" />
+    <script>
+      (function(){try{var t=localStorage.getItem('site-theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t);document.documentElement.setAttribute('data-active-theme',t)}}catch(e){}})();
+    </script>
     <script type="module" src="/scripts/main.js"></script>
+    <noscript><style>.theme-toggle{display:none!important}</style></noscript>
     {{ANALYTICS_SCRIPT}}
   </head>
   <body class="delete-page">
@@ -51,6 +55,13 @@
             <a href="{{PRIVACY_POLICY_PATH}}">Privacy Policy</a>
             <a href="{{DELETE_MY_DATA_PATH}}" aria-current="page">Delete My Data</a>
           </nav>
+          <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark mode" title="Switch to dark mode">
+            <span class="theme-toggle-icon" aria-hidden="true">
+              <svg class="theme-icon theme-icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+              <svg class="theme-icon theme-icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+            </span>
+            <span class="theme-toggle-label" data-theme-toggle-label>Theme</span>
+          </button>
           <button type="button" class="menu-toggle" data-menu-toggle aria-expanded="false" aria-controls="mobile-nav">Menu</button>
         </div>
       </div>
@@ -245,23 +256,23 @@
       </section>
     </main>
 
-    <footer class="site-footer">
+    <footer class="site-footer" aria-label="Site footer">
       <div class="container footer-main">
-        <section>
-          <h3>{{BRAND_NAME}}</h3>
+        <section aria-label="{{BRAND_NAME}}">
+          <p class="footer-brand-name">{{BRAND_NAME}}</p>
           <p>{{TAGLINE}}</p>
           <p>{{TEMPLATE_CREDIT_LINE}}</p>
           <p>{{CONTACT_ADDRESS}}</p>
         </section>
-        <section>
-          <h4>Legal</h4>
+        <section aria-label="Legal links">
+          <p class="footer-heading">Legal</p>
           <ul>
             <li><a href="{{PRIVACY_POLICY_PATH}}">Privacy Policy</a></li>
             <li><a href="{{DELETE_MY_DATA_PATH}}" aria-current="page">Delete My Data</a></li>
           </ul>
         </section>
-        <section>
-          <h4>Contact</h4>
+        <section aria-label="Contact information">
+          <p class="footer-heading">Contact</p>
           <ul>
             <li><a href="mailto:{{CONTACT_EMAIL}}">{{CONTACT_EMAIL}}</a></li>
             <li><a href="mailto:{{DELETE_REQUEST_EMAIL}}">{{DELETE_REQUEST_EMAIL}}</a></li>

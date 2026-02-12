@@ -3,6 +3,7 @@ import { initReveal } from './reveal.js';
 import { initYear } from './year.js';
 import { initDeleteRequestForm } from './forms/delete-request-form.js';
 import { initPolicyToc } from './policy-toc.js';
+import { initThemeToggle } from './theme-toggle.js';
 
 document.documentElement.classList.add('has-js');
 
@@ -23,6 +24,7 @@ function initHeaderState() {
 function initSite() {
   initHeaderState();
   initMenu();
+  initThemeToggle();
   initReveal();
   initYear();
   initPolicyToc();

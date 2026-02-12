@@ -416,7 +416,7 @@ select[aria-invalid="true"] {
 .contact-item svg {
   width: 1rem;
   height: 1rem;
-  fill: currentColor;
+  flex-shrink: 0;
 }
 
 .menu-toggle {
@@ -430,6 +430,73 @@ select[aria-invalid="true"] {
   font-weight: 700;
 }
 
+.theme-toggle {
+  min-height: 2.75rem;
+  border: 1px solid rgb(var(--color-primary-rgb) / 0.32);
+  background: rgb(var(--color-bg-rgb) / 0.75);
+  color: var(--color-primary-strong);
+  border-radius: var(--radius-pill);
+  padding: 0.44rem 0.76rem;
+  font-size: var(--step--1);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.48rem;
+  cursor: pointer;
+  transition:
+    background-color var(--dur-fast) var(--ease-standard),
+    border-color var(--dur-fast) var(--ease-standard),
+    color var(--dur-fast) var(--ease-standard),
+    transform var(--dur-fast) var(--ease-standard);
+}
+
+.theme-toggle:hover {
+  transform: translateY(-1px);
+  background: rgb(var(--color-primary-rgb) / 0.12);
+  border-color: rgb(var(--color-primary-rgb) / 0.48);
+}
+
+.theme-toggle:active {
+  transform: translateY(0);
+}
+
+.theme-toggle-icon {
+  position: relative;
+  inline-size: 1rem;
+  block-size: 1rem;
+  display: inline-block;
+}
+
+.theme-icon {
+  position: absolute;
+  inset: 0;
+  transition: opacity var(--dur-fast) var(--ease-standard), transform var(--dur-fast) var(--ease-standard);
+}
+
+.theme-icon-moon {
+  opacity: 0;
+  transform: scale(0.7) rotate(16deg);
+}
+
+:root[data-theme="dark"] .theme-icon-sun,
+body[data-theme="dark"] .theme-icon-sun,
+:root[data-active-theme="dark"] .theme-icon-sun {
+  opacity: 0;
+  transform: scale(0.7) rotate(-16deg);
+}
+
+:root[data-theme="dark"] .theme-icon-moon,
+body[data-theme="dark"] .theme-icon-moon,
+:root[data-active-theme="dark"] .theme-icon-moon {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+.theme-toggle-label {
+  line-height: 1;
+}
+
 .reveal {
   opacity: 1;
   transform: translateY(0);
@@ -437,13 +504,21 @@ select[aria-invalid="true"] {
 
 .has-js .reveal {
   opacity: 0;
-  transform: translateY(0.75rem);
-  transition: opacity var(--dur-base) var(--ease-standard), transform var(--dur-base) var(--ease-standard);
+  transform: translateY(0.5rem);
+  transition: opacity 360ms var(--ease-standard), transform 360ms var(--ease-standard);
 }
 
 .has-js .reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .has-js .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 @media (max-width: 56rem) {
@@ -461,6 +536,14 @@ select[aria-invalid="true"] {
   .btn {
     width: 100%;
   }
+
+  .theme-toggle-label {
+    display: none;
+  }
+
+  .theme-toggle {
+    padding-inline: 0.72rem;
+  }
 }
 
 @media (prefers-contrast: more) {
@@ -468,6 +551,7 @@ select[aria-invalid="true"] {
   :root:not([data-contrast="normal"]) .badge,
   :root:not([data-contrast="normal"]) .btn,
   :root:not([data-contrast="normal"]) .menu-toggle,
+  :root:not([data-contrast="normal"]) .theme-toggle,
   :root:not([data-contrast="normal"]) .card,
   :root:not([data-contrast="normal"]) .panel,
   :root:not([data-contrast="normal"]) input,
@@ -478,6 +562,7 @@ select[aria-invalid="true"] {
 
   :root:not([data-contrast="normal"]) .btn,
   :root:not([data-contrast="normal"]) .menu-toggle,
+  :root:not([data-contrast="normal"]) .theme-toggle,
   :root:not([data-contrast="normal"]) input,
   :root:not([data-contrast="normal"]) textarea,
   :root:not([data-contrast="normal"]) select {
@@ -513,6 +598,7 @@ select[aria-invalid="true"] {
 :root[data-contrast="high"] .badge,
 :root[data-contrast="high"] .btn,
 :root[data-contrast="high"] .menu-toggle,
+:root[data-contrast="high"] .theme-toggle,
 :root[data-contrast="high"] .card,
 :root[data-contrast="high"] .panel,
 :root[data-contrast="high"] input,
@@ -522,6 +608,7 @@ body[data-contrast="high"] .kicker,
 body[data-contrast="high"] .badge,
 body[data-contrast="high"] .btn,
 body[data-contrast="high"] .menu-toggle,
+body[data-contrast="high"] .theme-toggle,
 body[data-contrast="high"] .card,
 body[data-contrast="high"] .panel,
 body[data-contrast="high"] input,
@@ -532,11 +619,13 @@ body[data-contrast="high"] select {
 
 :root[data-contrast="high"] .btn,
 :root[data-contrast="high"] .menu-toggle,
+:root[data-contrast="high"] .theme-toggle,
 :root[data-contrast="high"] input,
 :root[data-contrast="high"] textarea,
 :root[data-contrast="high"] select,
 body[data-contrast="high"] .btn,
 body[data-contrast="high"] .menu-toggle,
+body[data-contrast="high"] .theme-toggle,
 body[data-contrast="high"] input,
 body[data-contrast="high"] textarea,
 body[data-contrast="high"] select {
@@ -580,6 +669,7 @@ body[data-contrast="high"] textarea::placeholder {
 @media (forced-colors: active) {
   .btn,
   .menu-toggle,
+  .theme-toggle,
   input,
   textarea,
   select,

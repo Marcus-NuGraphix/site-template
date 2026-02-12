@@ -205,11 +205,14 @@
   padding-block: var(--space-8) var(--space-6);
 }
 
-.footer-main h3,
-.footer-main h4 {
+.footer-brand-name,
+.footer-heading {
   margin-bottom: var(--space-3);
   color: #ffffff;
+  font-family: var(--font-heading);
   font-size: var(--step-1);
+  font-weight: 700;
+  line-height: var(--line-heading);
 }
 
 .footer-main p,
@@ -268,7 +271,8 @@
 
 .splash-page .site-nav a,
 .splash-page .mobile-nav a,
-.splash-page .menu-toggle {
+.splash-page .menu-toggle,
+.splash-page .theme-toggle {
   color: rgb(249 250 251 / 0.9);
 }
 
@@ -277,7 +281,9 @@
 .splash-page .mobile-nav a[aria-current="page"],
 .splash-page .mobile-nav a:hover,
 .splash-page .menu-toggle:hover,
-.splash-page .menu-toggle:focus-visible {
+.splash-page .menu-toggle:focus-visible,
+.splash-page .theme-toggle:hover,
+.splash-page .theme-toggle:focus-visible {
   color: #fff;
   background: rgb(249 250 251 / 0.15);
 }

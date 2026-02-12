@@ -13,7 +13,6 @@ export function initMenu() {
 
     mobileNav.classList.toggle('is-open', shouldOpen);
     mobileNav.hidden = !shouldOpen;
-    mobileNav.setAttribute('aria-hidden', shouldOpen ? 'false' : 'true');
     toggleButton.setAttribute('aria-expanded', String(shouldOpen));
     toggleButton.textContent = shouldOpen ? 'Close' : 'Menu';
     document.body.classList.toggle('menu-open', shouldOpen);
@@ -31,8 +30,9 @@ export function initMenu() {
   });
 
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') {
+    if (event.key === 'Escape' && mobileNav.classList.contains('is-open')) {
       setOpen(false);
+      toggleButton.focus();
     }
   });
 

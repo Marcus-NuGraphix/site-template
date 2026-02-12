@@ -98,9 +98,9 @@
 }
 
 .splash-tech-meta .badge {
-  border-color: rgb(255 255 255 / 0.35);
-  background: rgb(2 19 33 / 0.55);
-  color: rgb(249 250 251 / 0.9);
+  border-color: rgb(255 255 255 / 0.38);
+  background: rgb(2 19 33 / 0.72);
+  color: rgb(249 250 251 / 0.95);
 }
 
 .splash-support-panel {
@@ -483,10 +483,14 @@ body[data-contrast="high"] .policy-content section {
 
   .site-header,
   .site-footer,
+  .splash-footer,
   .policy-aside,
   .menu-toggle,
+  .theme-toggle,
   .inline-actions,
-  .back-link {
+  .back-link,
+  .hero-meta,
+  .template-banner {
     display: none !important;
   }
 
@@ -497,13 +501,15 @@ body[data-contrast="high"] .policy-content section {
   }
 
   body,
-  .privacy-main {
+  .privacy-main,
+  .delete-main {
     background: #ffffff !important;
     color: #111111 !important;
     padding: 0 !important;
   }
 
-  .privacy-main {
+  .privacy-main,
+  .delete-main {
     padding-bottom: 0 !important;
   }
 
@@ -516,6 +522,10 @@ body[data-contrast="high"] .policy-content section {
     background: #ffffff !important;
     border: 0 !important;
     padding: 0 !important;
+  }
+
+  .page-hero::before {
+    display: none !important;
   }
 
   .page-hero .container {
@@ -536,12 +546,14 @@ body[data-contrast="high"] .policy-content section {
   }
 
   .policy-overview-grid,
-  .policy-layout {
+  .policy-layout,
+  .delete-layout {
     display: block !important;
   }
 
   .policy-overview-grid > *,
-  .policy-layout > * {
+  .policy-layout > *,
+  .delete-layout > * {
     margin-bottom: 0.12in;
   }
 
@@ -558,6 +570,11 @@ body[data-contrast="high"] .policy-content section {
     break-inside: avoid;
   }
 
+  .card::before,
+  .panel::before {
+    display: none !important;
+  }
+
   .policy-content section {
     break-inside: avoid;
     margin-top: 0.1in;
@@ -569,6 +586,18 @@ body[data-contrast="high"] .policy-content section {
     border-bottom: 0 !important;
   }
 
+  p,
+  li {
+    orphans: 3;
+    widows: 3;
+  }
+
+  h1, h2, h3, h4,
+  .footer-brand-name,
+  .footer-heading {
+    break-after: avoid;
+  }
+
   .policy-content a[href]::after,
   .policy-contact-box a[href]::after {
     content: " (" attr(href) ")";
@@ -577,7 +606,24 @@ body[data-contrast="high"] .policy-content section {
     word-break: break-all;
   }
 
+  a[href^="mailto:"]::after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    color: #444;
+  }
+
+  a[href^="tel:"]::after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    color: #444;
+  }
+
   .contact-item svg {
     display: none !important;
+  }
+
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
@@ -576,12 +577,23 @@ function buildAnalyticsScript(config) {
   return `<script defer src="${escapeHtml(scriptUrl)}" data-domain="${escapeHtml(dataDomain)}"></script>`;
 }
 
+function computeInlineScriptHashes(templateDir) {
+  // Read all HTML templates and extract inline <script> blocks to compute
+  // their SHA-256 hashes for the CSP header. This runs synchronously with
+  // the content already loaded during the build.
+  const INLINE_THEME_SCRIPT =
+    "(function(){try{var t=localStorage.getItem('site-theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t);document.documentElement.setAttribute('data-active-theme',t)}}catch(e){}})();";
+  const hash = createHash('sha256').update(INLINE_THEME_SCRIPT, 'utf8').digest('base64');
+  return [`'sha256-${hash}'`];
+}
+
 function buildCspHeader(config) {
   const analyticsOrigin = config.features.enableAnalytics && config.analytics.scriptUrl
     ? new URL(config.analytics.scriptUrl).origin
     : '';
 
-  const scriptSrc = [`'self'`];
+  const inlineHashes = computeInlineScriptHashes();
+  const scriptSrc = [`'self'`, ...inlineHashes];
   const connectSrc = [`'self'`];
 
   if (analyticsOrigin) {

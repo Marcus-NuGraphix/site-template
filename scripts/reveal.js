@@ -1,6 +1,13 @@
 export function initReveal() {
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   const items = Array.from(document.querySelectorAll('.reveal'));
   if (items.length === 0) {
+    return;
+  }
+
+  if (prefersReducedMotion) {
+    items.forEach((item) => item.classList.add('is-visible'));
     return;
   }
 
