@@ -2,6 +2,7 @@
 .DS_Store
 Thumbs.db
 Desktop.ini
+nul
 
 # Editor and IDE files
 .idea/
