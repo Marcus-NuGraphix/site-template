@@ -1,0 +1,8 @@
+# Temporary splash phase: block indexing.
+# To re-enable indexing later, replace with:
+# User-agent: *
+# Allow: /
+User-agent: *
+Disallow: /
+
+Sitemap: https://example.com/sitemap.xml

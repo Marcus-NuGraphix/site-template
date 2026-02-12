@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 225 225" role="img" aria-labelledby="icon-title icon-desc">
+  <title id="icon-title">Template Icon</title>
+  <desc id="icon-desc">Placeholder icon for template reuse.</desc>
+  <rect width="225" height="225" rx="45" fill="#0b3c97"/>
+  <circle cx="112.5" cy="112.5" r="58" fill="#fdf202"/>
+  <path d="M77 112.5h71" stroke="#0b3c97" stroke-width="15" stroke-linecap="round"/>
+  <path d="M112.5 77v71" stroke="#0b3c97" stroke-width="15" stroke-linecap="round"/>
+</svg>

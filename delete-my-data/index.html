@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Template | Delete My Data Request</title>
+    <meta
+      name="description"
+      content="Submit a request to have personal information deleted by Your Legal Entity Name, subject to legal and operational retention requirements."
+    />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="theme-color" content="#0b3c97" />
+    <link rel="canonical" href="https://example.com/delete-my-data/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="/assets/svg/icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles/tokens.css" />
+    <link rel="stylesheet" href="/styles/base.css" />
+    <link rel="stylesheet" href="/styles/layout.css" />
+    <link rel="stylesheet" href="/styles/components.css" />
+    <link rel="stylesheet" href="/styles/pages.css" />
+    <script type="module" src="/scripts/main.js"></script>
+  </head>
+  <body class="delete-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <header class="site-header">
+      <div class="container">
+        <a class="brand-link" href="/" aria-label="Your Company Name home">
+          <img class="brand-logo" src="/assets/svg/logo.svg" alt="Your Company Name" width="520" height="120" />
+        </a>
+
+        <div class="nav-wrap">
+          <nav class="site-nav" aria-label="Primary navigation">
+            <a href="/">Home</a>
+            <a href="/privacy-policy/">Privacy Policy</a>
+            <a href="/delete-my-data/" aria-current="page">Delete My Data</a>
+          </nav>
+          <button type="button" class="menu-toggle" data-menu-toggle aria-expanded="false" aria-controls="mobile-nav">Menu</button>
+        </div>
+      </div>
+      <nav id="mobile-nav" class="mobile-nav" data-mobile-nav aria-label="Mobile navigation" hidden>
+        <div class="container">
+          <a href="/">Home</a>
+          <a href="/privacy-policy/">Privacy Policy</a>
+          <a href="/delete-my-data/" aria-current="page">Delete My Data</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <section class="page-hero">
+        <div class="container">
+          <span class="kicker">Data Subject Request</span>
+          <h1>Delete My Data Request</h1>
+          <p>
+            Use this form to request deletion of personal information held by Company. Each request is verified and assessed
+            against legal and operational retention requirements.
+          </p>
+          <div class="legal-meta">
+            <span class="badge">Request Type: Data Subject Right</span>
+            <span class="badge">Response Channel: Email Follow-Up</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section alt">
+        <div class="container delete-form-shell">
+          <article class="card reveal highlight-card">
+            <h2>Submit Request</h2>
+            <form data-delete-request-form action="/delete-my-data/submit.php" method="post" novalidate>
+              <div class="hp-field" aria-hidden="true">
+                <label for="company-field">Company</label>
+                <input id="company-field" name="company" type="text" tabindex="-1" autocomplete="off" />
+              </div>
+
+              <input type="hidden" name="submitted_at" value="" data-submitted-at />
+
+              <div class="form-grid">
+                <div>
+                  <label for="full-name">Full Name</label>
+                  <input id="full-name" name="full_name" type="text" autocomplete="name" required minlength="2" maxlength="120" />
+                </div>
+                <div>
+                  <label for="email">Email Address</label>
+                  <input id="email" name="email" type="email" autocomplete="email" required maxlength="160" />
+                </div>
+                <div>
+                  <label for="phone">Phone Number (optional)</label>
+                  <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="40" />
+                </div>
+              </div>
+
+              <div class="stack-top-sm">
+                <label for="request-details">Request Details</label>
+                <textarea
+                  id="request-details"
+                  name="request_details"
+                  placeholder="Describe the records or data categories you want removed."
+                  required
+                  minlength="20"
+                  maxlength="4000"
+                ></textarea>
+                <p class="field-help">Include date ranges, channels used, and any references that help us find your data.</p>
+              </div>
+
+              <div class="stack-top-sm">
+                <label class="checkbox-line" for="confirmation">
+                  <input id="confirmation" name="confirmation" type="checkbox" value="1" required />
+                  <span>I confirm this request is accurate and I am authorized to submit it.</span>
+                </label>
+              </div>
+
+              <p class="form-note">This form is for privacy requests only. It is not an emergency response channel.</p>
+              <noscript>
+                <p class="form-note">JavaScript is required for protected form submission on this page. Please email delete@example.com for manual handling.</p>
+              </noscript>
+
+              <div class="inline-actions">
+                <button class="btn btn-primary" type="submit">Submit Delete Request</button>
+                <a class="btn btn-secondary" href="/privacy-policy/">Review Privacy Policy</a>
+              </div>
+
+              <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+            </form>
+          </article>
+
+          <aside class="card reveal delete-alt-card">
+            <h2>Alternative Submission Method</h2>
+            <p>
+              You can email your request to
+              <a href="mailto:delete@example.com">delete@example.com</a>
+              and include your full name, contact email, and request details.
+            </p>
+            <div class="notice stack-top-md">
+              <strong>Important:</strong> Submission does not result in automatic deletion. Verification and lawful review are required.
+            </div>
+            <div class="inline-actions">
+              <a class="btn btn-soft" href="/">Return to Home</a>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-main">
+        <section>
+          <h3>Your Company Name</h3>
+          <p>Serving communities across your service areas through structured monitoring, patrol coordination, and response support.</p>
+        </section>
+        <section>
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="/privacy-policy/">Privacy Policy</a></li>
+            <li><a href="/delete-my-data/" aria-current="page">Delete My Data</a></li>
+          </ul>
+        </section>
+        <section>
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:contact@example.com">contact@example.com</a></li>
+            <li><a href="tel:10000000000">+1 (000) 000-0000</a></li>
+            <li>For urgent incidents, use registered emergency channels.</li>
+          </ul>
+        </section>
+      </div>
+      <div class="container footer-legal">
+        <span>&copy; <span data-current-year></span> Your Legal Entity Name.</span>
+        <span><a href="https://example.com">example.com</a></span>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,46 @@
+:root {
+  --font-body: "Public Sans", "Segoe UI", Arial, sans-serif;
+  --font-heading: "Sora", "Avenir Next", "Segoe UI", Arial, sans-serif;
+
+  --brand-blue: #0b3c97;
+  --brand-blue-deep: #082b6d;
+  --brand-blue-bright: #0f4cb7;
+  --brand-yellow: #fdf202;
+  --brand-yellow-deep: #ddcf00;
+
+  --text-primary: #14233f;
+  --text-secondary: #425776;
+  --text-on-dark: #eaf1ff;
+
+  --bg-page: #eef3fb;
+  --bg-surface: #ffffff;
+  --bg-surface-alt: #e8effa;
+  --border: #d0dced;
+
+  --success: #16a34a;
+  --warning: #f59e0b;
+  --error: #dc2626;
+  --info: #2563eb;
+
+  --shadow-soft: 0 10px 30px rgba(8, 28, 67, 0.08);
+  --shadow-strong: 0 16px 40px rgba(8, 28, 67, 0.14);
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+
+  --space-1: 0.5rem;
+  --space-2: 0.75rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2rem;
+  --space-6: 3rem;
+
+  --content-max: 1120px;
+  --content-narrow: 860px;
+  --nav-height: 80px;
+
+  --dur-fast: 160ms;
+  --dur-base: 220ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+}

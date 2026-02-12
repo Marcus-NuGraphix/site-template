@@ -1,0 +1,353 @@
+/* Splash page */
+
+.splash-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background:
+    radial-gradient(ellipse at 10% 80%, rgba(253, 242, 2, 0.16) 0%, transparent 42%),
+    radial-gradient(ellipse at 88% 16%, rgba(128, 174, 255, 0.2) 0%, transparent 42%),
+    linear-gradient(160deg, #05142e 0%, #0a2d6b 36%, #0b3c97 60%, #082b6d 100%);
+}
+
+.splash-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 2rem 1rem;
+}
+
+.splash-main::before,
+.splash-main::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.splash-main::before {
+  width: 500px;
+  height: 500px;
+  top: -140px;
+  right: -120px;
+  border: 1px solid rgba(208, 223, 255, 0.14);
+}
+
+.splash-main::after {
+  width: 380px;
+  height: 380px;
+  bottom: -110px;
+  left: -80px;
+  border: 1px solid rgba(253, 242, 2, 0.18);
+}
+
+.splash-center {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  width: min(700px, 100%);
+  max-width: 700px;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 1.2rem;
+  border: 1px solid rgba(197, 219, 255, 0.44);
+  border-radius: 999px;
+  padding: 0.45rem 0.8rem;
+  background: rgba(6, 30, 79, 0.5);
+  color: rgba(220, 233, 255, 0.94);
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+
+.splash-logo {
+  margin: 0 auto 2rem;
+  width: clamp(220px, 48vw, 440px);
+  height: auto;
+}
+
+.splash-main h1 {
+  color: #fff;
+  font-size: clamp(1.7rem, 4.2vw, 3rem);
+  margin-bottom: 0.75rem;
+}
+
+.splash-subtitle {
+  margin: 0 auto;
+  max-width: 66ch;
+  color: rgba(225, 237, 255, 0.86);
+  font-size: clamp(1rem, 2.3vw, 1.17rem);
+}
+
+.splash-actions {
+  margin-top: 1.2rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.splash-corner-graphic {
+  position: absolute;
+  right: clamp(6.2rem, 10vw, 8.8rem);
+  bottom: clamp(2.2rem, 4vw, 3.8rem);
+  width: clamp(128px, 25vw, 202px);
+  height: auto;
+  opacity: 0.88;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+.splash-footer {
+  text-align: center;
+  padding: 1.2rem 1rem 1.5rem;
+  color: rgba(190, 212, 255, 0.72);
+  font-size: 0.85rem;
+}
+
+.splash-footer nav {
+  margin-bottom: 0.45rem;
+}
+
+.splash-footer a {
+  color: rgba(224, 237, 255, 0.88);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  transition: color var(--dur-fast) var(--ease-standard);
+}
+
+.splash-footer a:hover {
+  color: #fff;
+}
+
+.splash-footer-sep {
+  display: inline-block;
+  margin: 0 0.6rem;
+  color: rgba(190, 212, 255, 0.5);
+}
+
+.splash-footer p {
+  margin: 0;
+}
+
+.splash-footer-contact {
+  margin: 0.2rem 0 0.5rem;
+  color: rgba(224, 237, 255, 0.92);
+  line-height: 1.5;
+}
+
+/* Legal pages */
+
+.legal-page .page-hero {
+  background:
+    radial-gradient(circle at 84% 14%, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0) 34%),
+    linear-gradient(145deg, #0b3c97, #154d9f);
+}
+
+.legal-meta {
+  margin-top: 0.85rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.policy-shell {
+  width: min(var(--content-max), 92vw);
+  margin: 0 auto;
+}
+
+.policy-layout {
+  display: grid;
+  grid-template-columns: minmax(220px, 280px) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.policy-aside {
+  position: sticky;
+  top: calc(var(--nav-height) + 1rem);
+}
+
+.policy-aside h2 {
+  margin-bottom: 0.6rem;
+  font-size: 1.02rem;
+}
+
+.policy-nav-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.32rem;
+}
+
+.policy-nav-list li {
+  margin: 0;
+}
+
+.policy-nav-list a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  border-radius: 8px;
+  padding: 0.48rem 0.58rem;
+  color: #1f457f;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.policy-nav-list a:hover {
+  background: #edf4ff;
+  color: #0b3c97;
+}
+
+.policy-content-card {
+  border-color: #c8d9f3;
+}
+
+.policy-content h1,
+.policy-content h2,
+.policy-content h3,
+.policy-content h4 {
+  margin-top: 1.5rem;
+}
+
+.policy-content > :first-child {
+  margin-top: 0;
+}
+
+.policy-content :is(h1, h2, h3, h4)[id] {
+  scroll-margin-top: calc(var(--nav-height) + 1rem);
+}
+
+.policy-content p,
+.policy-content li {
+  max-width: 75ch;
+  color: #26416b;
+}
+
+.legal-page .card p,
+.legal-page .card li,
+.delete-page .card p,
+.delete-page .card li {
+  color: #2a456f;
+}
+
+.policy-content ul,
+.policy-content ol {
+  padding-left: 1.15rem;
+}
+
+.policy-content hr {
+  border: 0;
+  border-top: 1px solid #d6e1f3;
+  margin: 1.4rem 0;
+}
+
+.policy-content a {
+  overflow-wrap: anywhere;
+}
+
+.legal-page .policy-content a[href^="mailto:"],
+.legal-page .policy-content a[href^="tel:"] {
+  color: #0a357f;
+  font-weight: 700;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+}
+
+.legal-page .policy-content a[href^="mailto:"]:visited,
+.legal-page .policy-content a[href^="tel:"]:visited {
+  color: #0a357f;
+}
+
+.legal-page .page-hero a[href^="mailto:"],
+.legal-page .page-hero a[href^="tel:"] {
+  color: #fff;
+  font-weight: 700;
+  text-decoration-color: rgba(255, 255, 255, 0.9);
+  text-underline-offset: 3px;
+}
+
+.legal-page .section:nth-of-type(even) .card,
+.delete-page .section:nth-of-type(even) .card {
+  border-color: #c9d8ee;
+}
+
+/* Delete page */
+
+.delete-page .page-hero {
+  background:
+    radial-gradient(circle at 86% 16%, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0) 35%),
+    linear-gradient(145deg, #0b3c97, #154d9f);
+}
+
+.highlight-card {
+  border-top: 4px solid #c9dcff;
+}
+
+.delete-form-shell {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.delete-alt-card {
+  margin-top: 1rem;
+}
+
+@media (max-width: 640px) {
+  .splash-main {
+    padding: 1.65rem 0.9rem;
+  }
+
+  .splash-corner-graphic {
+    width: clamp(90px, 24vw, 132px);
+    opacity: 0.78;
+  }
+
+  .legal-meta {
+    gap: 0.4rem;
+  }
+
+  .policy-nav-list {
+    max-height: min(42vh, 290px);
+  }
+
+  .policy-nav-list a {
+    padding: 0.58rem 0.6rem;
+    font-size: 0.92rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .splash-corner-graphic {
+    display: none;
+  }
+}
+
+@media (max-width: 980px) {
+  .policy-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .policy-aside {
+    position: static;
+  }
+
+  .policy-nav-list {
+    max-height: min(50vh, 360px);
+    overflow-y: auto;
+    padding-right: 0.2rem;
+  }
+}
